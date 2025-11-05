@@ -1,0 +1,29 @@
+name: Test
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+jobs:
+  test:
+    name: "pytest@python3.13"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        showcase:
+          - "block-kit"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Run tests
+        run: |
+          cd "${{ matrix.showcase }}"
+          pip install -r requirements.txt
+          ruff check
+          ruff format --diff --check
+          mypy ./**/*.py
+          pytest -v
