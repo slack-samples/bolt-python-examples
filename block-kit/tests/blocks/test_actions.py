@@ -19,26 +19,41 @@ def test_example01():
                 "action_id": "select_2",
                 "options": [
                     {
-                        "text": {"type": "plain_text", "text": "Matilda"},
+                        "text": {
+                            "type": "plain_text",
+                            "text": "Matilda",
+                        },
                         "value": "matilda",
                     },
                     {
-                        "text": {"type": "plain_text", "text": "Glinda"},
+                        "text": {
+                            "type": "plain_text",
+                            "text": "Glinda",
+                        },
                         "value": "glinda",
                     },
                     {
-                        "text": {"type": "plain_text", "text": "Granny Weatherwax"},
+                        "text": {
+                            "type": "plain_text",
+                            "text": "Granny Weatherwax",
+                        },
                         "value": "grannyWeatherwax",
                     },
                     {
-                        "text": {"type": "plain_text", "text": "Hermione"},
+                        "text": {
+                            "type": "plain_text",
+                            "text": "Hermione",
+                        },
                         "value": "hermione",
                     },
                 ],
             },
             {
                 "type": "button",
-                "text": {"type": "plain_text", "text": "Cancel"},
+                "text": {
+                    "type": "plain_text",
+                    "text": "Cancel",
+                },
                 "value": "cancel",
                 "action_id": "button_1",
             },
@@ -58,7 +73,10 @@ def test_example02():
                 "type": "datepicker",
                 "action_id": "datepicker123",
                 "initial_date": "1990-04-28",
-                "placeholder": {"type": "plain_text", "text": "Select a date"},
+                "placeholder": {
+                    "type": "plain_text",
+                    "text": "Select a date",
+                },
             },
             {
                 "type": "overflow",
@@ -103,7 +121,10 @@ def test_example02():
             },
             {
                 "type": "button",
-                "text": {"type": "plain_text", "text": "Click Me"},
+                "text": {
+                    "type": "plain_text",
+                    "text": "Click Me",
+                },
                 "value": "click_me_123",
                 "action_id": "button",
             },
