@@ -8,6 +8,10 @@ Read the [docs](https://docs.slack.dev/messaging/work-objects/) to learn more!
 
 ## Running locally
 
+### 0. Create an app
+
+Create an app and add `myappdomain.com`as an [app unfurl domain](https://docs.slack.dev/messaging/unfurling-links-in-messages/#configuring_domains)  (or update the unfurl URLs in `metadata.py` with your domain). Also enable [Work Object Previews](https://docs.slack.dev/messaging/work-objects/#implementation) for your app.
+
 ### 1. Setup environment variables
 
 ```zsh
