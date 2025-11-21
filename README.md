@@ -1,4 +1,4 @@
-# Bolt for Python Showcase
+# Bolt for Python Examples
 
 This collections of examples highlights features of a Slack app in the language of Bolt for Python.
 
