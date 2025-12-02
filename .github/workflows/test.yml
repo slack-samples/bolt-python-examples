@@ -6,7 +6,7 @@ on:
   pull_request:
 jobs:
   test:
-    name: "pytest@python3.13"
+    name: "pytest@python3.14"
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -14,11 +14,11 @@ jobs:
           - "block-kit"
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Install Python
         uses: actions/setup-python@v6
         with:
-          python-version: "3.13"
+          python-version: "3.14"
       - name: Run tests
         run: |
           cd "${{ matrix.showcase }}"
