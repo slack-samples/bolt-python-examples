@@ -18,8 +18,8 @@ from slack_sdk.models.metadata import (
 )
 
 # Update the URL here to match your app's domain
-sample_task_unfurl_url = "https://myappdomain.com/task"
-sample_file_unfurl_url = "https://myappdomain.com/file"
+sample_task_unfurl_url = "https://work-objects-python.com/task"
+sample_file_unfurl_url = "https://work-objects-python.com/file"
 
 sample_entities = {
     sample_task_unfurl_url: EntityMetadata(

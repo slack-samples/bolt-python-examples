@@ -1,10 +1,11 @@
 import os
+import sys
 import logging
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 from slack_sdk import WebClient
 from slack_sdk.models.metadata import EventAndEntityMetadata
-from metadata import sample_entities
+from metadata import sample_entities, sample_task_unfurl_url, sample_file_unfurl_url
 
 
 # Initializes your app with your bot token
@@ -64,11 +65,13 @@ def work_object_edit_callback(view: dict, body: dict, client: WebClient, logger:
         entity_url = view["entity_url"]
         entity = sample_entities[entity_url]
 
-        attributes = entity.entity_payload.entity_attributes
-        attributes.title.text = view["state"]["values"]["title"]["title.input"]["value"]
-        entity.entity_payload.entity_attributes = attributes
-        
-        entity.entity_payload.fields.description.value = view["state"]["values"]["description"]["description.input"]["value"]
+        if "title" in view["state"]["values"]:
+            attributes = entity.entity_payload.entity_attributes
+            attributes.title.text = view["state"]["values"]["title"]["title.input"]["value"]
+            entity.entity_payload.entity_attributes = attributes
+
+        if "description" in view["state"]["values"]: 
+            entity.entity_payload.fields.description.value = view["state"]["values"]["description"]["description.input"]["value"]
         
         if entity is not None:
             client.entity_presentDetails(
@@ -85,4 +88,10 @@ def work_object_edit_callback(view: dict, body: dict, client: WebClient, logger:
 
 # Start your app
 if __name__ == "__main__":
-    SocketModeHandler(app, os.environ["SLACK_APP_TOKEN"]).start()
+    try:
+        print("Try sharing this link: ", sample_task_unfurl_url)
+        print("Or this link: ", sample_file_unfurl_url)
+        SocketModeHandler(app, os.environ["SLACK_APP_TOKEN"]).start()
+    except Exception as error:
+        print(f"Failed to start app: {error}", file=sys.stderr)
+        sys.exit(1)

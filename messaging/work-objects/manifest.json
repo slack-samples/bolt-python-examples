@@ -1,30 +1,22 @@
 {
   "display_information": {
-    "name": "Work Objects for Bolt Python App"
+    "name": "work_objects_python",
+    "description": "A sample app demonstrating Slack Work Objects functionality"
   },
   "features": {
     "rich_previews": {
       "is_active": true,
-      "entity_types": [
-        "slack#/entities/task"
-      ]
+      "entity_types": ["slack#/entities/task", "slack#/entities/file"]
     },
-    "unfurl_domains": [
-      "tmpdomain.com"
-    ],
-    "app_home": {
-      "home_tab_enabled": false,
-      "messages_tab_enabled": true,
-      "messages_tab_read_only_enabled": false
-    },
+    "unfurl_domains": ["work-objects-python.com"],
     "bot_user": {
-      "display_name": "WorkObjectsApp",
+      "display_name": "work_objects_python_bot",
       "always_online": true
     }
   },
   "oauth_config": {
     "scopes": {
-      "bot": ["channels:history", "chat:write", "im:history", "links:read", "links:write"]
+      "bot": ["chat:write", "links:read", "links:write"]
     }
   },
   "settings": {
