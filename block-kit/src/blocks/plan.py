@@ -54,7 +54,9 @@ def example01() -> PlanBlock:
                     elements=[
                         RichTextSectionElement(
                             elements=[
-                                RichTextElementParts.Text(text="15 data points compiled")
+                                RichTextElementParts.Text(
+                                    text="15 data points compiled"
+                                )
                             ]
                         )
                     ],
