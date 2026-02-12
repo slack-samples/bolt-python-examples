@@ -7,8 +7,7 @@ from slack_sdk.models.blocks.block_elements import (
 
 def example01() -> PlanBlock:
     """
-    Displays a plan with multiple task cards representing a sequence of actions.
-    This is an experimental block type that requires a toggle to preview.
+    Displays a collection of related tasks.
     https://docs.slack.dev/reference/block-kit/blocks/plan-block/
 
     A plan block with multiple task cards in various states.

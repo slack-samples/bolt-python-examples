@@ -8,8 +8,7 @@ from slack_sdk.models.blocks.block_elements import (
 
 def example01() -> TaskCardBlock:
     """
-    Displays a single task which represents a single action.
-    This is an experimental block type that requires a toggle to preview.
+    Displays a single task, representing a single action.
     https://docs.slack.dev/reference/block-kit/blocks/task-card-block/
 
     A task card with output and sources.
