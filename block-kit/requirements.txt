@@ -1,4 +1,4 @@
 mypy==1.19.1
 pytest==9.0.2
-ruff==0.15.7
+ruff==0.15.8
 slack_sdk==3.41.0
