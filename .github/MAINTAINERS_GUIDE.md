@@ -26,7 +26,7 @@ $ cd bolt-python-examples
 $ cd block-kit       # Navigate to an example to change
 $ python -m venv .venv
 $ source .venv/bin/activate
-(.venv) $ pip install -r requirements.txt
+(.venv) $ pip install -e ".[dev]"
 (.venv) $ pip install /path/to/python-slack-sdk/dist/slack_sdk-*-py2.py3-none-any.whl --force-reinstall
 ```
 

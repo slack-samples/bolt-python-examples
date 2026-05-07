@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bolt-python-examples-block-kit"
+version = "0.1.0"
+description = "Block Kit examples for Bolt for Python"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "slack_sdk==3.41.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "mypy==2.0.0",
+    "pytest==9.0.3",
+    "ruff==0.15.12",
+]
+
+test = [
+    "pytest==9.0.3",
+]
+
+[tool.setuptools.packages.find]
+include = ["src*"]
+
+[tool.ruff]
+
+[tool.ruff.lint]
+
+[tool.ruff.format]
