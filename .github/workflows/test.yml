@@ -22,7 +22,7 @@ jobs:
       - name: Run tests
         run: |
           cd "${{ matrix.showcase }}"
-          pip install -r requirements.txt
+          pip install -e ".[dev]"
           ruff check
           ruff format --diff --check
           mypy ./**/*.py
