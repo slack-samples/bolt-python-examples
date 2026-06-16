@@ -28,7 +28,7 @@ bolt_app = App(
     oauth_settings=OAuthSettings(
         client_id=os.environ.get("SLACK_CLIENT_ID"),
         client_secret=os.environ.get("SLACK_CLIENT_SECRET"),
-        scopes=["users:read", "users:read.email"],
+        scopes=["mcp:connect", "users:read", "users:read.email"],
         installation_store=installation_store,
         state_store=FileOAuthStateStore(
             expiration_seconds=600, base_dir="./data/states"

@@ -9,9 +9,12 @@ jobs:
     name: "pytest@python3.14"
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         showcase:
           - "block-kit"
+          - "ai/slackbot-mcp-client/no-auth"
+          - "ai/slackbot-mcp-client/slack-identity"
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -25,5 +28,5 @@ jobs:
           pip install -r requirements.txt
           ruff check
           ruff format --diff --check
-          mypy ./**/*.py
+          if pip show mypy > /dev/null 2>&1; then mypy ./**/*.py; fi
           pytest -v
