@@ -45,8 +45,15 @@ def roll_dice(sides: int = 6, count: int = 1) -> CallToolResult:
     rolls_display = f" [{', '.join(str(r) for r in rolls)}]" if count > 1 else ""
 
     return CallToolResult(
-        content=[TextContent(type="text", text=f"Rolled {label}:{rolls_display} = {total}")],
-        structuredContent={"sides": sides, "count": count, "rolls": rolls, "total": total},
+        content=[
+            TextContent(type="text", text=f"Rolled {label}:{rolls_display} = {total}")
+        ],
+        structuredContent={
+            "sides": sides,
+            "count": count,
+            "rolls": rolls,
+            "total": total,
+        },
     )
 
 
@@ -75,13 +82,21 @@ class SlackSignatureMiddleware:
 
         if not self.verifier.is_valid_request(body, dict(request.headers)):
             response = JSONResponse(
-                {"jsonrpc": "2.0", "error": {"code": -32600, "message": "Invalid request"}, "id": None},
+                {
+                    "jsonrpc": "2.0",
+                    "error": {"code": -32600, "message": "Invalid request"},
+                    "id": None,
+                },
                 status_code=401,
             )
             await response(scope, receive, send)
             return
 
-        await self.app(scope, receive, send)
+        # Replay the consumed body so the downstream app can read it again
+        async def replay_receive():
+            return {"type": "http.request", "body": body, "more_body": False}
+
+        await self.app(scope, replay_receive, send)
 
 
 # --- Starlette App ---
