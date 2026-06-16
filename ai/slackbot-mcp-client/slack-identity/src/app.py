@@ -3,7 +3,7 @@ import os
 
 from mcp.server.fastmcp import Context, FastMCP
 from mcp.server.session import ServerSession
-from mcp.types import CallToolResult, TextContent
+from mcp.types import CallToolResult, TextContent, ToolAnnotations
 from slack_bolt import App
 from slack_bolt.adapter.starlette import SlackRequestHandler
 from slack_bolt.oauth.oauth_settings import OAuthSettings
@@ -46,14 +46,15 @@ mcp_server = FastMCP("Profile Card", stateless_http=True, json_response=True)
     name="get_profile_card",
     title="Get Profile Card",
     description="Get a profile card for a Slack user by their user ID.",
-    annotations={"readOnlyHint": True},
+    annotations=ToolAnnotations(readOnlyHint=True),
     meta={"slack": {"supportsBlockKit": True}},
 )
 async def get_profile_card(
     user_id: str, ctx: Context[ServerSession, None]
 ) -> CallToolResult:
     meta = ctx.request_context.meta
-    slack = meta.model_extra.get("slack", {}) if meta else {}
+    model_extra = meta.model_extra if meta else None
+    slack = model_extra.get("slack", {}) if model_extra else {}
 
     if not slack.get("user_id") or not slack.get("team_id"):
         return CallToolResult(

@@ -4,7 +4,7 @@ import random
 from pathlib import Path
 
 from mcp.server.fastmcp import FastMCP
-from mcp.types import CallToolResult, TextContent
+from mcp.types import CallToolResult, TextContent, ToolAnnotations
 from slack_bolt import App
 from slack_bolt.adapter.starlette import SlackRequestHandler
 from slack_sdk.signature import SignatureVerifier
@@ -35,7 +35,7 @@ mcp_server = FastMCP("Dice Game", stateless_http=True, json_response=True)
     name="roll_dice",
     title="Roll Dice",
     description="Roll one or more dice with a configurable number of sides.",
-    annotations={"readOnlyHint": True},
+    annotations=ToolAnnotations(readOnlyHint=True),
     meta={"ui": {"resourceUri": RESOURCE_URI}},
 )
 def roll_dice(sides: int = 6, count: int = 1) -> CallToolResult:

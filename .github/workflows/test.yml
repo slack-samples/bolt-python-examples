@@ -28,5 +28,5 @@ jobs:
           pip install -r requirements.txt
           ruff check
           ruff format --diff --check
-          if pip show mypy > /dev/null 2>&1; then mypy ./**/*.py; fi
+          mypy ./**/*.py
           pytest -v
