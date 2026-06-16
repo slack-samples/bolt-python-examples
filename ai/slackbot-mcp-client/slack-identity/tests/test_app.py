@@ -44,7 +44,13 @@ def test_returns_tool_call_response(client):
             },
         }
     )
-    headers = sign_request(body)
+    sig = sign_request(body)
+    headers = {
+        "content-type": "application/json",
+        "accept": "application/json, text/event-stream",
+        "x-slack-request-timestamp": sig["timestamp"],
+        "x-slack-signature": sig["signature"],
+    }
 
     with (
         patch(
@@ -97,7 +103,13 @@ def test_requires_team_installation(client):
             },
         }
     )
-    headers = sign_request(body)
+    sig = sign_request(body)
+    headers = {
+        "content-type": "application/json",
+        "accept": "application/json, text/event-stream",
+        "x-slack-request-timestamp": sig["timestamp"],
+        "x-slack-signature": sig["signature"],
+    }
 
     with patch(
         "src.app.installation_store.find_installation",
@@ -140,9 +152,4 @@ def sign_request(body: str, secret: str = SIGNING_SECRET) -> dict:
         "v0="
         + hmac.new(secret.encode(), sig_basestring.encode(), hashlib.sha256).hexdigest()
     )
-    return {
-        "x-slack-request-timestamp": timestamp,
-        "x-slack-signature": signature,
-        "content-type": "application/json",
-        "accept": "application/json, text/event-stream",
-    }
+    return {"timestamp": timestamp, "signature": signature}
