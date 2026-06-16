@@ -29,7 +29,7 @@ def client():
         yield c
 
 
-def test_roll_dice(client):
+def test_returns_tool_call_results(client):
     """POST to /mcp with a valid signature and tools/call for roll_dice."""
     body = json.dumps(
         {
@@ -55,7 +55,7 @@ def test_roll_dice(client):
     assert structured["total"] == sum(structured["rolls"])
 
 
-def test_dice_resource(client):
+def test_serves_ui_resources(client):
     """POST to /mcp with a valid signature and resources/read for the dice HTML."""
     body = json.dumps(
         {
@@ -74,12 +74,10 @@ def test_dice_resource(client):
     assert data["id"] == 1
     contents = data["result"]["contents"]
     assert len(contents) >= 1
-    # The resource should contain the Dice Roller HTML
-    text = contents[0]["text"]
-    assert "Dice Roller" in text
+    assert "Dice Roller" in contents[0]["text"]
 
 
-def test_rejects_unsigned(client):
+def test_rejects_unsigned_requests(client):
     """POST to /mcp without Slack signature headers returns 401."""
     body = json.dumps(
         {

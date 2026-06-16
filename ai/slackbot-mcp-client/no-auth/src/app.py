@@ -10,7 +10,7 @@ from slack_bolt.adapter.starlette import SlackRequestHandler
 from slack_sdk.signature import SignatureVerifier
 from starlette.applications import Starlette
 from starlette.requests import Request
-from starlette.responses import JSONResponse, Response
+from starlette.responses import JSONResponse
 from starlette.routing import Route
 from starlette.types import ASGIApp, Receive, Scope, Send
 
@@ -18,7 +18,10 @@ DICE_HTML = (Path(__file__).parent / "dice.html").read_text()
 RESOURCE_URI = "ui://dice-roller/dice.html"
 RESOURCE_MIME_TYPE = "text/html;profile=mcp-app"
 
-# --- MCP Server ---
+"""Creates an MCP server with a dice roller tool and UI resource.
+
+https://github.com/modelcontextprotocol/python-sdk#getting-started
+"""
 
 mcp_server = FastMCP("Dice Game", stateless_http=True, json_response=True)
 
@@ -28,7 +31,11 @@ mcp_server = FastMCP("Dice Game", stateless_http=True, json_response=True)
     title="Roll Dice",
     description="Roll one or more dice with a configurable number of sides.",
     annotations=ToolAnnotations(readOnlyHint=True),
-    meta={"ui": {"resourceUri": RESOURCE_URI}},
+    meta={
+        "ui": {
+            "resourceUri": RESOURCE_URI,
+        },
+    },
 )
 def roll_dice(sides: int = 6, count: int = 1) -> CallToolResult:
     rolls = [random.randint(1, sides) for _ in range(count)]
@@ -66,23 +73,21 @@ def dice_resource() -> str:
     return DICE_HTML
 
 
-# --- Bolt App ---
+"""Creates a Bolt app with a custom /mcp route.
+
+https://docs.slack.dev/tools/bolt-python/getting-started
+"""
 
 bolt_app = App(
     token=os.environ.get("SLACK_BOT_TOKEN"),
     signing_secret=os.environ.get("SLACK_SIGNING_SECRET"),
 )
-bolt_handler = SlackRequestHandler(bolt_app)
-
-
-# --- Slack Signature Verification Middleware ---
-
 
 class SlackSignatureMiddleware:
     def __init__(self, app: ASGIApp) -> None:
         self.app = app
         self.verifier = SignatureVerifier(
-            signing_secret=os.environ.get("SLACK_SIGNING_SECRET", "")
+            signing_secret=os.environ["SLACK_SIGNING_SECRET"]
         )
 
     async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
@@ -111,27 +116,25 @@ class SlackSignatureMiddleware:
         await self.app(scope, replay_receive, send)
 
 
-# --- Starlette App ---
-
-mcp_starlette_app = mcp_server.streamable_http_app()
-
-
 @contextlib.asynccontextmanager
 async def lifespan(a):
     async with mcp_server.session_manager.run():
         yield
 
 
-async def slack_events(request: Request) -> Response:
-    return await bolt_handler.handle(request)
+mcp_app = mcp_server.streamable_http_app()
 
 
 app = Starlette(
     routes=[
-        Route("/slack/events", endpoint=slack_events, methods=["POST"]),
+        Route(
+            "/slack/events",
+            endpoint=SlackRequestHandler(bolt_app).handle,
+            methods=["POST"],
+        ),
         Route(
             "/mcp",
-            endpoint=SlackSignatureMiddleware(mcp_starlette_app),
+            endpoint=SlackSignatureMiddleware(mcp_app),
             methods=["POST"],
         ),
     ],
