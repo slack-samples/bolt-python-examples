@@ -1,0 +1,236 @@
+import contextlib
+import os
+
+from mcp.server.fastmcp import Context, FastMCP
+from mcp.server.session import ServerSession
+from mcp.types import CallToolResult, TextContent
+from slack_bolt import App
+from slack_bolt.adapter.starlette import SlackRequestHandler
+from slack_bolt.oauth.oauth_settings import OAuthSettings
+from slack_sdk.oauth.installation_store import FileInstallationStore
+from slack_sdk.oauth.state_store import FileOAuthStateStore
+from slack_sdk.signature import SignatureVerifier
+from slack_sdk.web import WebClient
+from starlette.applications import Starlette
+from starlette.requests import Request
+from starlette.responses import JSONResponse, Response
+from starlette.routing import Mount, Route
+from starlette.types import ASGIApp, Receive, Scope, Send
+
+# --- Installation Store ---
+
+installation_store = FileInstallationStore(base_dir="./data/installations")
+
+# --- Bolt App with OAuth ---
+
+bolt_app = App(
+    signing_secret=os.environ.get("SLACK_SIGNING_SECRET"),
+    oauth_settings=OAuthSettings(
+        client_id=os.environ.get("SLACK_CLIENT_ID"),
+        client_secret=os.environ.get("SLACK_CLIENT_SECRET"),
+        scopes=["users:read", "users:read.email"],
+        installation_store=installation_store,
+        state_store=FileOAuthStateStore(
+            expiration_seconds=600, base_dir="./data/states"
+        ),
+    ),
+)
+bolt_handler = SlackRequestHandler(bolt_app)
+
+# --- MCP Server ---
+
+mcp_server = FastMCP("Profile Card", stateless_http=True, json_response=True)
+
+
+@mcp_server.tool(
+    name="get_profile_card",
+    title="Get Profile Card",
+    description="Get a profile card for a Slack user by their user ID.",
+    annotations={"readOnlyHint": True},
+    meta={"slack": {"supportsBlockKit": True}},
+)
+async def get_profile_card(
+    user_id: str, ctx: Context[ServerSession, None]
+) -> CallToolResult:
+    meta = ctx.request_context.meta
+    slack = meta.model_extra.get("slack", {}) if meta else {}
+
+    if not slack.get("user_id") or not slack.get("team_id"):
+        return CallToolResult(
+            content=[
+                TextContent(
+                    type="text",
+                    text="Missing Slack identity context. "
+                    "This tool must be called from Slack.",
+                )
+            ],
+        )
+
+    team_id = slack["team_id"]
+    slack_user_id = slack["user_id"]
+    enterprise_id = slack.get("enterprise_id")
+
+    try:
+        installation = installation_store.find_installation(
+            enterprise_id=enterprise_id,
+            team_id=team_id,
+            user_id=slack_user_id,
+            is_enterprise_install=bool(enterprise_id),
+        )
+        if not installation or not installation.bot_token:
+            raise ValueError("No bot token")
+        bot_token = installation.bot_token
+    except Exception:
+        return CallToolResult(
+            content=[
+                TextContent(
+                    type="text",
+                    text="App not installed to this workspace. Please install first.",
+                )
+            ],
+            _meta={
+                "slack": {
+                    "blocks": [
+                        {
+                            "type": "section",
+                            "text": {
+                                "type": "mrkdwn",
+                                "text": "Please install the *MCP Profile Card* app "
+                                "to access profile information.",
+                            },
+                            "accessory": {
+                                "type": "button",
+                                "text": {
+                                    "type": "plain_text",
+                                    "text": "Install",
+                                },
+                                "url": f"{os.environ.get('BASE_URL', '')}/slack/install",
+                                "action_id": "install_app",
+                            },
+                        }
+                    ]
+                }
+            },
+        )
+
+    try:
+        client = WebClient(token=bot_token)
+        result = client.users_info(user=user_id)
+        profile = result["user"]["profile"]
+    except Exception:
+        return CallToolResult(
+            content=[
+                TextContent(
+                    type="text",
+                    text=f"Failed to fetch profile for {user_id}.",
+                )
+            ],
+        )
+
+    return CallToolResult(
+        content=[
+            TextContent(
+                type="text",
+                text=f"Profile card for {profile['real_name']}\n"
+                f"Title: {profile.get('title', '')}\n"
+                f"Email: {profile.get('email', '')}",
+            )
+        ],
+        _meta={
+            "slack": {
+                "blocks": [
+                    {
+                        "type": "card",
+                        "icon": {
+                            "type": "image",
+                            "image_url": profile.get("image_72", ""),
+                            "alt_text": profile.get("real_name", ""),
+                        },
+                        "title": {
+                            "type": "mrkdwn",
+                            "text": profile.get("real_name", ""),
+                        },
+                        "subtitle": {
+                            "type": "mrkdwn",
+                            "text": profile.get("title", ""),
+                        },
+                        "body": {
+                            "type": "mrkdwn",
+                            "text": f"*Email:* {profile.get('email', '')}",
+                        },
+                    }
+                ]
+            }
+        },
+    )
+
+
+# --- Slack Signature Verification Middleware ---
+
+
+class SlackSignatureMiddleware:
+    def __init__(self, app: ASGIApp) -> None:
+        self.app = app
+        self.verifier = SignatureVerifier(
+            signing_secret=os.environ.get("SLACK_SIGNING_SECRET", "")
+        )
+
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
+        if scope["type"] != "http":
+            await self.app(scope, receive, send)
+            return
+
+        request = Request(scope, receive, send)
+        body = await request.body()
+
+        if not self.verifier.is_valid_request(body, dict(request.headers)):
+            response = JSONResponse(
+                {
+                    "jsonrpc": "2.0",
+                    "error": {"code": -32600, "message": "Invalid request"},
+                    "id": None,
+                },
+                status_code=401,
+            )
+            await response(scope, receive, send)
+            return
+
+        # Replay the consumed body so the downstream app can read it again
+        async def replay_receive():
+            return {"type": "http.request", "body": body, "more_body": False}
+
+        await self.app(scope, replay_receive, send)
+
+
+# --- Starlette App ---
+
+mcp_starlette_app = mcp_server.streamable_http_app()
+
+
+@contextlib.asynccontextmanager
+async def lifespan(a):
+    async with mcp_server.session_manager.run():
+        yield
+
+
+async def slack_events(request: Request) -> Response:
+    return await bolt_handler.handle(request)
+
+
+async def slack_install(request: Request) -> Response:
+    return await bolt_handler.handle(request)
+
+
+async def slack_oauth_redirect(request: Request) -> Response:
+    return await bolt_handler.handle(request)
+
+
+app = Starlette(
+    routes=[
+        Route("/slack/events", endpoint=slack_events, methods=["POST"]),
+        Route("/slack/install", endpoint=slack_install, methods=["GET"]),
+        Route("/slack/oauth_redirect", endpoint=slack_oauth_redirect, methods=["GET"]),
+        Mount("/mcp", app=SlackSignatureMiddleware(mcp_starlette_app)),
+    ],
+    lifespan=lifespan,
+)
