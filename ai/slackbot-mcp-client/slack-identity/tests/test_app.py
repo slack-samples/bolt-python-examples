@@ -15,6 +15,9 @@ os.environ["SLACK_CLIENT_SECRET"] = "client_secret"
 from src.app import app  # noqa: E402
 
 SIGNING_SECRET = "test_signing_secret"
+TEAM_ID = "T0001"
+USER_ID = "U0001"
+BOT_TOKEN = "xoxb-test-bot-token"
 
 
 @pytest.fixture(scope="module")
@@ -25,7 +28,7 @@ def client():
 
 def test_returns_tool_call_response(client):
     mock_installation = MagicMock()
-    mock_installation.bot_token = "xoxb-fake-token"
+    mock_installation.bot_token = BOT_TOKEN
 
     body = json.dumps(
         {
@@ -34,11 +37,11 @@ def test_returns_tool_call_response(client):
             "method": "tools/call",
             "params": {
                 "name": "get_profile_card",
-                "arguments": {"user_id": "U12345"},
+                "arguments": {"user_id": USER_ID},
                 "_meta": {
                     "slack": {
-                        "user_id": "U99999",
-                        "team_id": "T11111",
+                        "user_id": USER_ID,
+                        "team_id": TEAM_ID,
                     }
                 },
             },
@@ -63,12 +66,13 @@ def test_returns_tool_call_response(client):
         mock_client.users_info.return_value = {
             "ok": True,
             "user": {
+                "id": USER_ID,
                 "profile": {
                     "real_name": "Test User",
-                    "title": "Engineer",
+                    "title": "VIP",
                     "email": "test@example.com",
-                    "image_72": "https://example.com/avatar.png",
-                }
+                    "image_72": "https://avatars.slack-edge.com/2026-01-01/123456_abc123def456_72.jpg",
+                },
             },
         }
         MockWebClient.return_value = mock_client
@@ -79,10 +83,12 @@ def test_returns_tool_call_response(client):
     data = resp.json()
     result = data["result"]
     assert "Test User" in result["content"][0]["text"]
-    assert "Engineer" in result["content"][0]["text"]
+    assert "VIP" in result["content"][0]["text"]
+    assert "test@example.com" in result["content"][0]["text"]
     blocks = result["_meta"]["slack"]["blocks"]
     assert blocks[0]["type"] == "card"
     assert blocks[0]["title"]["text"] == "Test User"
+    assert blocks[0]["subtitle"]["text"] == "VIP"
 
 
 def test_requires_team_installation(client):
@@ -93,11 +99,11 @@ def test_requires_team_installation(client):
             "method": "tools/call",
             "params": {
                 "name": "get_profile_card",
-                "arguments": {"user_id": "U12345"},
+                "arguments": {"user_id": "U9999"},
                 "_meta": {
                     "slack": {
-                        "user_id": "U99999",
-                        "team_id": "T11111",
+                        "user_id": "U9999",
+                        "team_id": "T9999",
                     }
                 },
             },
@@ -123,7 +129,7 @@ def test_requires_team_installation(client):
     assert "not installed" in result["content"][0]["text"].lower()
     blocks = result["_meta"]["slack"]["blocks"]
     assert blocks[0]["type"] == "section"
-    assert blocks[0]["accessory"]["type"] == "button"
+    assert "/slack/install" in blocks[0]["accessory"]["url"]
 
 
 def test_rejects_unsigned_requests(client):
@@ -134,7 +140,7 @@ def test_rejects_unsigned_requests(client):
             "method": "tools/call",
             "params": {
                 "name": "get_profile_card",
-                "arguments": {"user_id": "U12345"},
+                "arguments": {"user_id": "U999"},
             },
         }
     )
