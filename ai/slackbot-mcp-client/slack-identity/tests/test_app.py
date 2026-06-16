@@ -24,7 +24,6 @@ def client():
 
 
 def test_returns_tool_call_response(client):
-    """Successful profile card fetch with mocked installation and users.info."""
     mock_installation = MagicMock()
     mock_installation.bot_token = "xoxb-fake-token"
 
@@ -81,7 +80,6 @@ def test_returns_tool_call_response(client):
 
 
 def test_requires_team_installation(client):
-    """When no installation found, returns install button block."""
     body = json.dumps(
         {
             "jsonrpc": "2.0",
@@ -117,7 +115,6 @@ def test_requires_team_installation(client):
 
 
 def test_rejects_unsigned_requests(client):
-    """POST without Slack signature headers returns 401."""
     body = json.dumps(
         {
             "jsonrpc": "2.0",
@@ -134,9 +131,6 @@ def test_rejects_unsigned_requests(client):
     )
 
     assert resp.status_code == 401
-
-
-# --- Helpers ---
 
 
 def sign_request(body: str, secret: str = SIGNING_SECRET) -> dict:

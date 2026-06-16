@@ -24,13 +24,11 @@ SIGNING_SECRET = "test_signing_secret"
 
 @pytest.fixture(scope="module")
 def client():
-    """Create a TestClient that triggers the app lifespan (starts session manager)."""
     with TestClient(app, base_url="http://localhost:8000") as c:
         yield c
 
 
 def test_returns_tool_call_results(client):
-    """POST to /mcp with a valid signature and tools/call for roll_dice."""
     body = json.dumps(
         {
             "jsonrpc": "2.0",
@@ -56,7 +54,6 @@ def test_returns_tool_call_results(client):
 
 
 def test_serves_ui_resources(client):
-    """POST to /mcp with a valid signature and resources/read for the dice HTML."""
     body = json.dumps(
         {
             "jsonrpc": "2.0",
@@ -78,7 +75,6 @@ def test_serves_ui_resources(client):
 
 
 def test_rejects_unsigned_requests(client):
-    """POST to /mcp without Slack signature headers returns 401."""
     body = json.dumps(
         {
             "jsonrpc": "2.0",
@@ -94,11 +90,7 @@ def test_rejects_unsigned_requests(client):
     assert resp.status_code == 401
 
 
-# --- Helpers ---
-
-
 def sign_request(body: str, secret: str = SIGNING_SECRET) -> dict:
-    """Generate valid Slack signature headers for the given request body."""
     timestamp = str(int(time.time()))
     sig_basestring = f"v0:{timestamp}:{body}"
     signature = (
