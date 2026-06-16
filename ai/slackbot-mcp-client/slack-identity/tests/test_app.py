@@ -6,32 +6,15 @@ import time
 from unittest.mock import MagicMock, patch
 
 import pytest
+from starlette.testclient import TestClient
 
 os.environ["SLACK_SIGNING_SECRET"] = "test_signing_secret"
 os.environ["SLACK_CLIENT_ID"] = "111.222"
 os.environ["SLACK_CLIENT_SECRET"] = "client_secret"
 
-from starlette.testclient import TestClient  # noqa: E402
-
 from src.app import app  # noqa: E402
 
 SIGNING_SECRET = "test_signing_secret"
-MCP_PATH = "/mcp/mcp"
-
-
-def sign_request(body: str, secret: str = SIGNING_SECRET) -> dict:
-    timestamp = str(int(time.time()))
-    sig_basestring = f"v0:{timestamp}:{body}"
-    signature = (
-        "v0="
-        + hmac.new(secret.encode(), sig_basestring.encode(), hashlib.sha256).hexdigest()
-    )
-    return {
-        "x-slack-request-timestamp": timestamp,
-        "x-slack-signature": signature,
-        "content-type": "application/json",
-        "accept": "application/json",
-    }
 
 
 @pytest.fixture(scope="module")
@@ -85,7 +68,7 @@ def test_get_profile_card(client):
         }
         MockWebClient.return_value = mock_client
 
-        resp = client.post(MCP_PATH, content=body, headers=headers)
+        resp = client.post("/mcp", content=body, headers=headers)
 
     assert resp.status_code == 200
     data = resp.json()
@@ -111,7 +94,7 @@ def test_missing_slack_context(client):
         }
     )
     headers = sign_request(body)
-    resp = client.post(MCP_PATH, content=body, headers=headers)
+    resp = client.post("/mcp", content=body, headers=headers)
 
     assert resp.status_code == 200
     data = resp.json()
@@ -144,7 +127,7 @@ def test_missing_installation(client):
         "src.app.installation_store.find_installation",
         side_effect=Exception("Not found"),
     ):
-        resp = client.post(MCP_PATH, content=body, headers=headers)
+        resp = client.post("/mcp", content=body, headers=headers)
 
     assert resp.status_code == 200
     data = resp.json()
@@ -169,7 +152,25 @@ def test_rejects_unsigned(client):
         }
     )
     resp = client.post(
-        MCP_PATH, content=body, headers={"content-type": "application/json"}
+        "/mcp", content=body, headers={"content-type": "application/json"}
     )
 
     assert resp.status_code == 401
+
+
+# --- Helpers ---
+
+
+def sign_request(body: str, secret: str = SIGNING_SECRET) -> dict:
+    timestamp = str(int(time.time()))
+    sig_basestring = f"v0:{timestamp}:{body}"
+    signature = (
+        "v0="
+        + hmac.new(secret.encode(), sig_basestring.encode(), hashlib.sha256).hexdigest()
+    )
+    return {
+        "x-slack-request-timestamp": timestamp,
+        "x-slack-signature": signature,
+        "content-type": "application/json",
+        "accept": "application/json",
+    }

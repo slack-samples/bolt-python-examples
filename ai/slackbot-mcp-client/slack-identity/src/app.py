@@ -14,28 +14,12 @@ from slack_sdk.web import WebClient
 from starlette.applications import Starlette
 from starlette.requests import Request
 from starlette.responses import JSONResponse, Response
-from starlette.routing import Mount, Route
+from starlette.routing import Route
 from starlette.types import ASGIApp, Receive, Scope, Send
 
 # --- Installation Store ---
 
 installation_store = FileInstallationStore(base_dir="./data/installations")
-
-# --- Bolt App with OAuth ---
-
-bolt_app = App(
-    signing_secret=os.environ.get("SLACK_SIGNING_SECRET"),
-    oauth_settings=OAuthSettings(
-        client_id=os.environ.get("SLACK_CLIENT_ID"),
-        client_secret=os.environ.get("SLACK_CLIENT_SECRET"),
-        scopes=["mcp:connect", "users:read", "users:read.email"],
-        installation_store=installation_store,
-        state_store=FileOAuthStateStore(
-            expiration_seconds=600, base_dir="./data/states"
-        ),
-    ),
-)
-bolt_handler = SlackRequestHandler(bolt_app)
 
 # --- MCP Server ---
 
@@ -166,6 +150,23 @@ async def get_profile_card(
     )
 
 
+# --- Bolt App with OAuth ---
+
+bolt_app = App(
+    signing_secret=os.environ.get("SLACK_SIGNING_SECRET"),
+    oauth_settings=OAuthSettings(
+        client_id=os.environ.get("SLACK_CLIENT_ID"),
+        client_secret=os.environ.get("SLACK_CLIENT_SECRET"),
+        scopes=["mcp:connect", "users:read", "users:read.email"],
+        installation_store=installation_store,
+        state_store=FileOAuthStateStore(
+            expiration_seconds=600, base_dir="./data/states"
+        ),
+    ),
+)
+bolt_handler = SlackRequestHandler(bolt_app)
+
+
 # --- Slack Signature Verification Middleware ---
 
 
@@ -196,7 +197,6 @@ class SlackSignatureMiddleware:
             await response(scope, receive, send)
             return
 
-        # Replay the consumed body so the downstream app can read it again
         async def replay_receive():
             return {"type": "http.request", "body": body, "more_body": False}
 
@@ -231,7 +231,11 @@ app = Starlette(
         Route("/slack/events", endpoint=slack_events, methods=["POST"]),
         Route("/slack/install", endpoint=slack_install, methods=["GET"]),
         Route("/slack/oauth_redirect", endpoint=slack_oauth_redirect, methods=["GET"]),
-        Mount("/mcp", app=SlackSignatureMiddleware(mcp_starlette_app)),
+        Route(
+            "/mcp",
+            endpoint=SlackSignatureMiddleware(mcp_starlette_app),
+            methods=["POST"],
+        ),
     ],
     lifespan=lifespan,
 )

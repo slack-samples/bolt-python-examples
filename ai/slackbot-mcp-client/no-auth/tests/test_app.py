@@ -6,44 +6,20 @@ import time
 from unittest.mock import patch
 
 import pytest
+from starlette.testclient import TestClient
 
-# Patch environment before importing the app module (reads env at import time)
 os.environ["SLACK_BOT_TOKEN"] = "xoxb-test"
 os.environ["SLACK_SIGNING_SECRET"] = "test_signing_secret"
 
-# Mock auth.test so Bolt doesn't make a real API call during init
 _mock_auth = patch(
     "slack_sdk.web.client.WebClient.auth_test",
     return_value={"ok": True, "bot_id": "B123", "user_id": "U123", "team_id": "T123"},
 )
 _mock_auth.start()
 
-from starlette.testclient import TestClient  # noqa: E402
-
 from src.app import app  # noqa: E402
 
 SIGNING_SECRET = "test_signing_secret"
-
-
-def sign_request(body: str, secret: str = SIGNING_SECRET) -> dict:
-    """Generate valid Slack signature headers for the given request body."""
-    timestamp = str(int(time.time()))
-    sig_basestring = f"v0:{timestamp}:{body}"
-    signature = (
-        "v0="
-        + hmac.new(secret.encode(), sig_basestring.encode(), hashlib.sha256).hexdigest()
-    )
-    return {
-        "x-slack-request-timestamp": timestamp,
-        "x-slack-signature": signature,
-        "content-type": "application/json",
-        "accept": "application/json",
-    }
-
-
-# The MCP starlette sub-app registers its route at /mcp internally,
-# and it is mounted at /mcp in the main app, so the full path is /mcp/mcp.
-MCP_PATH = "/mcp/mcp"
 
 
 @pytest.fixture(scope="module")
@@ -64,7 +40,7 @@ def test_roll_dice(client):
         }
     )
     headers = sign_request(body)
-    resp = client.post(MCP_PATH, content=body, headers=headers)
+    resp = client.post("/mcp", content=body, headers=headers)
 
     assert resp.status_code == 200
     data = resp.json()
@@ -90,7 +66,7 @@ def test_dice_resource(client):
         }
     )
     headers = sign_request(body)
-    resp = client.post(MCP_PATH, content=body, headers=headers)
+    resp = client.post("/mcp", content=body, headers=headers)
 
     assert resp.status_code == 200
     data = resp.json()
@@ -114,7 +90,26 @@ def test_rejects_unsigned(client):
         }
     )
     resp = client.post(
-        MCP_PATH, content=body, headers={"content-type": "application/json"}
+        "/mcp", content=body, headers={"content-type": "application/json"}
     )
 
     assert resp.status_code == 401
+
+
+# --- Helpers ---
+
+
+def sign_request(body: str, secret: str = SIGNING_SECRET) -> dict:
+    """Generate valid Slack signature headers for the given request body."""
+    timestamp = str(int(time.time()))
+    sig_basestring = f"v0:{timestamp}:{body}"
+    signature = (
+        "v0="
+        + hmac.new(secret.encode(), sig_basestring.encode(), hashlib.sha256).hexdigest()
+    )
+    return {
+        "x-slack-request-timestamp": timestamp,
+        "x-slack-signature": signature,
+        "content-type": "application/json",
+        "accept": "application/json",
+    }
