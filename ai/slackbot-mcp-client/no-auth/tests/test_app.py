@@ -13,7 +13,7 @@ os.environ["SLACK_SIGNING_SECRET"] = "test_signing_secret"
 
 _mock_auth = patch(
     "slack_sdk.web.client.WebClient.auth_test",
-    return_value={"ok": True, "bot_id": "B123", "user_id": "U123", "team_id": "T123"},
+    return_value={"ok": True, "bot_id": "B0101", "user_id": "U0123"},
 )
 _mock_auth.start()
 
