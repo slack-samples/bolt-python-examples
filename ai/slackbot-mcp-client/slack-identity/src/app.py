@@ -13,15 +13,16 @@ from slack_sdk.signature import SignatureVerifier
 from slack_sdk.web import WebClient
 from starlette.applications import Starlette
 from starlette.requests import Request
-from starlette.responses import JSONResponse, Response
+from starlette.responses import JSONResponse
 from starlette.routing import Route
 from starlette.types import ASGIApp, Receive, Scope, Send
 
-# --- Installation Store ---
-
 installation_store = FileInstallationStore(base_dir="./data/installations")
 
-# --- MCP Server ---
+"""Creates an MCP server with a profile card tool using Slack identity.
+
+https://github.com/modelcontextprotocol/python-sdk#getting-started
+"""
 
 mcp_server = FastMCP("Profile Card", stateless_http=True, json_response=True)
 
@@ -150,7 +151,10 @@ async def get_profile_card(
     )
 
 
-# --- Bolt App with OAuth ---
+"""Creates a Bolt app with OAuth and a custom /mcp route.
+
+https://docs.slack.dev/tools/bolt-python/getting-started
+"""
 
 bolt_app = App(
     signing_secret=os.environ.get("SLACK_SIGNING_SECRET"),
@@ -166,15 +170,11 @@ bolt_app = App(
 )
 bolt_handler = SlackRequestHandler(bolt_app)
 
-
-# --- Slack Signature Verification Middleware ---
-
-
 class SlackSignatureMiddleware:
     def __init__(self, app: ASGIApp) -> None:
         self.app = app
         self.verifier = SignatureVerifier(
-            signing_secret=os.environ.get("SLACK_SIGNING_SECRET", "")
+            signing_secret=os.environ["SLACK_SIGNING_SECRET"]
         )
 
     async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
@@ -203,37 +203,23 @@ class SlackSignatureMiddleware:
         await self.app(scope, replay_receive, send)
 
 
-# --- Starlette App ---
-
-mcp_starlette_app = mcp_server.streamable_http_app()
-
-
 @contextlib.asynccontextmanager
 async def lifespan(a):
     async with mcp_server.session_manager.run():
         yield
 
 
-async def slack_events(request: Request) -> Response:
-    return await bolt_handler.handle(request)
-
-
-async def slack_install(request: Request) -> Response:
-    return await bolt_handler.handle(request)
-
-
-async def slack_oauth_redirect(request: Request) -> Response:
-    return await bolt_handler.handle(request)
+mcp_app = mcp_server.streamable_http_app()
 
 
 app = Starlette(
     routes=[
-        Route("/slack/events", endpoint=slack_events, methods=["POST"]),
-        Route("/slack/install", endpoint=slack_install, methods=["GET"]),
-        Route("/slack/oauth_redirect", endpoint=slack_oauth_redirect, methods=["GET"]),
+        Route("/slack/events", endpoint=bolt_handler.handle, methods=["POST"]),
+        Route("/slack/install", endpoint=bolt_handler.handle, methods=["GET"]),
+        Route("/slack/oauth_redirect", endpoint=bolt_handler.handle, methods=["GET"]),
         Route(
             "/mcp",
-            endpoint=SlackSignatureMiddleware(mcp_starlette_app),
+            endpoint=SlackSignatureMiddleware(mcp_app),
             methods=["POST"],
         ),
     ],

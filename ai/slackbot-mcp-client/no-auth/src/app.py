@@ -83,6 +83,7 @@ bolt_app = App(
     signing_secret=os.environ.get("SLACK_SIGNING_SECRET"),
 )
 
+
 class SlackSignatureMiddleware:
     def __init__(self, app: ASGIApp) -> None:
         self.app = app

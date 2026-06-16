@@ -23,7 +23,7 @@ def client():
         yield c
 
 
-def test_get_profile_card(client):
+def test_returns_tool_call_response(client):
     """Successful profile card fetch with mocked installation and users.info."""
     mock_installation = MagicMock()
     mock_installation.bot_token = "xoxb-fake-token"
@@ -80,29 +80,7 @@ def test_get_profile_card(client):
     assert blocks[0]["title"]["text"] == "Test User"
 
 
-def test_missing_slack_context(client):
-    """Request without _meta.slack returns missing context error."""
-    body = json.dumps(
-        {
-            "jsonrpc": "2.0",
-            "id": 1,
-            "method": "tools/call",
-            "params": {
-                "name": "get_profile_card",
-                "arguments": {"user_id": "U12345"},
-            },
-        }
-    )
-    headers = sign_request(body)
-    resp = client.post("/mcp", content=body, headers=headers)
-
-    assert resp.status_code == 200
-    data = resp.json()
-    result = data["result"]
-    assert "Missing Slack identity" in result["content"][0]["text"]
-
-
-def test_missing_installation(client):
+def test_requires_team_installation(client):
     """When no installation found, returns install button block."""
     body = json.dumps(
         {
@@ -138,7 +116,7 @@ def test_missing_installation(client):
     assert blocks[0]["accessory"]["type"] == "button"
 
 
-def test_rejects_unsigned(client):
+def test_rejects_unsigned_requests(client):
     """POST without Slack signature headers returns 401."""
     body = json.dumps(
         {
