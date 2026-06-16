@@ -20,7 +20,7 @@ RESOURCE_MIME_TYPE = "text/html;profile=mcp-app"
 
 """Creates an MCP server with a dice roller tool and UI resource.
 
-https://github.com/modelcontextprotocol/python-sdk#getting-started
+https://github.com/modelcontextprotocol/python-sdk#quickstart
 """
 
 mcp_server = FastMCP("Dice Game", stateless_http=True, json_response=True)

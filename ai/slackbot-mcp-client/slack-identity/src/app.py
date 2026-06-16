@@ -21,7 +21,7 @@ installation_store = FileInstallationStore(base_dir="./data/installations")
 
 """Creates an MCP server with a profile card tool using Slack identity.
 
-https://github.com/modelcontextprotocol/python-sdk#getting-started
+https://github.com/modelcontextprotocol/python-sdk#quickstart
 """
 
 mcp_server = FastMCP("Profile Card", stateless_http=True, json_response=True)
