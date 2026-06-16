@@ -32,7 +32,7 @@ def test_returns_tool_call_results(client):
     body = json.dumps(
         {
             "jsonrpc": "2.0",
-            "id": 1,
+            "id": 2,
             "method": "tools/call",
             "params": {"name": "roll_dice", "arguments": {"sides": 6, "count": 2}},
         }
@@ -43,7 +43,7 @@ def test_returns_tool_call_results(client):
     assert resp.status_code == 200
     data = resp.json()
     assert data["jsonrpc"] == "2.0"
-    assert data["id"] == 1
+    assert data["id"] == 2
     result = data["result"]
     structured = result["structuredContent"]
     assert structured["sides"] == 6
@@ -57,7 +57,7 @@ def test_serves_ui_resources(client):
     body = json.dumps(
         {
             "jsonrpc": "2.0",
-            "id": 1,
+            "id": 3,
             "method": "resources/read",
             "params": {"uri": "ui://dice-roller/dice.html"},
         }
@@ -68,9 +68,10 @@ def test_serves_ui_resources(client):
     assert resp.status_code == 200
     data = resp.json()
     assert data["jsonrpc"] == "2.0"
-    assert data["id"] == 1
+    assert data["id"] == 3
     contents = data["result"]["contents"]
-    assert len(contents) >= 1
+    assert contents[0]["uri"] == "ui://dice-roller/dice.html"
+    assert contents[0]["mimeType"] == "text/html;profile=mcp-app"
     assert "Dice Roller" in contents[0]["text"]
 
 

@@ -30,7 +30,7 @@ def test_returns_tool_call_response(client):
     body = json.dumps(
         {
             "jsonrpc": "2.0",
-            "id": 1,
+            "id": 2,
             "method": "tools/call",
             "params": {
                 "name": "get_profile_card",
@@ -83,7 +83,7 @@ def test_requires_team_installation(client):
     body = json.dumps(
         {
             "jsonrpc": "2.0",
-            "id": 1,
+            "id": 3,
             "method": "tools/call",
             "params": {
                 "name": "get_profile_card",
