@@ -5,14 +5,14 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "pip"
-    directory: "block-kit"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pip"
     directory: "ai/slackbot-mcp-client/no-auth"
     schedule:
       interval: "daily"
   - package-ecosystem: "pip"
     directory: "ai/slackbot-mcp-client/slack-identity"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pip"
+    directory: "block-kit"
     schedule:
       interval: "daily"

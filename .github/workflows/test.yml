@@ -12,9 +12,9 @@ jobs:
       fail-fast: false
       matrix:
         showcase:
-          - "block-kit"
           - "ai/slackbot-mcp-client/no-auth"
           - "ai/slackbot-mcp-client/slack-identity"
+          - "block-kit"
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
