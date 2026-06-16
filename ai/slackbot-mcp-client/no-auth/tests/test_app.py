@@ -102,5 +102,5 @@ def sign_request(body: str, secret: str = SIGNING_SECRET) -> dict:
         "x-slack-request-timestamp": timestamp,
         "x-slack-signature": signature,
         "content-type": "application/json",
-        "accept": "application/json",
+        "accept": "application/json, text/event-stream",
     }
