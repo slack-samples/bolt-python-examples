@@ -1,0 +1,51 @@
+{
+  "display_information": {
+    "name": "MCP Client - External Auth",
+    "description": "Connects GitHub MCP server to Slackbot MCP client using an external auth provider"
+  },
+  "features": {
+    "bot_user": {
+      "display_name": "MCP Client - External Auth",
+      "always_online": true
+    }
+  },
+  "oauth_config": {
+    "scopes": {
+      "bot": ["mcp:connect"]
+    }
+  },
+  "settings": {
+    "org_deploy_enabled": true,
+    "socket_mode_enabled": false,
+    "token_rotation_enabled": false
+  },
+  "external_auth_providers": {
+    "oauth2": {
+      "github": {
+        "provider_type": "CUSTOM",
+        "options": {
+          "client_id": "YOUR_GITHUB_CLIENT_ID",
+          "scope": ["repo"],
+          "provider_name": "GitHub",
+          "authorization_url": "https://github.com/login/oauth/authorize",
+          "token_url": "https://github.com/login/oauth/access_token",
+          "identity_config": {
+            "url": "https://api.github.com/user",
+            "account_identifier": "$.login"
+          },
+          "use_pkce": false,
+          "token_url_config": {
+            "use_basic_auth_scheme": false
+          }
+        }
+      }
+    }
+  },
+  "mcp_servers": {
+    "GitHub": {
+      "url": "https://api.githubcopilot.com/mcp/",
+      "auth_type": "manual_auth",
+      "auth_provider_key": "github"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+__pycache__
+.venv
+installations/
+!.env.example
+.env*

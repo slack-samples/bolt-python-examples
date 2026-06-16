@@ -1,0 +1,28 @@
+{
+  "display_information": {
+    "name": "MCP Client - No Auth",
+    "description": "Connects app MCP server to Slackbot MCP client without authentication"
+  },
+  "features": {
+    "bot_user": {
+      "display_name": "MCP Client - No Auth",
+      "always_online": true
+    }
+  },
+  "oauth_config": {
+    "scopes": {
+      "bot": ["mcp:connect"]
+    }
+  },
+  "settings": {
+    "org_deploy_enabled": true,
+    "socket_mode_enabled": false,
+    "token_rotation_enabled": false
+  },
+  "mcp_servers": {
+    "Dice Game": {
+      "url": "https://1234-56-78-90-0.ngrok-free.app/mcp",
+      "auth_type": "no_auth"
+    }
+  }
+}
