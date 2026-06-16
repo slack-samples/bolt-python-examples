@@ -170,6 +170,7 @@ bolt_app = App(
 )
 bolt_handler = SlackRequestHandler(bolt_app)
 
+
 class SlackSignatureMiddleware:
     def __init__(self, app: ASGIApp) -> None:
         self.app = app
