@@ -5,7 +5,7 @@ Run an MCP server for the Slackbot MCP client that responds with Block Kit and a
 ## Setup
 
 ```sh
-$ ngrok http 3000 --host-header=rewrite  # Rewrite Host to localhost so the MCP server's DNS-rebinding protection accepts the request
+$ ngrok http 3000 --host-header=rewrite
 $ slack install --app local  # Create a new app
 $ slack app settings
 $ slack env init  # Update defaults

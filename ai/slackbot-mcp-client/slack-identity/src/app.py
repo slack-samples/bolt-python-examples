@@ -17,8 +17,6 @@ from starlette.responses import JSONResponse
 from starlette.routing import Route
 from starlette.types import ASGIApp, Receive, Scope, Send
 
-installation_store = FileInstallationStore(base_dir="./data/installations")
-
 """Creates an MCP server with a profile card tool using Slack identity.
 
 https://github.com/modelcontextprotocol/python-sdk#quickstart
@@ -32,14 +30,18 @@ mcp_server = FastMCP("Profile Card", stateless_http=True, json_response=True)
     title="Get Profile Card",
     description="Get a profile card for a Slack user by their user ID.",
     annotations=ToolAnnotations(readOnlyHint=True),
-    meta={"slack": {"supportsBlockKit": True}},
+    meta={
+        "slack": {
+            "supportsBlockKit": True,
+        },
+    },
 )
 async def get_profile_card(
-    user_id: str, ctx: Context[ServerSession, None]
+    user_id: str,
+    ctx: Context[ServerSession, None],
 ) -> CallToolResult:
     meta = ctx.request_context.meta
-    model_extra = meta.model_extra if meta else None
-    slack = model_extra.get("slack", {}) if model_extra else {}
+    slack = (meta.model_extra or {}).get("slack", {}) if meta else {}
 
     if not slack.get("user_id") or not slack.get("team_id"):
         return CallToolResult(
@@ -156,6 +158,8 @@ async def get_profile_card(
 https://docs.slack.dev/tools/bolt-python/getting-started
 """
 
+installation_store = FileInstallationStore(base_dir="./installations")
+
 bolt_app = App(
     signing_secret=os.environ.get("SLACK_SIGNING_SECRET"),
     oauth_settings=OAuthSettings(
@@ -164,7 +168,8 @@ bolt_app = App(
         scopes=["mcp:connect", "users:read", "users:read.email"],
         installation_store=installation_store,
         state_store=FileOAuthStateStore(
-            expiration_seconds=600, base_dir="./data/states"
+            expiration_seconds=600,
+            base_dir="./states",
         ),
     ),
 )

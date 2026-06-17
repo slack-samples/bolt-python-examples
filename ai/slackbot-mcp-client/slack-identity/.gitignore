@@ -1,5 +1,6 @@
 __pycache__
 .venv
 installations/
+states/
 !.env.example
 .env*
