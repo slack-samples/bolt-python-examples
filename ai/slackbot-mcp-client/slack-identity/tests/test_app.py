@@ -119,7 +119,7 @@ def test_requires_team_installation(client):
 
     with patch(
         "src.app.installation_store.find_installation",
-        side_effect=Exception("Not found"),
+        return_value=None,
     ):
         resp = client.post("/mcp", content=body, headers=headers)
 

@@ -53,21 +53,13 @@ async def get_profile_card(
             ],
         )
 
-    team_id = slack["team_id"]
-    slack_user_id = slack["user_id"]
-    enterprise_id = slack.get("enterprise_id")
-
-    try:
-        installation = installation_store.find_installation(
-            enterprise_id=enterprise_id,
-            team_id=team_id,
-            user_id=slack_user_id,
-            is_enterprise_install=bool(enterprise_id),
-        )
-        if not installation or not installation.bot_token:
-            raise ValueError("No bot token")
-        bot_token = installation.bot_token
-    except Exception:
+    installation = installation_store.find_installation(
+        enterprise_id=slack.get("enterprise_id"),
+        team_id=slack["team_id"],
+        user_id=slack["user_id"],
+        is_enterprise_install=bool(slack.get("enterprise_id")),
+    )
+    if not installation or not installation.bot_token:
         return CallToolResult(
             content=[
                 TextContent(
@@ -101,9 +93,11 @@ async def get_profile_card(
         )
 
     try:
-        client = WebClient(token=bot_token)
+        client = WebClient(token=installation.bot_token)
         result = client.users_info(user=user_id)
-        profile = result["user"]["profile"]
+        profile = (result["user"] or {}).get("profile")
+        if not profile:
+            raise ValueError("No profile found")
     except Exception:
         return CallToolResult(
             content=[
@@ -172,7 +166,6 @@ bolt_app = App(
         ),
     ),
 )
-bolt_handler = SlackRequestHandler(bolt_app)
 
 
 class SlackSignatureMiddleware:
@@ -219,9 +212,21 @@ mcp_app = mcp_server.streamable_http_app()
 
 app = Starlette(
     routes=[
-        Route("/slack/events", endpoint=bolt_handler.handle, methods=["POST"]),
-        Route("/slack/install", endpoint=bolt_handler.handle, methods=["GET"]),
-        Route("/slack/oauth_redirect", endpoint=bolt_handler.handle, methods=["GET"]),
+        Route(
+            "/slack/events",
+            endpoint=SlackRequestHandler(bolt_app).handle,
+            methods=["POST"],
+        ),
+        Route(
+            "/slack/install",
+            endpoint=SlackRequestHandler(bolt_app).handle,
+            methods=["GET"],
+        ),
+        Route(
+            "/slack/oauth_redirect",
+            endpoint=SlackRequestHandler(bolt_app).handle,
+            methods=["GET"],
+        ),
         Route(
             "/mcp",
             endpoint=SlackSignatureMiddleware(mcp_app),
