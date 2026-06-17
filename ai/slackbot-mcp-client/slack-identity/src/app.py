@@ -48,8 +48,7 @@ async def get_profile_card(
             content=[
                 TextContent(
                     type="text",
-                    text="Missing Slack identity context. "
-                    "This tool must be called from Slack.",
+                    text="Missing Slack identity context. This tool must be called from Slack.",
                 )
             ],
         )
