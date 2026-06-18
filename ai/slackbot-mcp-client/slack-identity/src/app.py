@@ -60,8 +60,7 @@ async def get_profile_card(
             content=[
                 TextContent(
                     type="text",
-                    text="App not installed to this workspace. "
-                    f"Please install first: {install_url}",
+                    text=f"App not installed to this workspace. Please install first: {install_url}",
                 )
             ],
         )

@@ -9,11 +9,11 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "pip"
-    directory: "ai/slackbot-mcp-client/slack-identity"
+    directory: "ai/slackbot-mcp-client/rich-responses/mcp-apps"
     schedule:
       interval: "daily"
   - package-ecosystem: "pip"
-    directory: "ai/slackbot-mcp-client/rich-responses/mcp-apps"
+    directory: "ai/slackbot-mcp-client/slack-identity"
     schedule:
       interval: "daily"
   - package-ecosystem: "pip"
