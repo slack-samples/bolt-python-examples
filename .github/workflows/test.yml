@@ -13,6 +13,7 @@ jobs:
       matrix:
         showcase:
           - "ai/slackbot-mcp-client/no-auth"
+          - "ai/slackbot-mcp-client/rich-responses/mcp-apps"
           - "ai/slackbot-mcp-client/slack-identity"
           - "block-kit"
     steps:

@@ -1,6 +1,6 @@
 # Slack Identity
 
-Run an MCP server for the Slackbot MCP client that responds with Block Kit and authenticates against existing installations.
+Run an MCP server for the Slackbot MCP client that authenticates against existing installations.
 
 ## Setup
 

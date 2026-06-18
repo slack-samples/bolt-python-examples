@@ -30,11 +30,6 @@ mcp_server = FastMCP("Profile Card", stateless_http=True, json_response=True)
     title="Get Profile Card",
     description="Get a profile card for a Slack user by their user ID.",
     annotations=ToolAnnotations(readOnlyHint=True),
-    meta={
-        "slack": {
-            "supportsBlockKit": True,
-        },
-    },
 )
 async def get_profile_card(
     user_id: str,
@@ -60,36 +55,15 @@ async def get_profile_card(
         is_enterprise_install=bool(slack.get("enterprise_id")),
     )
     if not installation or not installation.bot_token:
+        install_url = f"{os.environ.get('BASE_URL', '')}/slack/install"
         return CallToolResult(
             content=[
                 TextContent(
                     type="text",
-                    text="App not installed to this workspace. Please install first.",
+                    text="App not installed to this workspace. "
+                    f"Please install first: {install_url}",
                 )
             ],
-            _meta={
-                "slack": {
-                    "blocks": [
-                        {
-                            "type": "section",
-                            "text": {
-                                "type": "mrkdwn",
-                                "text": "Please install the *MCP Profile Card* app "
-                                "to access profile information.",
-                            },
-                            "accessory": {
-                                "type": "button",
-                                "text": {
-                                    "type": "plain_text",
-                                    "text": "Install",
-                                },
-                                "url": f"{os.environ.get('BASE_URL', '')}/slack/install",
-                                "action_id": "install_app",
-                            },
-                        }
-                    ]
-                }
-            },
         )
 
     try:
@@ -117,32 +91,6 @@ async def get_profile_card(
                 f"Email: {profile.get('email', '')}",
             )
         ],
-        _meta={
-            "slack": {
-                "blocks": [
-                    {
-                        "type": "card",
-                        "icon": {
-                            "type": "image",
-                            "image_url": profile.get("image_72", ""),
-                            "alt_text": profile.get("real_name", ""),
-                        },
-                        "title": {
-                            "type": "mrkdwn",
-                            "text": profile.get("real_name", ""),
-                        },
-                        "subtitle": {
-                            "type": "mrkdwn",
-                            "text": profile.get("title", ""),
-                        },
-                        "body": {
-                            "type": "mrkdwn",
-                            "text": f"*Email:* {profile.get('email', '')}",
-                        },
-                    }
-                ]
-            }
-        },
     )
 
 

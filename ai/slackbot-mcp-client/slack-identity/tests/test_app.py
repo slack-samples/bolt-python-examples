@@ -85,10 +85,6 @@ def test_returns_tool_call_response(client):
     assert "Test User" in result["content"][0]["text"]
     assert "VIP" in result["content"][0]["text"]
     assert "test@example.com" in result["content"][0]["text"]
-    blocks = result["_meta"]["slack"]["blocks"]
-    assert blocks[0]["type"] == "card"
-    assert blocks[0]["title"]["text"] == "Test User"
-    assert blocks[0]["subtitle"]["text"] == "VIP"
 
 
 def test_requires_team_installation(client):
@@ -127,9 +123,7 @@ def test_requires_team_installation(client):
     data = resp.json()
     result = data["result"]
     assert "not installed" in result["content"][0]["text"].lower()
-    blocks = result["_meta"]["slack"]["blocks"]
-    assert blocks[0]["type"] == "section"
-    assert "/slack/install" in blocks[0]["accessory"]["url"]
+    assert "/slack/install" in result["content"][0]["text"]
 
 
 def test_rejects_unsigned_requests(client):

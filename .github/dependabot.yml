@@ -13,6 +13,10 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "pip"
+    directory: "ai/slackbot-mcp-client/rich-responses/mcp-apps"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pip"
     directory: "block-kit"
     schedule:
       interval: "daily"

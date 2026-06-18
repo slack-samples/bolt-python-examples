@@ -54,7 +54,43 @@ def test_returns_tool_call_results(client):
     assert data["jsonrpc"] == "2.0"
     assert data["id"] == 2
     result = data["result"]
-    assert "Rolled 2d6:" in result["content"][0]["text"]
+    structured = result["structuredContent"]
+    assert structured["sides"] == 6
+    assert structured["count"] == 2
+    assert len(structured["rolls"]) == 2
+    assert all(1 <= r <= 6 for r in structured["rolls"])
+    assert structured["total"] == sum(structured["rolls"])
+
+
+def test_serves_ui_resources(client):
+    body = json.dumps(
+        {
+            "jsonrpc": "2.0",
+            "id": 3,
+            "method": "resources/read",
+            "params": {"uri": "ui://dice-roller/dice.html"},
+        }
+    )
+    sig = sign_request(body)
+    resp = client.post(
+        "/mcp",
+        content=body,
+        headers={
+            "content-type": "application/json",
+            "accept": "application/json, text/event-stream",
+            "x-slack-request-timestamp": sig["timestamp"],
+            "x-slack-signature": sig["signature"],
+        },
+    )
+
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["jsonrpc"] == "2.0"
+    assert data["id"] == 3
+    contents = data["result"]["contents"]
+    assert contents[0]["uri"] == "ui://dice-roller/dice.html"
+    assert contents[0]["mimeType"] == "text/html;profile=mcp-app"
+    assert "Dice Roller" in contents[0]["text"]
 
 
 def test_rejects_unsigned_requests(client):

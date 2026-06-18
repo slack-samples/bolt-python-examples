@@ -1,6 +1,6 @@
-# No Auth
+# MCP Apps
 
-Run an unauthenticated MCP server for the Slackbot MCP client.
+Run an MCP server for the Slackbot MCP client that responds with an [interactive UI](https://modelcontextprotocol.io/extensions/apps/overview).
 
 ## Setup
 

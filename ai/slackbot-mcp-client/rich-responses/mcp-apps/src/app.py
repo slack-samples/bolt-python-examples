@@ -1,6 +1,7 @@
 import contextlib
 import os
 import random
+from pathlib import Path
 
 from mcp.server.fastmcp import FastMCP
 from mcp.types import CallToolResult, TextContent, ToolAnnotations
@@ -13,7 +14,11 @@ from starlette.responses import JSONResponse
 from starlette.routing import Route
 from starlette.types import ASGIApp, Receive, Scope, Send
 
-"""Creates an MCP server with a dice roller tool.
+DICE_HTML = (Path(__file__).parent / "dice.html").read_text()
+RESOURCE_URI = "ui://dice-roller/dice.html"
+RESOURCE_MIME_TYPE = "text/html;profile=mcp-app"
+
+"""Creates an MCP server with a dice roller tool and UI resource.
 
 https://github.com/modelcontextprotocol/python-sdk#quickstart
 """
@@ -26,6 +31,11 @@ mcp_server = FastMCP("Dice Game", stateless_http=True, json_response=True)
     title="Roll Dice",
     description="Roll one or more dice with a configurable number of sides.",
     annotations=ToolAnnotations(readOnlyHint=True),
+    meta={
+        "ui": {
+            "resourceUri": RESOURCE_URI,
+        },
+    },
 )
 def roll_dice(sides: int = 6, count: int = 1) -> CallToolResult:
     rolls = [random.randint(1, sides) for _ in range(count)]
@@ -37,7 +47,30 @@ def roll_dice(sides: int = 6, count: int = 1) -> CallToolResult:
         content=[
             TextContent(type="text", text=f"Rolled {label}:{rolls_display} = {total}")
         ],
+        structuredContent={
+            "sides": sides,
+            "count": count,
+            "rolls": rolls,
+            "total": total,
+        },
     )
+
+
+@mcp_server.resource(
+    RESOURCE_URI,
+    name="Dice Roller",
+    mime_type=RESOURCE_MIME_TYPE,
+    meta={
+        "ui": {
+            "csp": {
+                "resourceDomains": ["https://esm.sh"],
+                "connectDomains": ["https://esm.sh"],
+            }
+        }
+    },
+)
+def dice_resource() -> str:
+    return DICE_HTML
 
 
 """Creates a Bolt app with a custom /mcp route.
