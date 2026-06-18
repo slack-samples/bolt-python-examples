@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title>Dice Roller</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      padding: 1rem;
+    }
+    #content {
+      font-size: 1.25rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="content">Rolling...</div>
+
+  <script type="module">
+    import { App } from "https://esm.sh/@modelcontextprotocol/ext-apps@1.7.4/app-with-deps";
+
+    const content = document.getElementById("content");
+
+    function render({ sides, count, rolls, total }) {
+      const label = `${count}d${sides}`;
+      const rollsText = count > 1 ? ` [${rolls.join(", ")}]` : "";
+      content.textContent = `🎲 ${label}: ${total}${rollsText}`;
+    }
+
+    const app = new App({ name: "Dice Roller", version: "1.0.0" });
+
+    app.ontoolinput = (params) => {
+      console.log("[dice] ontoolinput", params);
+    };
+
+    app.ontoolresult = (params) => {
+      console.log("[dice] ontoolresult", params);
+      if (params.structuredContent) {
+        render(params.structuredContent);
+      }
+    };
+
+    app.onerror = (err) => {
+      console.error("[dice] error", err);
+    };
+
+    console.log("[dice] connecting...");
+    await app.connect();
+    console.log("[dice] connected!");
+  </script>
+</body>
+</html>

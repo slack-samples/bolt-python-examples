@@ -9,8 +9,12 @@ jobs:
     name: "pytest@python3.14"
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         showcase:
+          - "ai/slackbot-mcp-client/no-auth"
+          - "ai/slackbot-mcp-client/rich-responses/mcp-apps"
+          - "ai/slackbot-mcp-client/slack-identity"
           - "block-kit"
     steps:
       - name: Checkout code
