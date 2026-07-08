@@ -1,6 +1,6 @@
 httpx2==2.5.0
 mcp==1.28.1
-mypy==2.1.0
+mypy==2.2.0
 pytest==9.1.1
 ruff==0.15.20
 slack_bolt==1.29.0
