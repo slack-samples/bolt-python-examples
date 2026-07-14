@@ -1,4 +1,4 @@
-httpx2==2.5.0
+httpx2==2.6.0
 mcp==1.28.1
 mypy==2.2.0
 pytest==9.1.1
