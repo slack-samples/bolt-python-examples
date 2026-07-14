@@ -16,6 +16,7 @@ jobs:
           - "ai/slackbot-mcp-client/rich-responses/mcp-apps"
           - "ai/slackbot-mcp-client/slack-identity"
           - "block-kit"
+          - "methods"
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -30,4 +31,5 @@ jobs:
           ruff check
           ruff format --diff --check
           mypy ./**/*.py
-          pytest -v
+          # Exit code 5 = "no tests collected" (e.g. type-check-only showcases); treat as success.
+          pytest -v || [ $? -eq 5 ]
