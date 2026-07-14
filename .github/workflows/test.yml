@@ -16,6 +16,7 @@ jobs:
           - "ai/slackbot-mcp-client/rich-responses/mcp-apps"
           - "ai/slackbot-mcp-client/slack-identity"
           - "block-kit"
+          - "methods"
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
