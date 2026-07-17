@@ -2,7 +2,7 @@ httpx2==2.7.0
 mcp==1.28.1
 mypy==2.3.0
 pytest==9.1.1
-ruff==0.15.21
+ruff==0.15.22
 slack_bolt==1.30.0
 slack_cli_hooks==0.3.0
 slack_sdk==3.43.0
