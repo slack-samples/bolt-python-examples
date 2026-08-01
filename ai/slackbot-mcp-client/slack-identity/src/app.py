@@ -7,6 +7,7 @@ from mcp.types import CallToolResult, TextContent, ToolAnnotations
 from slack_bolt import App
 from slack_bolt.adapter.starlette import SlackRequestHandler
 from slack_bolt.oauth.oauth_settings import OAuthSettings
+from slack_sdk.errors import SlackApiError
 from slack_sdk.oauth.installation_store import FileInstallationStore
 from slack_sdk.oauth.state_store import FileOAuthStateStore
 from slack_sdk.signature import SignatureVerifier
@@ -71,7 +72,7 @@ async def get_profile_card(
         profile = (result["user"] or {}).get("profile")
         if not profile:
             raise ValueError("No profile found")
-    except Exception:
+    except (SlackApiError, ValueError, KeyError):
         return CallToolResult(
             content=[
                 TextContent(
