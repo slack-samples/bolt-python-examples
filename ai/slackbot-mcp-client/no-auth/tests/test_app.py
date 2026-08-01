@@ -17,7 +17,7 @@ _mock_auth = patch(
 )
 _mock_auth.start()
 
-from src.app import app  # noqa: E402
+from src.app import app
 
 SIGNING_SECRET = "test_signing_secret"
 
