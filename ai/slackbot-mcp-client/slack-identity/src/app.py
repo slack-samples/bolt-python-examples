@@ -1,6 +1,6 @@
 import contextlib
 import os
-from typing import Any, cast
+from typing import Any
 
 from mcp.server import MCPServer
 from mcp.server.mcpserver import Context
@@ -37,8 +37,8 @@ async def get_profile_card(
     user_id: str,
     ctx: Context,
 ) -> CallToolResult:
-    meta = ctx.request_context.meta
-    slack = cast("dict[str, Any]", meta.get("slack", {}) if meta else {})
+    meta: dict[str, Any] = dict(ctx.request_context.meta or {})
+    slack = meta.get("slack") or {}
 
     if not slack.get("user_id") or not slack.get("team_id"):
         return CallToolResult(
