@@ -1,15 +1,4 @@
-from slack_sdk.models.blocks import (
-    DataTableBlock,
-    RawTextObject,
-    RichTextBlock,
-    RichTextElementParts,
-    RichTextSectionElement,
-)
-
-
-def _rich_text(*elements: RichTextElementParts.Text) -> RichTextBlock:
-    """Wrap rich text elements in a rich_text cell for a data table."""
-    return RichTextBlock(elements=[RichTextSectionElement(elements=list(elements))])
+from slack_sdk.models.blocks import DataTableBlock
 
 
 def example01() -> DataTableBlock:
@@ -23,40 +12,67 @@ def example01() -> DataTableBlock:
         caption="A Fabulous Table",
         rows=[
             [
-                RawTextObject(text="Name"),
-                RawTextObject(text="Department"),
-                RawTextObject(text="Badge"),
+                {"type": "raw_text", "text": "Name"},
+                {"type": "raw_text", "text": "Department"},
+                {"type": "raw_text", "text": "Badge"},
             ],
             [
-                RawTextObject(text="Data Refinement Department"),
-                RawTextObject(text="MDR"),
-                _rich_text(
-                    RichTextElementParts.Text(
-                        text="Blue",
-                        style=RichTextElementParts.TextStyle(bold=True),
-                    )
-                ),
+                {"type": "raw_text", "text": "Data Refinement Department"},
+                {"type": "raw_text", "text": "MDR"},
+                {
+                    "type": "rich_text",
+                    "elements": [
+                        {
+                            "type": "rich_text_section",
+                            "elements": [
+                                {
+                                    "type": "text",
+                                    "text": "Blue",
+                                    "style": {"bold": True},
+                                }
+                            ],
+                        }
+                    ],
+                },
             ],
             [
-                RawTextObject(text="Art Sourcing Department"),
-                RawTextObject(text="O&D"),
-                _rich_text(
-                    RichTextElementParts.Text(text="Green"),
-                    RichTextElementParts.Text(
-                        text="review",
-                        style=RichTextElementParts.TextStyle(italic=True),
-                    ),
-                ),
+                {"type": "raw_text", "text": "Art Sourcing Department"},
+                {"type": "raw_text", "text": "O&D"},
+                {
+                    "type": "rich_text",
+                    "elements": [
+                        {
+                            "type": "rich_text_section",
+                            "elements": [
+                                {"type": "text", "text": "Green"},
+                                {
+                                    "type": "text",
+                                    "text": "review",
+                                    "style": {"italic": True},
+                                },
+                            ],
+                        }
+                    ],
+                },
             ],
             [
-                RawTextObject(text="Wellness Department"),
-                RawTextObject(text="Wellness Center"),
-                _rich_text(
-                    RichTextElementParts.Text(
-                        text="Limited",
-                        style=RichTextElementParts.TextStyle(bold=True),
-                    )
-                ),
+                {"type": "raw_text", "text": "Wellness Department"},
+                {"type": "raw_text", "text": "Wellness Center"},
+                {
+                    "type": "rich_text",
+                    "elements": [
+                        {
+                            "type": "rich_text_section",
+                            "elements": [
+                                {
+                                    "type": "text",
+                                    "text": "Limited",
+                                    "style": {"bold": True},
+                                }
+                            ],
+                        }
+                    ],
+                },
             ],
         ],
     )
