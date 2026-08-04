@@ -15,13 +15,13 @@ def example01() -> CarouselBlock:
         elements=[
             CardBlock(
                 block_id="carousel-card-1",
-                icon=ImageElement(  # type: ignore[arg-type]
+                icon=ImageElement(
                     image_url="https://picsum.photos/36/36",
                     alt_text="Icon",
                 ),
                 title=MarkdownTextObject(text="MDR"),
                 subtitle=MarkdownTextObject(text="Refining data files"),
-                hero_image=ImageElement(  # type: ignore[arg-type]
+                hero_image=ImageElement(
                     image_url="https://picsum.photos/400/300",
                     alt_text="Sample hero image",
                 ),
@@ -35,7 +35,7 @@ def example01() -> CarouselBlock:
             ),
             CardBlock(
                 block_id="carousel-card-2",
-                icon=ImageElement(  # type: ignore[arg-type]
+                icon=ImageElement(
                     image_url="https://picsum.photos/36/36",
                     alt_text="Icon",
                 ),
@@ -43,7 +43,7 @@ def example01() -> CarouselBlock:
                 subtitle=MarkdownTextObject(
                     text="Storage, maintenance, and rotation of art pieces"
                 ),
-                hero_image=ImageElement(  # type: ignore[arg-type]
+                hero_image=ImageElement(
                     image_url="https://picsum.photos/400/300",
                     alt_text="Sample hero image",
                 ),
@@ -57,13 +57,13 @@ def example01() -> CarouselBlock:
             ),
             CardBlock(
                 block_id="carousel-card-3",
-                icon=ImageElement(  # type: ignore[arg-type]
+                icon=ImageElement(
                     image_url="https://picsum.photos/36/36",
                     alt_text="Icon",
                 ),
                 title=MarkdownTextObject(text="Wellness Center"),
                 subtitle=MarkdownTextObject(text="Wellness sessions"),
-                hero_image=ImageElement(  # type: ignore[arg-type]
+                hero_image=ImageElement(
                     image_url="https://picsum.photos/400/300",
                     alt_text="Sample hero image",
                 ),
