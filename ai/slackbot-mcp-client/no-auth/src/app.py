@@ -2,7 +2,7 @@ import contextlib
 import os
 import random
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server import MCPServer
 from mcp.types import CallToolResult, TextContent, ToolAnnotations
 from slack_bolt import App
 from slack_bolt.adapter.starlette import SlackRequestHandler
@@ -18,14 +18,14 @@ from starlette.types import ASGIApp, Receive, Scope, Send
 https://github.com/modelcontextprotocol/python-sdk#quickstart
 """
 
-mcp_server = FastMCP("Dice Game", stateless_http=True, json_response=True)
+mcp_server = MCPServer("Dice Game")
 
 
 @mcp_server.tool(
     name="roll_dice",
     title="Roll Dice",
     description="Roll one or more dice with a configurable number of sides.",
-    annotations=ToolAnnotations(readOnlyHint=True),
+    annotations=ToolAnnotations(read_only_hint=True),
 )
 def roll_dice(sides: int = 6, count: int = 1) -> CallToolResult:
     rolls = [random.randint(1, sides) for _ in range(count)]
@@ -90,7 +90,7 @@ async def lifespan(a):
         yield
 
 
-mcp_app = mcp_server.streamable_http_app()
+mcp_app = mcp_server.streamable_http_app(stateless_http=True, json_response=True)
 
 
 app = Starlette(

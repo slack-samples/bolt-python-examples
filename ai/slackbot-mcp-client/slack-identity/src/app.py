@@ -1,12 +1,14 @@
 import contextlib
 import os
+from typing import Any
 
-from mcp.server.fastmcp import Context, FastMCP
-from mcp.server.session import ServerSession
+from mcp.server import MCPServer
+from mcp.server.mcpserver import Context
 from mcp.types import CallToolResult, TextContent, ToolAnnotations
 from slack_bolt import App
 from slack_bolt.adapter.starlette import SlackRequestHandler
 from slack_bolt.oauth.oauth_settings import OAuthSettings
+from slack_sdk.errors import SlackApiError
 from slack_sdk.oauth.installation_store import FileInstallationStore
 from slack_sdk.oauth.state_store import FileOAuthStateStore
 from slack_sdk.signature import SignatureVerifier
@@ -22,21 +24,21 @@ from starlette.types import ASGIApp, Receive, Scope, Send
 https://github.com/modelcontextprotocol/python-sdk#quickstart
 """
 
-mcp_server = FastMCP("Profile Card", stateless_http=True, json_response=True)
+mcp_server = MCPServer("Profile Card")
 
 
 @mcp_server.tool(
     name="get_profile_card",
     title="Get Profile Card",
     description="Get a profile card for a Slack user by their user ID.",
-    annotations=ToolAnnotations(readOnlyHint=True),
+    annotations=ToolAnnotations(read_only_hint=True),
 )
 async def get_profile_card(
     user_id: str,
-    ctx: Context[ServerSession, None],
+    ctx: Context,
 ) -> CallToolResult:
-    meta = ctx.request_context.meta
-    slack = (meta.model_extra or {}).get("slack", {}) if meta else {}
+    meta: dict[str, Any] = dict(ctx.request_context.meta or {})
+    slack = meta.get("slack") or {}
 
     if not slack.get("user_id") or not slack.get("team_id"):
         return CallToolResult(
@@ -71,7 +73,7 @@ async def get_profile_card(
         profile = (result["user"] or {}).get("profile")
         if not profile:
             raise ValueError("No profile found")
-    except Exception:
+    except (SlackApiError, ValueError, KeyError):
         return CallToolResult(
             content=[
                 TextContent(
@@ -154,7 +156,7 @@ async def lifespan(a):
         yield
 
 
-mcp_app = mcp_server.streamable_http_app()
+mcp_app = mcp_server.streamable_http_app(stateless_http=True, json_response=True)
 
 
 app = Starlette(
