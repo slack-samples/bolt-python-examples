@@ -12,13 +12,13 @@ def example01() -> CardBlock:
     button.
     """
     block = CardBlock(
-        icon=ImageElement(  # type: ignore[arg-type]
+        icon=ImageElement(
             image_url="https://picsum.photos/36/36",
             alt_text="Icon",
         ),
         title=MarkdownTextObject(text="Lumon Industries"),
         subtitle=MarkdownTextObject(text="Committed to work-life balance"),
-        hero_image=ImageElement(  # type: ignore[arg-type]
+        hero_image=ImageElement(
             image_url="https://picsum.photos/400/300",
             alt_text="Sample hero image",
         ),
