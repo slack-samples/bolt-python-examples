@@ -29,5 +29,5 @@ jobs:
           pip install -r requirements.txt
           ruff check
           ruff format --diff --check
-          mypy ./**/*.py
+          mypy .
           pytest -v
