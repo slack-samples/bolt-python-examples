@@ -5,7 +5,7 @@ from slack_sdk.models.blocks.block_elements import ButtonElement, ImageElement
 
 def example01() -> CarouselBlock:
     """
-    Displays a scrollable, horizontal collection of cards.
+    Displays related card blocks in a horizontally-scrolling container.
     https://docs.slack.dev/reference/block-kit/blocks/carousel-block/
 
     A carousel with three cards, each with an icon, title, subtitle, hero
