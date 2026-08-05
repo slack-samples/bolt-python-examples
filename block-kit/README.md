@@ -9,6 +9,7 @@ Read the [docs](https://docs.slack.dev/block-kit/) to learn concepts behind thes
 ### Blocks
 
 - **[Actions](https://docs.slack.dev/reference/block-kit/blocks/actions-block)**: Holds multiple interactive elements. [Implementation](./src/blocks/actions.py).
+- **[Carousel](https://docs.slack.dev/reference/block-kit/blocks/carousel-block)**: Displays a scrollable, horizontal collection of cards. [Implementation](./src/blocks/carousel.py).
 - **[Context](https://docs.slack.dev/reference/block-kit/blocks/context-block)**: Provides contextual info, which can include both images and text. [Implementation](./src/blocks/context.py).
 - **[Context actions](https://docs.slack.dev/reference/block-kit/blocks/context-actions-block)**: Displays actions as contextual info, which can include both feedback buttons and icon buttons. [Implementation](./src/blocks/context_actions.py).
 - **[Divider](https://docs.slack.dev/reference/block-kit/blocks/divider-block)**: Visually separates pieces of info inside of a message. [Implementation](./src/blocks/divider.py).
