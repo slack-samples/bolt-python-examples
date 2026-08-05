@@ -3,7 +3,7 @@ from slack_sdk.models.blocks import TableBlock
 
 def example01() -> TableBlock:
     """
-    Displays data arranged in rows and columns.
+    Displays structured information in a table.
     https://docs.slack.dev/reference/block-kit/blocks/table-block/
 
     A table with a header row and two data rows. The first column is wrapped
