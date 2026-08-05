@@ -3,7 +3,7 @@ from slack_sdk.models.blocks import DataVisualizationBlock
 
 def example01() -> DataVisualizationBlock:
     """
-    Displays data using a line, bar, area, or pie chart.
+    Displays data visually in pie, bar, area, or line chart formats.
     https://docs.slack.dev/reference/block-kit/blocks/data-visualization-block/
 
     A pie chart with labeled segments.
