@@ -6,9 +6,7 @@ def example01() -> TableBlock:
     Displays structured information in a table.
     https://docs.slack.dev/reference/block-kit/blocks/table-block/
 
-    A table with a header row and two data rows. The first column is wrapped
-    and contains raw text, while the second column is right-aligned and
-    contains rich text links.
+    A table with the first column wrapped and the second column right aligned.
     """
     block = TableBlock(
         column_settings=[
