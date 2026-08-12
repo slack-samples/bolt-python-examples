@@ -31,5 +31,5 @@ jobs:
           ruff check
           ruff format --diff --check
           mypy ./**/*.py
-          # Exit code 5 = "no tests collected" (e.g. type-check-only showcases); treat as success.
-          pytest -v || [ $? -eq 5 ]
+          # Run pytest only where tests exist; type-check-only showcases ship no tests/ dir.
+          if [ -d tests ]; then pytest -v; fi
