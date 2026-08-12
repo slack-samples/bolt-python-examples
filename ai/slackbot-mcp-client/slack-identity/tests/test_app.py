@@ -12,7 +12,7 @@ os.environ["SLACK_SIGNING_SECRET"] = "test_signing_secret"
 os.environ["SLACK_CLIENT_ID"] = "111.222"
 os.environ["SLACK_CLIENT_SECRET"] = "client_secret"
 
-from src.app import app  # noqa: E402
+from src.app import app
 
 SIGNING_SECRET = "test_signing_secret"
 TEAM_ID = "T0001"
