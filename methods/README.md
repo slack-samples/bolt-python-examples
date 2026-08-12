@@ -7,11 +7,11 @@ Read the [docs](https://docs.slack.dev/apis/web-api/) for explanations of concep
 ## Making a request
 
 ```sh
-$ cd methods  # Navigate to the package root
+$ cd src/chat  # Navigate to a method family
 $ slack install --environment local  # Create an app
-$ vim src/chat/chat_post_message.py  # Edit arguments
+$ vim chat_post_message.py  # Edit arguments
 $ export SLACK_TOKEN=xoxb-example  # Set if unchanged
-$ python -m src.chat.chat_post_message  # Make the request
+$ slack run chat_post_message  # Make the request
 ```
 
 ## What's on call
