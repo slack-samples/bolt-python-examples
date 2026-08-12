@@ -31,5 +31,4 @@ jobs:
           ruff check
           ruff format --diff --check
           mypy ./**/*.py
-          # Run pytest only where tests exist; type-check-only showcases ship no tests/ dir.
           if [ -d tests ]; then pytest -v; fi
