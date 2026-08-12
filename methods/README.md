@@ -1,20 +1,21 @@
 # Methods
 
-Individual Slack Web API method calls with the `slack_sdk` `WebClient`.
+An interface for querying information from and enacting change in a Slack workspace.
 
-Read the [docs](https://docs.slack.dev/reference/methods) to explore every method, or explore implementations of specific families.
+Read the [docs](https://docs.slack.dev/apis/web-api/) for explanations of concepts, or explore [reference](https://docs.slack.dev/reference/methods) pages for specific functionalities.
 
-## What's on display
+## Making a request
+
+```sh
+$ cd methods  # Navigate to the package root
+$ slack install --environment local  # Create an app
+$ vim src/chat/chat_post_message.py  # Edit arguments
+$ export SLACK_TOKEN=xoxb-example  # Set if unchanged
+$ python -m src.chat.chat_post_message  # Make the request
+```
+
+## What's on call
 
 ### chat
 
 - **[chat.postMessage](https://docs.slack.dev/reference/methods/chat.postmessage)**: Sends a message to a channel. [Implementation](./src/chat/chat_post_message.py).
-
-## Running an example
-
-Each family ships a [`manifest.json`](./src/chat/manifest.json) requesting only the scopes it needs (`chat` → `chat:write`). Create an app from it, then set a bot token and run an example module directly:
-
-```sh
-export SLACK_TOKEN="xoxb-your-token"
-python -m src.chat.chat_post_message
-```
