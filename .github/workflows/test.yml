@@ -16,6 +16,7 @@ jobs:
           - "ai/slackbot-mcp-client/rich-responses/mcp-apps"
           - "ai/slackbot-mcp-client/slack-identity"
           - "block-kit"
+          - "methods"
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -29,5 +30,5 @@ jobs:
           pip install -r requirements.txt
           ruff check
           ruff format --diff --check
-          mypy .
-          pytest -v
+          mypy ./**/*.py
+          if [ -d tests ]; then pytest -v; fi
