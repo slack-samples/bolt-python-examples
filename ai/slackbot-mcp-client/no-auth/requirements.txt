@@ -7,4 +7,4 @@ slack_bolt==1.30.0
 slack_cli_hooks==0.3.0
 slack_sdk==3.43.0
 starlette==1.6.0
-uvicorn==0.52.1
+uvicorn==0.52.3
