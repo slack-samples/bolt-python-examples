@@ -9,7 +9,7 @@
       "always_online": true
     },
     "agent_view": {
-      "enabled": true
+      "agent_description": "Example implementations to call \"agents.sessions\" methods"
     }
   },
   "oauth_config": {
