@@ -11,7 +11,7 @@ $ cd src/chat  # Navigate to a method family
 $ slack install --environment local  # Create an app
 $ vim chat_post_message.py  # Edit arguments
 $ export SLACK_TOKEN=xoxb-example  # Set if unchanged
-$ slack run chat_post_message  # Make the request
+$ slack run chat_post_message.py  # Make the request
 ```
 
 ## What's on call
