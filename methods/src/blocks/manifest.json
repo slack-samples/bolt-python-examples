@@ -3,15 +3,9 @@
     "name": "Slack API Methods",
     "description": "Example implementations to call \"blocks\" methods"
   },
-  "features": {
-    "bot_user": {
-      "display_name": "Slack API Methods",
-      "always_online": true
-    }
-  },
   "oauth_config": {
     "scopes": {
-      "bot": ["chat:write"]
+      "bot": []
     }
   },
   "settings": {
