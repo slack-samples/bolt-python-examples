@@ -1,7 +1,7 @@
 from slack_sdk import WebClient
 from slack_sdk.models.blocks import PlainTextObject, SectionBlock
 
-# Initialize (blocks.validate is unauthenticated, so no token is needed)
+# Initialize
 client = WebClient()
 
 # Call the blocks.validate method
