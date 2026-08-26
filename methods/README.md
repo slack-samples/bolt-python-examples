@@ -18,4 +18,7 @@ $ slack run chat_post_message.py  # Make the request
 
 ### chat
 
+- **[chat.appendStream](https://docs.slack.dev/reference/methods/chat.appendStream)**: Appends text to an existing streaming conversation. [Implementation](./src/chat/chat_append_stream.py).
 - **[chat.postMessage](https://docs.slack.dev/reference/methods/chat.postmessage)**: Sends a message to a channel. [Implementation](./src/chat/chat_post_message.py).
+- **[chat.startStream](https://docs.slack.dev/reference/methods/chat.startStream)**: Starts a new streaming conversation. [Implementation](./src/chat/chat_start_stream.py).
+- **[chat.stopStream](https://docs.slack.dev/reference/methods/chat.stopStream)**: Stops a streaming conversation. [Implementation](./src/chat/chat_stop_stream.py).
