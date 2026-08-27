@@ -6,7 +6,9 @@ client = WebClient()
 
 # Call the blocks.validate method
 response = client.blocks_validate(
-    blocks=[SectionBlock(text=PlainTextObject(text="Hello world"))],
+    blocks=[
+        SectionBlock(text=PlainTextObject(text="Hello world")),
+    ],
 )
 
 # Inspect the response
