@@ -4,12 +4,12 @@ on:
     branches:
       - main
   pull_request:
-permissions:
-  contents: read
 jobs:
   test:
     name: "pytest@python3.14"
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     strategy:
       fail-fast: false
       matrix:
