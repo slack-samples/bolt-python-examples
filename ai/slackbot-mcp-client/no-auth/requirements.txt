@@ -1,10 +1,10 @@
-httpx2==2.10.0
+httpx2==2.12.0
 mcp==2.0.0
 mypy==2.3.1
 pytest==9.1.1
-ruff==0.16.3
+ruff==0.16.4
 slack_bolt==1.30.0
 slack_cli_hooks==0.3.0
-slack_sdk==3.43.0
+slack_sdk==3.44.0
 starlette==1.6.0
-uvicorn==0.52.3
+uvicorn==0.52.4
