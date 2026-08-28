@@ -9,9 +9,14 @@ def test_example01():
     expected = [
         {
             "type": "section",
-            "text": {"type": "mrkdwn", "text": ":mag: Search results for *Cata*"},
+            "text": {
+                "type": "mrkdwn",
+                "text": ":mag: Search results for *Cata*",
+            },
         },
-        {"type": "divider"},
+        {
+            "type": "divider",
+        },
         {
             "type": "section",
             "text": {
@@ -20,10 +25,17 @@ def test_example01():
             },
             "accessory": {
                 "type": "static_select",
-                "placeholder": {"type": "plain_text", "emoji": True, "text": "Manage"},
+                "placeholder": {
+                    "type": "plain_text",
+                    "emoji": True,
+                    "text": "Manage",
+                },
                 "option_groups": [
                     {
-                        "label": {"type": "plain_text", "text": "Group 1"},
+                        "label": {
+                            "type": "plain_text",
+                            "text": "Group 1",
+                        },
                         "options": [
                             {
                                 "text": {
@@ -49,7 +61,10 @@ def test_example01():
                         ],
                     },
                     {
-                        "label": {"type": "plain_text", "text": "Group 2"},
+                        "label": {
+                            "type": "plain_text",
+                            "text": "Group 2",
+                        },
                         "options": [
                             {
                                 "text": {

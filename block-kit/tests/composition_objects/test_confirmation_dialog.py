@@ -11,14 +11,24 @@ def test_example01():
         "elements": [
             {
                 "type": "button",
-                "text": {"type": "plain_text", "emoji": True, "text": "Approve"},
+                "text": {
+                    "type": "plain_text",
+                    "emoji": True,
+                    "text": "Approve",
+                },
                 "confirm": {
-                    "title": {"type": "plain_text", "text": "Are you sure?"},
+                    "title": {
+                        "type": "plain_text",
+                        "text": "Are you sure?",
+                    },
                     "text": {
                         "type": "mrkdwn",
                         "text": "Would you not prefer a good game of _chess_?",
                     },
-                    "confirm": {"type": "plain_text", "text": "Do it"},
+                    "confirm": {
+                        "type": "plain_text",
+                        "text": "Do it",
+                    },
                     "deny": {
                         "type": "plain_text",
                         "text": "Stop, I changed my mind!",
@@ -29,7 +39,11 @@ def test_example01():
             },
             {
                 "type": "button",
-                "text": {"type": "plain_text", "emoji": True, "text": "Deny"},
+                "text": {
+                    "type": "plain_text",
+                    "emoji": True,
+                    "text": "Deny",
+                },
                 "style": "danger",
                 "value": "click_me_123",
             },

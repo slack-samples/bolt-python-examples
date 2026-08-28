@@ -7,7 +7,11 @@ def test_example01():
     obj = option.example01()
     actual = obj.to_dict()
     expected = {
-        "text": {"type": "plain_text", "emoji": True, "text": "Save it"},
+        "text": {
+            "type": "plain_text",
+            "emoji": True,
+            "text": "Save it",
+        },
         "value": "value-2",
     }
     assert json.dumps(actual, sort_keys=True) == json.dumps(expected, sort_keys=True)
@@ -19,9 +23,14 @@ def test_example02():
     expected = [
         {
             "type": "section",
-            "text": {"type": "mrkdwn", "text": ":mag: Search results for *Cata*"},
+            "text": {
+                "type": "mrkdwn",
+                "text": ":mag: Search results for *Cata*",
+            },
         },
-        {"type": "divider"},
+        {
+            "type": "divider",
+        },
         {
             "type": "section",
             "text": {
@@ -30,7 +39,11 @@ def test_example02():
             },
             "accessory": {
                 "type": "static_select",
-                "placeholder": {"type": "plain_text", "emoji": True, "text": "Manage"},
+                "placeholder": {
+                    "type": "plain_text",
+                    "emoji": True,
+                    "text": "Manage",
+                },
                 "options": [
                     {
                         "text": {

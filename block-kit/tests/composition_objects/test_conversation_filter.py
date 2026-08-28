@@ -7,10 +7,22 @@ def test_example01():
     view = conversation_filter.example01()
     actual = view.to_dict()
     expected = {
-        "title": {"type": "plain_text", "text": "My App", "emoji": True},
-        "submit": {"type": "plain_text", "text": "Submit", "emoji": True},
+        "title": {
+            "type": "plain_text",
+            "text": "My App",
+            "emoji": True,
+        },
+        "submit": {
+            "type": "plain_text",
+            "text": "Submit",
+            "emoji": True,
+        },
         "type": "modal",
-        "close": {"type": "plain_text", "text": "Cancel", "emoji": True},
+        "close": {
+            "type": "plain_text",
+            "text": "Cancel",
+            "emoji": True,
+        },
         "blocks": [
             {
                 "type": "input",
