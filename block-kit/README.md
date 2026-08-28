@@ -24,3 +24,7 @@ Read the [docs](https://docs.slack.dev/block-kit/) to learn concepts behind thes
 - **[Table](https://docs.slack.dev/reference/block-kit/blocks/table-block)**: Displays structured information in a table. [Implementation](./src/blocks/table.py).
 - **[Task card](https://docs.slack.dev/reference/block-kit/blocks/task-card-block)**: Displays a single task, representing a single action. [Implementation](./src/blocks/task_card.py).
 - **[Video](https://docs.slack.dev/reference/block-kit/blocks/video-block)**: Displays an embedded video player. [Implementation](./src/blocks/video.py).
+
+### Block elements
+
+- **[Attachment mention](https://docs.slack.dev/reference/block-kit/block-elements/attachment-mention-element)**: Renders as a rich app attachment or entity reference. [Implementation](./src/block_elements/attachment_mention.py).
