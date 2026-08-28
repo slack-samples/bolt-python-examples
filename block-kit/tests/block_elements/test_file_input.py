@@ -1,0 +1,20 @@
+import json
+
+from src.block_elements import file_input
+
+
+def test_example01():
+    block = file_input.example01()
+    actual = block.to_dict()
+    expected = {
+        "type": "input",
+        "block_id": "input_block_id",
+        "label": {"type": "plain_text", "text": "Upload Files"},
+        "element": {
+            "type": "file_input",
+            "action_id": "file_input_action_id_1",
+            "filetypes": ["jpg", "png"],
+            "max_files": 5,
+        },
+    }
+    assert json.dumps(actual, sort_keys=True) == json.dumps(expected, sort_keys=True)
