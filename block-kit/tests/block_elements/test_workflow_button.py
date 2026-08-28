@@ -14,7 +14,10 @@ def test_example01():
         },
         "accessory": {
             "type": "workflow_button",
-            "text": {"type": "plain_text", "text": "Run Workflow"},
+            "text": {
+                "type": "plain_text",
+                "text": "Run Workflow",
+            },
             "action_id": "workflowbutton123",
             "workflow": {
                 "trigger": {
@@ -29,7 +32,7 @@ def test_example01():
                             "value": "Value for input param B",
                         },
                     ],
-                }
+                },
             },
         },
     }

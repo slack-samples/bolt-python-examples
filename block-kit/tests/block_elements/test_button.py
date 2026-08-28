@@ -8,7 +8,10 @@ def test_example01():
     actual = element.to_dict()
     expected = {
         "type": "button",
-        "text": {"type": "plain_text", "text": "Click Me"},
+        "text": {
+            "type": "plain_text",
+            "text": "Click Me",
+        },
         "value": "click_me_123",
         "action_id": "button",
     }
@@ -20,7 +23,10 @@ def test_example02():
     actual = element.to_dict()
     expected = {
         "type": "button",
-        "text": {"type": "plain_text", "text": "Save"},
+        "text": {
+            "type": "plain_text",
+            "text": "Save",
+        },
         "style": "primary",
         "value": "click_me_123",
         "action_id": "button",
@@ -33,7 +39,10 @@ def test_example03():
     actual = element.to_dict()
     expected = {
         "type": "button",
-        "text": {"type": "plain_text", "text": "Link Button"},
+        "text": {
+            "type": "plain_text",
+            "text": "Link Button",
+        },
         "url": "https://docs.slack.dev/block-kit",
     }
     assert json.dumps(actual, sort_keys=True) == json.dumps(expected, sort_keys=True)
@@ -51,7 +60,10 @@ def test_example04():
             },
             "accessory": {
                 "type": "button",
-                "text": {"type": "plain_text", "text": "Click Me"},
+                "text": {
+                    "type": "plain_text",
+                    "text": "Click Me",
+                },
                 "value": "click_me_123",
                 "action_id": "button",
             },
@@ -62,13 +74,19 @@ def test_example04():
             "elements": [
                 {
                     "type": "button",
-                    "text": {"type": "plain_text", "text": "Primary Button"},
+                    "text": {
+                        "type": "plain_text",
+                        "text": "Primary Button",
+                    },
                     "style": "primary",
                     "value": "click_me_456",
                 },
                 {
                     "type": "button",
-                    "text": {"type": "plain_text", "text": "Link Button"},
+                    "text": {
+                        "type": "plain_text",
+                        "text": "Link Button",
+                    },
                     "url": "https://api.slack.com/block-kit",
                 },
             ],

@@ -9,11 +9,17 @@ def test_example01():
     expected = {
         "type": "input",
         "block_id": "input_block_id",
-        "label": {"type": "plain_text", "text": "Upload Files"},
+        "label": {
+            "type": "plain_text",
+            "text": "Upload Files",
+        },
         "element": {
             "type": "file_input",
             "action_id": "file_input_action_id_1",
-            "filetypes": ["jpg", "png"],
+            "filetypes": [
+                "jpg",
+                "png",
+            ],
             "max_files": 5,
         },
     }

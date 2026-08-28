@@ -12,6 +12,10 @@ def test_example01():
             "type": "plain_text_input",
             "action_id": "plain_text_input-action",
         },
-        "label": {"type": "plain_text", "text": "Label", "emoji": True},
+        "label": {
+            "type": "plain_text",
+            "text": "Label",
+            "emoji": True,
+        },
     }
     assert json.dumps(actual, sort_keys=True) == json.dumps(expected, sort_keys=True)

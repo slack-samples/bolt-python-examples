@@ -9,22 +9,37 @@ def test_example01():
     expected = {
         "type": "section",
         "block_id": "section678",
-        "text": {"type": "mrkdwn", "text": "Pick items from the list"},
+        "text": {
+            "type": "mrkdwn",
+            "text": "Pick items from the list",
+        },
         "accessory": {
             "type": "multi_static_select",
             "action_id": "text1234",
-            "placeholder": {"type": "plain_text", "text": "Select items"},
+            "placeholder": {
+                "type": "plain_text",
+                "text": "Select items",
+            },
             "options": [
                 {
-                    "text": {"type": "plain_text", "text": "*this is plain_text text*"},
+                    "text": {
+                        "type": "plain_text",
+                        "text": "*this is plain_text text*",
+                    },
                     "value": "value-0",
                 },
                 {
-                    "text": {"type": "plain_text", "text": "*this is plain_text text*"},
+                    "text": {
+                        "type": "plain_text",
+                        "text": "*this is plain_text text*",
+                    },
                     "value": "value-1",
                 },
                 {
-                    "text": {"type": "plain_text", "text": "*this is plain_text text*"},
+                    "text": {
+                        "type": "plain_text",
+                        "text": "*this is plain_text text*",
+                    },
                     "value": "value-2",
                 },
             ],
@@ -39,11 +54,17 @@ def test_example02():
     expected = {
         "type": "section",
         "block_id": "section678",
-        "text": {"type": "mrkdwn", "text": "Pick items from the list"},
+        "text": {
+            "type": "mrkdwn",
+            "text": "Pick items from the list",
+        },
         "accessory": {
             "type": "multi_external_select",
             "action_id": "text1234",
-            "placeholder": {"type": "plain_text", "text": "Select items"},
+            "placeholder": {
+                "type": "plain_text",
+                "text": "Select items",
+            },
             "min_query_length": 3,
         },
     }
@@ -56,11 +77,17 @@ def test_example03():
     expected = {
         "type": "section",
         "block_id": "section678",
-        "text": {"type": "mrkdwn", "text": "Pick users from the list"},
+        "text": {
+            "type": "mrkdwn",
+            "text": "Pick users from the list",
+        },
         "accessory": {
             "type": "multi_users_select",
             "action_id": "text1234",
-            "placeholder": {"type": "plain_text", "text": "Select users"},
+            "placeholder": {
+                "type": "plain_text",
+                "text": "Select users",
+            },
         },
     }
     assert json.dumps(actual, sort_keys=True) == json.dumps(expected, sort_keys=True)
@@ -72,11 +99,17 @@ def test_example04():
     expected = {
         "type": "section",
         "block_id": "section678",
-        "text": {"type": "mrkdwn", "text": "Pick conversations from the list"},
+        "text": {
+            "type": "mrkdwn",
+            "text": "Pick conversations from the list",
+        },
         "accessory": {
             "type": "multi_conversations_select",
             "action_id": "text1234",
-            "placeholder": {"type": "plain_text", "text": "Select conversations"},
+            "placeholder": {
+                "type": "plain_text",
+                "text": "Select conversations",
+            },
         },
     }
     assert json.dumps(actual, sort_keys=True) == json.dumps(expected, sort_keys=True)
@@ -88,11 +121,17 @@ def test_example05():
     expected = {
         "type": "section",
         "block_id": "section678",
-        "text": {"type": "mrkdwn", "text": "Pick channels from the list"},
+        "text": {
+            "type": "mrkdwn",
+            "text": "Pick channels from the list",
+        },
         "accessory": {
             "type": "multi_channels_select",
             "action_id": "text1234",
-            "placeholder": {"type": "plain_text", "text": "Select channels"},
+            "placeholder": {
+                "type": "plain_text",
+                "text": "Select channels",
+            },
         },
     }
     assert json.dumps(actual, sort_keys=True) == json.dumps(expected, sort_keys=True)

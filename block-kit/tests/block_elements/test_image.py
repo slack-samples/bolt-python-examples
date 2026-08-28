@@ -35,7 +35,7 @@ def test_example02():
         "accessory": {
             "type": "image",
             "slack_file": {
-                "url": "https://files.slack.com/files-pri/T0123456-F0123456/xyz.png"
+                "url": "https://files.slack.com/files-pri/T0123456-F0123456/xyz.png",
             },
             "alt_text": "Slack file object.",
         },
@@ -55,7 +55,9 @@ def test_example03():
         },
         "accessory": {
             "type": "image",
-            "slack_file": {"id": "F01234567"},
+            "slack_file": {
+                "id": "F01234567",
+            },
             "alt_text": "Slack file object.",
         },
     }

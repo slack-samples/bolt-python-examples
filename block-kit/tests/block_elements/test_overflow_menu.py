@@ -18,23 +18,38 @@ def test_example01():
             "action_id": "overflow",
             "options": [
                 {
-                    "text": {"type": "plain_text", "text": "*this is plain_text text*"},
+                    "text": {
+                        "type": "plain_text",
+                        "text": "*this is plain_text text*",
+                    },
                     "value": "value-0",
                 },
                 {
-                    "text": {"type": "plain_text", "text": "*this is plain_text text*"},
+                    "text": {
+                        "type": "plain_text",
+                        "text": "*this is plain_text text*",
+                    },
                     "value": "value-1",
                 },
                 {
-                    "text": {"type": "plain_text", "text": "*this is plain_text text*"},
+                    "text": {
+                        "type": "plain_text",
+                        "text": "*this is plain_text text*",
+                    },
                     "value": "value-2",
                 },
                 {
-                    "text": {"type": "plain_text", "text": "*this is plain_text text*"},
+                    "text": {
+                        "type": "plain_text",
+                        "text": "*this is plain_text text*",
+                    },
                     "value": "value-3",
                 },
                 {
-                    "text": {"type": "plain_text", "text": "*this is plain_text text*"},
+                    "text": {
+                        "type": "plain_text",
+                        "text": "*this is plain_text text*",
+                    },
                     "value": "value-4",
                 },
             ],

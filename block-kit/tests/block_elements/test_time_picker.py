@@ -9,13 +9,19 @@ def test_example01():
     expected = {
         "type": "section",
         "block_id": "section1234",
-        "text": {"type": "mrkdwn", "text": "Pick a date for the deadline."},
+        "text": {
+            "type": "mrkdwn",
+            "text": "Pick a date for the deadline.",
+        },
         "accessory": {
             "type": "timepicker",
             "timezone": "America/Los_Angeles",
             "action_id": "timepicker123",
             "initial_time": "11:40",
-            "placeholder": {"type": "plain_text", "text": "Select a time"},
+            "placeholder": {
+                "type": "plain_text",
+                "text": "Select a time",
+            },
         },
     }
     assert json.dumps(actual, sort_keys=True) == json.dumps(expected, sort_keys=True)
