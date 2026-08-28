@@ -5,7 +5,7 @@ from slack_sdk.models.blocks.block_elements import ButtonElement, ImageElement
 
 def example01() -> CardBlock:
     """
-    Displays content in a card layout with optional icon, title, body, and actions.
+    Displays content in a card.
     https://docs.slack.dev/reference/block-kit/blocks/card-block/
 
     A card with icon, title, subtitle, hero image, body, and an action button.
