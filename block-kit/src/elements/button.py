@@ -42,7 +42,7 @@ def example03() -> ButtonElement:
     return element
 
 
-def example04() -> list[Block]:
+def example05() -> list[Block]:
     """
     The button element must be used inside either the section or actions block.
 

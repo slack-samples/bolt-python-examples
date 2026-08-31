@@ -48,8 +48,8 @@ def test_example03():
     assert json.dumps(actual, sort_keys=True) == json.dumps(expected, sort_keys=True)
 
 
-def test_example04():
-    blocks = button.example04()
+def test_example05():
+    blocks = button.example05()
     actual = [block.to_dict() for block in blocks]
     expected = [
         {
