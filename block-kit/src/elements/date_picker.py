@@ -8,7 +8,7 @@ def example01() -> SectionBlock:
     Allows users to select a date from a calendar style UI.
     https://docs.slack.dev/reference/block-kit/block-elements/date-picker-element/
 
-    A section block with a date picker as an accessory.
+    A section block with a date picker accessory.
     """
     block = SectionBlock(
         block_id="section1234",

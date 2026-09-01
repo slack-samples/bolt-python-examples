@@ -10,7 +10,7 @@ def example01() -> RichTextBlock:
     Displays text, optionally with styling.
     https://docs.slack.dev/reference/block-kit/block-elements/text-element/
 
-    A rich text block whose section holds plain and bold-styled text elements.
+    A rich text block with plain and bold text elements in a section.
     """
     block = RichTextBlock(
         elements=[

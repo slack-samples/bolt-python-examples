@@ -8,7 +8,7 @@ def example01() -> SectionBlock:
     Allows users to choose one item from a list of possible options.
     https://docs.slack.dev/reference/block-kit/block-elements/radio-button-group-element/
 
-    A section block with a radio button group element as an accessory.
+    A section block with a radio buttons accessory.
     """
     block = SectionBlock(
         text=PlainTextObject(text="Check out these rad radio buttons"),

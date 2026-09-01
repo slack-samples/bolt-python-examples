@@ -10,7 +10,7 @@ def example01() -> RichTextBlock:
     Displays a hyperlink.
     https://docs.slack.dev/reference/block-kit/block-elements/link-element/
 
-    A rich text block whose section holds a link element.
+    A rich text block with a link element in a section.
     """
     block = RichTextBlock(
         elements=[

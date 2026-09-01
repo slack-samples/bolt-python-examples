@@ -11,7 +11,7 @@ def example01() -> SectionBlock:
     Displays an image as part of a larger block of content.
     https://docs.slack.dev/reference/block-kit/block-elements/image-element/
 
-    A section block with an accessory image referenced by URL.
+    A section block with an image accessory using image_url.
     """
     block = SectionBlock(
         block_id="section567",
@@ -28,7 +28,7 @@ def example01() -> SectionBlock:
 
 def example02() -> SectionBlock:
     """
-    A section block with an accessory image referenced by a Slack file URL.
+    An image block using slack_file with a url.
     """
     block = SectionBlock(
         block_id="section567",
@@ -47,7 +47,7 @@ def example02() -> SectionBlock:
 
 def example03() -> SectionBlock:
     """
-    A section block with an accessory image referenced by a Slack file ID.
+    An image block using slack_file with a id.
     """
     block = SectionBlock(
         block_id="section567",

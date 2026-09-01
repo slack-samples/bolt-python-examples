@@ -9,7 +9,7 @@ def example01() -> View:
     Allows users to enter formatted text in a WYSIWYG composer, offering the same messaging writing experience as in Slack.
     https://docs.slack.dev/reference/block-kit/block-elements/rich-text-input-element/
 
-    A home view containing an input block with a rich text input element.
+    A home view with an input block containing a rich text input element.
     """
     view = View(
         type="home",

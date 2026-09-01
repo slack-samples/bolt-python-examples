@@ -9,7 +9,7 @@ def example01() -> View:
     Allows user to upload files.
     https://docs.slack.dev/reference/block-kit/block-elements/file-input-element/
 
-    A modal view with an input block that has a file input element.
+    A modal view with a file input element hosted in an input block.
     """
     view = View(
         type="modal",

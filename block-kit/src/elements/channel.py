@@ -10,7 +10,7 @@ def example01() -> RichTextBlock:
     Renders as a mention of a channel.
     https://docs.slack.dev/reference/block-kit/block-elements/channel-element/
 
-    A rich text block whose section holds a channel mention element.
+    A rich text block with a channel mention in a section.
     """
     block = RichTextBlock(
         elements=[

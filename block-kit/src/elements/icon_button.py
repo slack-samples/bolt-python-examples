@@ -8,7 +8,7 @@ def example01() -> ContextActionsBlock:
     An icon button to perform actions.
     https://docs.slack.dev/reference/block-kit/block-elements/icon-button-element/
 
-    A context actions block holding an icon button element.
+    A context actions block with an icon button.
     """
     block = ContextActionsBlock(
         elements=[

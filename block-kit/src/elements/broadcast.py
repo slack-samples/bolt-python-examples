@@ -10,7 +10,7 @@ def example01() -> RichTextBlock:
     Displays a broadcast mention such as here, channel, or everyone.
     https://docs.slack.dev/reference/block-kit/block-elements/broadcast-element/
 
-    A rich text block whose section holds a broadcast element.
+    A rich text block with a broadcast mention in a section.
     """
     block = RichTextBlock(
         elements=[

@@ -8,7 +8,7 @@ def example01() -> SectionBlock:
     Allows users to select a time of day.
     https://docs.slack.dev/reference/block-kit/block-elements/time-picker-element/
 
-    A section block with a time picker as an accessory.
+    A section block with a time picker accessory.
     """
     block = SectionBlock(
         block_id="section1234",

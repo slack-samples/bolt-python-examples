@@ -10,7 +10,7 @@ def example01() -> RichTextBlock:
     Renders as a mention of a user group.
     https://docs.slack.dev/reference/block-kit/block-elements/usergroup-element/
 
-    A rich text block whose section holds a user group mention element.
+    A rich text block with a user group mention in a section.
     """
     block = RichTextBlock(
         elements=[

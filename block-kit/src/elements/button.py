@@ -44,10 +44,7 @@ def example03() -> ButtonElement:
 
 def example05() -> list[Block]:
     """
-    The button element must be used inside either the section or actions block.
-
-    A section block with a button as an accessory, followed by an actions
-    block holding a primary button and a link button.
+    The button element used inside either the section or actions block.
     """
     blocks: list[Block] = [
         SectionBlock(

@@ -7,7 +7,7 @@ def example01() -> UrlSourceElement:
     Displays a URL source with optional icon.
     https://docs.slack.dev/reference/block-kit/block-elements/url-source-element/
 
-    A standalone URL source element.
+    A URL source element.
     """
     element = UrlSourceElement(
         url="https://docs.slack.dev/",
@@ -18,7 +18,7 @@ def example01() -> UrlSourceElement:
 
 def example02() -> TaskCardBlock:
     """
-    A task card block whose sources are URL source elements.
+    A task card block with URL source elements.
     """
     block = TaskCardBlock(
         task_id="task_1",

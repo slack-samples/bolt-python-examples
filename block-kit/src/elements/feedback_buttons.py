@@ -11,7 +11,7 @@ def example01() -> ContextActionsBlock:
     Buttons to indicate positive or negative feedback.
     https://docs.slack.dev/reference/block-kit/block-elements/feedback-buttons-element/
 
-    A context actions block holding a feedback buttons element.
+    A context actions block with feedback buttons.
     """
     block = ContextActionsBlock(
         elements=[

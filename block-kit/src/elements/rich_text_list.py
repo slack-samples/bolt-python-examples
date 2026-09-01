@@ -11,7 +11,7 @@ def example01() -> RichTextBlock:
     Displays a list of rich text items.
     https://docs.slack.dev/reference/block-kit/block-elements/rich-text-list-element/
 
-    A rich text block with a bordered bullet list.
+    A rich text block with a bulleted list.
     """
     block = RichTextBlock(
         block_id="block1",
@@ -48,8 +48,7 @@ def example01() -> RichTextBlock:
 
 def example02() -> RichTextBlock:
     """
-    A rich text block with a nested bullet list, created by indenting the
-    middle list into a sub-list.
+    A rich text block with nested bulleted lists using indent.
     """
     block = RichTextBlock(
         block_id="block1",

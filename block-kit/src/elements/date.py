@@ -10,7 +10,7 @@ def example01() -> RichTextBlock:
     Displays a formatted, localized date.
     https://docs.slack.dev/reference/block-kit/block-elements/date-element/
 
-    A rich text block whose section holds a date element with a fallback.
+    A rich text block with a date element in a section.
     """
     block = RichTextBlock(
         elements=[

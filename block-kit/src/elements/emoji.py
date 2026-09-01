@@ -10,7 +10,7 @@ def example01() -> RichTextBlock:
     Displays an emoji.
     https://docs.slack.dev/reference/block-kit/block-elements/emoji-element/
 
-    A rich text block whose section holds emoji elements separated by text.
+    A rich text block with emoji elements in a section.
     """
     block = RichTextBlock(
         elements=[

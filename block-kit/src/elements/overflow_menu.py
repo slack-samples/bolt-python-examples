@@ -12,7 +12,7 @@ def example01() -> SectionBlock:
     Allows users to press a button to view a list of options.
     https://docs.slack.dev/reference/block-kit/block-elements/overflow-menu-element/
 
-    A section block with an overflow menu as an accessory.
+    A section block with an overflow menu accessory.
     """
     block = SectionBlock(
         block_id="section 890",

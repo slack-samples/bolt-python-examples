@@ -10,7 +10,7 @@ def example01() -> RichTextBlock:
     Displays a preformatted rich text element.
     https://docs.slack.dev/reference/block-kit/block-elements/rich-text-preformatted-element/
 
-    A rich text block with a borderless preformatted code snippet.
+    A rich text block with a preformatted code section.
     """
     block = RichTextBlock(
         elements=[

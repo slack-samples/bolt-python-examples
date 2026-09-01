@@ -18,7 +18,7 @@ def example01() -> SectionBlock:
     Allows users to select multiple items from a list of options.
     https://docs.slack.dev/reference/block-kit/block-elements/multi-select-menu-element/
 
-    A section block with a static multi-select menu as an accessory.
+    A section block containing a static multi-select menu.
     """
     block = SectionBlock(
         block_id="section678",
@@ -47,7 +47,7 @@ def example01() -> SectionBlock:
 
 def example02() -> SectionBlock:
     """
-    A section block with an external data source multi-select menu as an accessory.
+    A multi-select menu in a section block with an external data source.
     """
     block = SectionBlock(
         block_id="section678",
@@ -63,7 +63,7 @@ def example02() -> SectionBlock:
 
 def example03() -> SectionBlock:
     """
-    A section block with a user list multi-select menu as an accessory.
+    A multi-select menu in a section block showing a list of users.
     """
     block = SectionBlock(
         block_id="section678",
@@ -78,7 +78,7 @@ def example03() -> SectionBlock:
 
 def example04() -> SectionBlock:
     """
-    A section block with a conversations list multi-select menu as an accessory.
+    A multi-select menu in a section block showing a list of conversations.
     """
     block = SectionBlock(
         block_id="section678",
@@ -93,7 +93,7 @@ def example04() -> SectionBlock:
 
 def example05() -> SectionBlock:
     """
-    A section block with a channels list multi-select menu as an accessory.
+    A multi-select menu in a section block showing a list of channels.
     """
     block = SectionBlock(
         block_id="section678",

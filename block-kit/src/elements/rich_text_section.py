@@ -10,7 +10,7 @@ def example01() -> list[RichTextBlock]:
     A section element that holds rich text elements.
     https://docs.slack.dev/reference/block-kit/block-elements/rich-text-section-element/
 
-    Four rich text blocks showing basic, bold, italic, and strikethrough text.
+    Rich text blocks showing basic, bold, italic, and strikethrough text sections.
     """
     blocks = [
         RichTextBlock(

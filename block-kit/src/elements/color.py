@@ -10,7 +10,7 @@ def example01() -> RichTextBlock:
     Displays a color swatch from a hex value.
     https://docs.slack.dev/reference/block-kit/block-elements/color-element/
 
-    A rich text block whose section holds a color element.
+    A rich text block with a color element in a section.
     """
     block = RichTextBlock(
         elements=[

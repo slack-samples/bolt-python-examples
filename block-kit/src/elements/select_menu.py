@@ -18,7 +18,7 @@ def example01() -> SectionBlock:
     Allows users to choose an option from a drop down menu.
     https://docs.slack.dev/reference/block-kit/block-elements/select-menu-element/
 
-    A section block with a static select menu as an accessory.
+    A section block with a static select menu accessory.
     """
     block = SectionBlock(
         block_id="section678",
@@ -47,7 +47,7 @@ def example01() -> SectionBlock:
 
 def example02() -> SectionBlock:
     """
-    A section block with an external data source select menu as an accessory.
+    A section block with an external select menu accessory.
     """
     block = SectionBlock(
         block_id="section678",
@@ -63,7 +63,7 @@ def example02() -> SectionBlock:
 
 def example03() -> SectionBlock:
     """
-    A section block with a user list select menu as an accessory.
+    A section block with a users select menu accessory.
     """
     block = SectionBlock(
         block_id="section678",
@@ -78,7 +78,7 @@ def example03() -> SectionBlock:
 
 def example04() -> SectionBlock:
     """
-    A section block with a conversations list select menu as an accessory.
+    A section block with a conversations select menu accessory.
     """
     block = SectionBlock(
         block_id="section678",
@@ -93,7 +93,7 @@ def example04() -> SectionBlock:
 
 def example05() -> SectionBlock:
     """
-    A section block with a channels list select menu as an accessory.
+    A section block with a channels select menu accessory.
     """
     block = SectionBlock(
         block_id="section678",
