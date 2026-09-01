@@ -13,7 +13,7 @@ def example01() -> SectionBlock:
     Defines an object containing trigger information.
     https://docs.slack.dev/reference/block-kit/composition-objects/trigger-object/
 
-    A workflow button whose trigger carries a URL and customizable inputs.
+    A section block with a workflow button whose trigger carries customizable input parameters.
     """
     block = SectionBlock(
         text=MarkdownTextObject(

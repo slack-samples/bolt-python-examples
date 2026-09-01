@@ -11,7 +11,7 @@ def example01() -> InputBlock:
     Defines when a plain-text input element will return a block_actions interaction payload.
     https://docs.slack.dev/reference/block-kit/composition-objects/dispatch-action-configuration-object/
 
-    An input block whose plain-text input dispatches actions on character entry.
+    An input block with a multiline plain-text input carrying a dispatch action configuration.
     """
     block = InputBlock(
         dispatch_action=True,

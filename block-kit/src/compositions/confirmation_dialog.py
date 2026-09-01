@@ -12,7 +12,7 @@ def example01() -> ActionsBlock:
     Defines a dialog that adds a confirmation step to interactive elements.
     https://docs.slack.dev/reference/block-kit/composition-objects/confirmation-dialog-object/
 
-    An actions block with a button that opens a confirmation dialog.
+    An actions block with a button carrying a confirmation dialog.
     """
     block = ActionsBlock(
         elements=[

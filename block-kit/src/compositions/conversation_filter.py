@@ -12,7 +12,7 @@ def example01() -> View:
     Defines a filter for the list of options in a conversation selector menu.
     https://docs.slack.dev/reference/block-kit/composition-objects/conversation-filter-object/
 
-    A modal view whose conversations select filters the listed conversations.
+    A modal view with a conversations select input carrying a conversation filter.
     """
     view = View(
         type="modal",

@@ -13,7 +13,7 @@ def example01() -> SectionBlock:
     Defines an object containing workflow information.
     https://docs.slack.dev/reference/block-kit/composition-objects/workflow-object/
 
-    A workflow button whose workflow references a configured trigger.
+    A section block with a workflow button whose workflow carries a trigger.
     """
     block = SectionBlock(
         text=MarkdownTextObject(
