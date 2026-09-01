@@ -20,9 +20,9 @@ def test_example01():
                         {
                             "type": "text",
                             "text": "Found weather data for Chicago from 2 sources",
-                        },
+                        }
                     ],
-                },
+                }
             ],
         },
         "sources": [

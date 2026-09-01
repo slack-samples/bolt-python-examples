@@ -9,29 +9,16 @@ def test_example01():
     expected = {
         "type": "table",
         "column_settings": [
-            {
-                "is_wrapped": True,
-            },
-            {
-                "align": "right",
-            },
+            {"is_wrapped": True},
+            {"align": "right"},
         ],
         "rows": [
             [
-                {
-                    "type": "raw_text",
-                    "text": "Header A",
-                },
-                {
-                    "type": "raw_text",
-                    "text": "Header B",
-                },
+                {"type": "raw_text", "text": "Header A"},
+                {"type": "raw_text", "text": "Header B"},
             ],
             [
-                {
-                    "type": "raw_text",
-                    "text": "Data 1A",
-                },
+                {"type": "raw_text", "text": "Data 1A"},
                 {
                     "type": "rich_text",
                     "elements": [
@@ -42,17 +29,14 @@ def test_example01():
                                     "type": "link",
                                     "text": "Data 1B",
                                     "url": "https://slack.com",
-                                },
+                                }
                             ],
-                        },
+                        }
                     ],
                 },
             ],
             [
-                {
-                    "type": "raw_text",
-                    "text": "Data 2A",
-                },
+                {"type": "raw_text", "text": "Data 2A"},
                 {
                     "type": "rich_text",
                     "elements": [
@@ -63,9 +47,9 @@ def test_example01():
                                     "type": "link",
                                     "text": "Data 2B",
                                     "url": "https://slack.com",
-                                },
+                                }
                             ],
-                        },
+                        }
                     ],
                 },
             ],

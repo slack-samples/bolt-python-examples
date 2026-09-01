@@ -16,9 +16,9 @@ def test_example01():
                         {
                             "type": "text",
                             "text": "Hello there, I am a basic rich text block!",
-                        },
+                        }
                     ],
-                },
+                }
             ],
         },
         {
@@ -39,7 +39,7 @@ def test_example01():
                             },
                         },
                     ],
-                },
+                }
             ],
         },
         {
@@ -60,7 +60,7 @@ def test_example01():
                             },
                         },
                     ],
-                },
+                }
             ],
         },
         {
@@ -81,7 +81,7 @@ def test_example01():
                             },
                         },
                     ],
-                },
+                }
             ],
         },
     ]
@@ -101,7 +101,7 @@ def test_example02():
                     {
                         "type": "text",
                         "text": "My favorite Slack features (in no particular order):",
-                    },
+                    }
                 ],
             },
             {
@@ -221,7 +221,7 @@ def test_example03():
                                 "text": "Pancakes, extra syrup",
                             },
                         ],
-                    },
+                    }
                 ],
             },
         ],
@@ -241,10 +241,10 @@ def test_example04():
                     {
                         "type": "text",
                         "text": '{\n  "object": {\n    "description": "this is an example of a json object"\n  }\n}',
-                    },
+                    }
                 ],
                 "border": 0,
-            },
+            }
         ],
     }
     assert json.dumps(actual, sort_keys=True) == json.dumps(expected, sort_keys=True)
@@ -263,7 +263,7 @@ def test_example05():
                     {
                         "type": "text",
                         "text": "What we need is good examples in our documentation.",
-                    },
+                    }
                 ],
             },
             {
@@ -288,13 +288,8 @@ def test_example06():
         "elements": [
             {
                 "type": "rich_text_section",
-                "elements": [
-                    {
-                        "type": "broadcast",
-                        "range": "everyone",
-                    },
-                ],
-            },
+                "elements": [{"type": "broadcast", "range": "everyone"}],
+            }
         ],
     }
     assert json.dumps(actual, sort_keys=True) == json.dumps(expected, sort_keys=True)
@@ -308,13 +303,8 @@ def test_example07():
         "elements": [
             {
                 "type": "rich_text_section",
-                "elements": [
-                    {
-                        "type": "color",
-                        "value": "#F405B3",
-                    },
-                ],
-            },
+                "elements": [{"type": "color", "value": "#F405B3"}],
+            }
         ],
     }
     assert json.dumps(actual, sort_keys=True) == json.dumps(expected, sort_keys=True)
@@ -328,13 +318,8 @@ def test_example08():
         "elements": [
             {
                 "type": "rich_text_section",
-                "elements": [
-                    {
-                        "type": "channel",
-                        "channel_id": "C123ABC456",
-                    },
-                ],
-            },
+                "elements": [{"type": "channel", "channel_id": "C123ABC456"}],
+            }
         ],
     }
     assert json.dumps(actual, sort_keys=True) == json.dumps(expected, sort_keys=True)
@@ -354,9 +339,9 @@ def test_example09():
                         "timestamp": 1720710212,
                         "format": "{date_num} at {time}",
                         "fallback": "timey",
-                    },
+                    }
                 ],
-            },
+            }
         ],
     }
     assert json.dumps(actual, sort_keys=True) == json.dumps(expected, sort_keys=True)
@@ -392,7 +377,7 @@ def test_example10():
                         "name": "checkered_flag",
                     },
                 ],
-            },
+            }
         ],
     }
     assert json.dumps(actual, sort_keys=True) == json.dumps(expected, sort_keys=True)
@@ -406,13 +391,8 @@ def test_example11():
         "elements": [
             {
                 "type": "rich_text_section",
-                "elements": [
-                    {
-                        "type": "link",
-                        "url": "https://api.slack.com",
-                    },
-                ],
-            },
+                "elements": [{"type": "link", "url": "https://api.slack.com"}],
+            }
         ],
     }
     assert json.dumps(actual, sort_keys=True) == json.dumps(expected, sort_keys=True)
@@ -426,13 +406,8 @@ def test_example12():
         "elements": [
             {
                 "type": "rich_text_section",
-                "elements": [
-                    {
-                        "type": "user",
-                        "user_id": "U123ABC456",
-                    },
-                ],
-            },
+                "elements": [{"type": "user", "user_id": "U123ABC456"}],
+            }
         ],
     }
     assert json.dumps(actual, sort_keys=True) == json.dumps(expected, sort_keys=True)
@@ -446,13 +421,8 @@ def test_example13():
         "elements": [
             {
                 "type": "rich_text_section",
-                "elements": [
-                    {
-                        "type": "usergroup",
-                        "usergroup_id": "G123ABC456",
-                    },
-                ],
-            },
+                "elements": [{"type": "usergroup", "usergroup_id": "G123ABC456"}],
+            }
         ],
     }
     assert json.dumps(actual, sort_keys=True) == json.dumps(expected, sort_keys=True)
