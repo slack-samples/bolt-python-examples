@@ -21,7 +21,7 @@ def example01() -> View:
                         "trigger_actions_on": ["on_character_entered"],
                     },
                     focus_on_load=True,
-                    placeholder=PlainTextObject(text="Enter text", emoji=None),
+                    placeholder=PlainTextObject(text="Enter text"),
                 ),
                 label=PlainTextObject(text="Label", emoji=True),
             ),

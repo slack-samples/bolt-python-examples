@@ -14,7 +14,7 @@ def example01() -> ContextActionsBlock:
         elements=[
             IconButtonElement(
                 icon="trash",
-                text=PlainTextObject(text="Delete", emoji=None),
+                text=PlainTextObject(text="Delete"),
                 action_id="delete_button",
                 value="delete_item",
             ),

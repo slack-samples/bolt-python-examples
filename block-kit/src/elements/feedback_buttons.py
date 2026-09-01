@@ -18,12 +18,12 @@ def example01() -> ContextActionsBlock:
             FeedbackButtonsElement(
                 action_id="feedback_buttons_1",
                 positive_button=FeedbackButtonObject(
-                    text=PlainTextObject(text="Good", emoji=None),
+                    text=PlainTextObject(text="Good"),
                     value="positive_feedback",
                     accessibility_label="Mark this response as good",
                 ),
                 negative_button=FeedbackButtonObject(
-                    text=PlainTextObject(text="Bad", emoji=None),
+                    text=PlainTextObject(text="Bad"),
                     value="negative_feedback",
                     accessibility_label="Mark this response as bad",
                 ),
