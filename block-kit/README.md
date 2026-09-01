@@ -62,3 +62,15 @@ Read the [docs](https://docs.slack.dev/block-kit/) to learn concepts behind thes
 - **[User](https://docs.slack.dev/reference/block-kit/block-elements/user-element)**: Renders as a mention of a user. [Implementation](./src/elements/user.py).
 - **[Usergroup](https://docs.slack.dev/reference/block-kit/block-elements/usergroup-element)**: Renders as a mention of a user group. [Implementation](./src/elements/usergroup.py).
 - **[Workflow button](https://docs.slack.dev/reference/block-kit/block-elements/workflow-button-element)**: Allows users to run a link trigger with customizable inputs. [Implementation](./src/elements/workflow_button.py).
+
+### Composition objects
+
+- **[Confirmation dialog](https://docs.slack.dev/reference/block-kit/composition-objects/confirmation-dialog-object)**: Defines a dialog that adds a confirmation step to interactive elements. [Implementation](./src/compositions/confirmation_dialog.py).
+- **[Conversation filter](https://docs.slack.dev/reference/block-kit/composition-objects/conversation-filter-object)**: Defines a filter for the list of options in a conversation selector menu. [Implementation](./src/compositions/conversation_filter.py).
+- **[Dispatch action configuration](https://docs.slack.dev/reference/block-kit/composition-objects/dispatch-action-configuration-object)**: Defines when a plain-text input element will return a `block_actions` interaction payload. [Implementation](./src/compositions/dispatch_action_configuration.py).
+- **[Option group](https://docs.slack.dev/reference/block-kit/composition-objects/option-group-object)**: Defines a way to group options in a menu. [Implementation](./src/compositions/option_group.py).
+- **[Option](https://docs.slack.dev/reference/block-kit/composition-objects/option-object)**: Defines a single item in a number of item selection elements. [Implementation](./src/compositions/option.py).
+- **[Slack file](https://docs.slack.dev/reference/block-kit/composition-objects/slack-file-object)**: Defines an object containing Slack file information to be used in an image block or image element. [Implementation](./src/compositions/slack_file.py).
+- **[Text](https://docs.slack.dev/reference/block-kit/composition-objects/text-object)**: Defines an object containing some text. [Implementation](./src/compositions/text.py).
+- **[Trigger](https://docs.slack.dev/reference/block-kit/composition-objects/trigger-object)**: Defines an object containing trigger information. [Implementation](./src/compositions/trigger.py).
+- **[Workflow](https://docs.slack.dev/reference/block-kit/composition-objects/workflow-object)**: Defines an object containing workflow information. [Implementation](./src/compositions/workflow.py).
