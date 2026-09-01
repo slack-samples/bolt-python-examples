@@ -13,7 +13,7 @@ def example01() -> SectionBlock:
     Allows users to run a link trigger with customizable inputs.
     https://docs.slack.dev/reference/block-kit/block-elements/workflow-button-element/
 
-    A section block with a workflow button as an accessory.
+    A section block containing a workflow button element.
     """
     block = SectionBlock(
         text=MarkdownTextObject(
