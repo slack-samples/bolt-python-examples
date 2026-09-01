@@ -4,7 +4,7 @@ from slack_sdk.models.blocks.block_elements import UrlSourceElement
 
 def example01() -> UrlSourceElement:
     """
-    Displays a URL source with optional icon.
+    Displays a URL source for referencing within a task card block.
     https://docs.slack.dev/reference/block-kit/block-elements/url-source-element/
 
     A URL source element.
