@@ -1,6 +1,6 @@
 import json
 
-from src.composition_objects import workflow
+from src.compositions import workflow
 
 
 def test_example01():

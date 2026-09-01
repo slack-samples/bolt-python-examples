@@ -1,6 +1,6 @@
 import json
 
-from src.composition_objects import slack_file
+from src.compositions import slack_file
 
 
 def test_example01():

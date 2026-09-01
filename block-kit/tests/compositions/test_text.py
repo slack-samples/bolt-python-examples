@@ -1,6 +1,6 @@
 import json
 
-from src.composition_objects import text
+from src.compositions import text
 
 
 def test_example01():

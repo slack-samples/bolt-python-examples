@@ -1,6 +1,6 @@
 import json
 
-from src.composition_objects import trigger
+from src.compositions import trigger
 
 
 def test_example01():

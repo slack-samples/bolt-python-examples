@@ -1,6 +1,6 @@
 import json
 
-from src.composition_objects import confirmation_dialog
+from src.compositions import confirmation_dialog
 
 
 def test_example01():

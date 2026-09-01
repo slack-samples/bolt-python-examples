@@ -1,6 +1,6 @@
 import json
 
-from src.composition_objects import conversation_filter
+from src.compositions import conversation_filter
 
 
 def test_example01():

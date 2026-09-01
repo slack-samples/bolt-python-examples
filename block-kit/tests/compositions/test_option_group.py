@@ -1,6 +1,6 @@
 import json
 
-from src.composition_objects import option_group
+from src.compositions import option_group
 
 
 def test_example01():

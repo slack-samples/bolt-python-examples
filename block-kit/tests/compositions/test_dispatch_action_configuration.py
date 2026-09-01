@@ -1,6 +1,6 @@
 import json
 
-from src.composition_objects import dispatch_action_configuration
+from src.compositions import dispatch_action_configuration
 
 
 def test_example01():
