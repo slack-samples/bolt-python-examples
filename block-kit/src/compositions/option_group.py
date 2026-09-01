@@ -13,7 +13,7 @@ def example01() -> list[Block]:
     Defines a way to group options in a menu.
     https://docs.slack.dev/reference/block-kit/composition-objects/option-group-object/
 
-    Option groups used within a select menu accessory on a section block.
+    A static select menu containing the option group object.
     """
     blocks: list[Block] = [
         SectionBlock(
