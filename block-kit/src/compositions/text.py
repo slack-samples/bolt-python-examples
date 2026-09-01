@@ -7,7 +7,7 @@ def example01() -> SectionBlock:
     Defines an object containing some text.
     https://docs.slack.dev/reference/block-kit/composition-objects/text-object/
 
-    A section block containing an mrkdwn text object.
+    A section block containing a text object.
     """
     block = SectionBlock(
         text=MarkdownTextObject(
