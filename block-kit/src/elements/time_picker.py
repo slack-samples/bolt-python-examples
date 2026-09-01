@@ -5,7 +5,7 @@ from slack_sdk.models.blocks.block_elements import TimePickerElement
 
 def example01() -> SectionBlock:
     """
-    Allows users to select a time of day.
+    Allows users to enter numerical data into a single-line field.
     https://docs.slack.dev/reference/block-kit/block-elements/time-picker-element/
 
     A section block with a time picker accessory.
