@@ -7,7 +7,7 @@ def example01() -> ImageBlock:
     Defines an object containing Slack file information to be used in an image block or image element.
     https://docs.slack.dev/reference/block-kit/composition-objects/slack-file-object/
 
-    An image block containing a Slack file object referenced by url.
+    An image block using slack_file with a url.
     """
     block = ImageBlock(
         title=PlainTextObject(text="Please enjoy this photo of a kitten"),
@@ -22,7 +22,7 @@ def example01() -> ImageBlock:
 
 def example02() -> ImageBlock:
     """
-    An image block containing a Slack file object referenced by id.
+    An image block using slack_file with an id.
     """
     block = ImageBlock(
         title=PlainTextObject(text="Please enjoy this photo of a kitten"),
