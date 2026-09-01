@@ -13,8 +13,7 @@ def example01() -> View:
     Allows users to choose multiple items from a list of options.
     https://docs.slack.dev/reference/block-kit/block-elements/checkboxes-element/
 
-    A modal view with a section block that has a checkboxes element as an
-    accessory.
+    A section block containing a group of checkboxes.
     """
     view = View(
         type="modal",
