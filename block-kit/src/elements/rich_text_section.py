@@ -31,7 +31,7 @@ def example01() -> list[RichTextBlock]:
                         RichTextElementParts.Text(text="Hello there, "),
                         RichTextElementParts.Text(
                             text="I am a bold rich text block!",
-                            style={"bold": True},
+                            style=RichTextElementParts.TextStyle(bold=True),
                         ),
                     ]
                 )
@@ -44,7 +44,7 @@ def example01() -> list[RichTextBlock]:
                         RichTextElementParts.Text(text="Hello there, "),
                         RichTextElementParts.Text(
                             text="I am an italic rich text block!",
-                            style={"italic": True},
+                            style=RichTextElementParts.TextStyle(italic=True),
                         ),
                     ]
                 )
@@ -57,7 +57,7 @@ def example01() -> list[RichTextBlock]:
                         RichTextElementParts.Text(text="Hello there, "),
                         RichTextElementParts.Text(
                             text="I am a strikethrough rich text block!",
-                            style={"strike": True},
+                            style=RichTextElementParts.TextStyle(strike=True),
                         ),
                     ]
                 )

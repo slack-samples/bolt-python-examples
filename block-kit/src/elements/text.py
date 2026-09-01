@@ -19,7 +19,7 @@ def example01() -> RichTextBlock:
                     RichTextElementParts.Text(text="Hello there, "),
                     RichTextElementParts.Text(
                         text="I am a bold rich text block!",
-                        style={"bold": True},
+                        style=RichTextElementParts.TextStyle(bold=True),
                     ),
                 ]
             )
