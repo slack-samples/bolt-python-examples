@@ -55,7 +55,7 @@ Read the [docs](https://docs.slack.dev/block-kit/) to learn concepts behind thes
 - **[Select menu](https://docs.slack.dev/reference/block-kit/block-elements/select-menu-element)**: Allows users to choose an option from a drop down menu. [Implementation](./src/elements/select_menu.py).
 - **[Team](https://docs.slack.dev/reference/block-kit/block-elements/team-element)**: Renders as a mention of a workspace or team. [Implementation](./src/elements/team.py).
 - **[Text](https://docs.slack.dev/reference/block-kit/block-elements/text-element)**: Displays text, optionally with styling. [Implementation](./src/elements/text.py).
-- **[Time picker](https://docs.slack.dev/reference/block-kit/block-elements/time-picker-element)**: Allows users to select a time of day. [Implementation](./src/elements/time_picker.py).
+- **[Time picker](https://docs.slack.dev/reference/block-kit/block-elements/time-picker-element)**: Allows users to enter numerical data into a single-line field. [Implementation](./src/elements/time_picker.py).
 - **[URL input](https://docs.slack.dev/reference/block-kit/block-elements/url-input-element)**: Allows user to enter a URL into a single-line field. [Implementation](./src/elements/url_input.py).
 - **[URL source](https://docs.slack.dev/reference/block-kit/block-elements/url-source-element)**: Displays a URL source for referencing within a task card block. [Implementation](./src/elements/url_source.py).
 - **[User](https://docs.slack.dev/reference/block-kit/block-elements/user-element)**: Renders as a mention of a user. [Implementation](./src/elements/user.py).
