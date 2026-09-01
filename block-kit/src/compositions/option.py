@@ -23,7 +23,7 @@ def example01() -> Option:
 
 def example02() -> list[Block]:
     """
-    Options used within a select menu accessory on a section block.
+    A static select menu element with several option objects.
     """
     blocks: list[Block] = [
         SectionBlock(
