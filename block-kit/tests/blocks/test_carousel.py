@@ -20,10 +20,12 @@ def test_example01():
                 "title": {
                     "type": "mrkdwn",
                     "text": "MDR",
+                    "verbatim": False,
                 },
                 "subtitle": {
                     "type": "mrkdwn",
                     "text": "Refining data files",
+                    "verbatim": False,
                 },
                 "hero_image": {
                     "type": "image",
@@ -33,6 +35,7 @@ def test_example01():
                 "body": {
                     "type": "mrkdwn",
                     "text": "Blue badge required to gain access.",
+                    "verbatim": False,
                 },
                 "actions": [
                     {
@@ -57,10 +60,12 @@ def test_example01():
                 "title": {
                     "type": "mrkdwn",
                     "text": "O&D",
+                    "verbatim": False,
                 },
                 "subtitle": {
                     "type": "mrkdwn",
                     "text": "Storage, maintenance, and rotation of art pieces",
+                    "verbatim": False,
                 },
                 "hero_image": {
                     "type": "image",
@@ -70,6 +75,7 @@ def test_example01():
                 "body": {
                     "type": "mrkdwn",
                     "text": "Green badge required to gain access.",
+                    "verbatim": False,
                 },
                 "actions": [
                     {
@@ -94,10 +100,12 @@ def test_example01():
                 "title": {
                     "type": "mrkdwn",
                     "text": "Wellness Center",
+                    "verbatim": False,
                 },
                 "subtitle": {
                     "type": "mrkdwn",
                     "text": "Wellness sessions",
+                    "verbatim": False,
                 },
                 "hero_image": {
                     "type": "image",
@@ -107,6 +115,7 @@ def test_example01():
                 "body": {
                     "type": "mrkdwn",
                     "text": "Please take a seat in the waiting room until called.",
+                    "verbatim": False,
                 },
                 "actions": [
                     {

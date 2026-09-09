@@ -18,13 +18,22 @@ def example01() -> CarouselBlock:
                     image_url="https://picsum.photos/36/36",
                     alt_text="Icon",
                 ),
-                title=MarkdownTextObject(text="MDR"),
-                subtitle=MarkdownTextObject(text="Refining data files"),
+                title=MarkdownTextObject(
+                    text="MDR",
+                    verbatim=False,
+                ),
+                subtitle=MarkdownTextObject(
+                    text="Refining data files",
+                    verbatim=False,
+                ),
                 hero_image=ImageElement(
                     image_url="https://picsum.photos/400/300",
                     alt_text="Sample hero image",
                 ),
-                body=MarkdownTextObject(text="Blue badge required to gain access."),
+                body=MarkdownTextObject(
+                    text="Blue badge required to gain access.",
+                    verbatim=False,
+                ),
                 actions=[
                     ButtonElement(
                         text=PlainTextObject(text="Action Button", emoji=False),
@@ -38,15 +47,22 @@ def example01() -> CarouselBlock:
                     image_url="https://picsum.photos/36/36",
                     alt_text="Icon",
                 ),
-                title=MarkdownTextObject(text="O&D"),
+                title=MarkdownTextObject(
+                    text="O&D",
+                    verbatim=False,
+                ),
                 subtitle=MarkdownTextObject(
-                    text="Storage, maintenance, and rotation of art pieces"
+                    text="Storage, maintenance, and rotation of art pieces",
+                    verbatim=False,
                 ),
                 hero_image=ImageElement(
                     image_url="https://picsum.photos/400/300",
                     alt_text="Sample hero image",
                 ),
-                body=MarkdownTextObject(text="Green badge required to gain access."),
+                body=MarkdownTextObject(
+                    text="Green badge required to gain access.",
+                    verbatim=False,
+                ),
                 actions=[
                     ButtonElement(
                         text=PlainTextObject(text="Action Button", emoji=False),
@@ -60,14 +76,21 @@ def example01() -> CarouselBlock:
                     image_url="https://picsum.photos/36/36",
                     alt_text="Icon",
                 ),
-                title=MarkdownTextObject(text="Wellness Center"),
-                subtitle=MarkdownTextObject(text="Wellness sessions"),
+                title=MarkdownTextObject(
+                    text="Wellness Center",
+                    verbatim=False,
+                ),
+                subtitle=MarkdownTextObject(
+                    text="Wellness sessions",
+                    verbatim=False,
+                ),
                 hero_image=ImageElement(
                     image_url="https://picsum.photos/400/300",
                     alt_text="Sample hero image",
                 ),
                 body=MarkdownTextObject(
-                    text="Please take a seat in the waiting room until called."
+                    text="Please take a seat in the waiting room until called.",
+                    verbatim=False,
                 ),
                 actions=[
                     ButtonElement(
