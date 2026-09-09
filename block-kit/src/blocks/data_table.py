@@ -1,4 +1,10 @@
-from slack_sdk.models.blocks import DataTableBlock
+from slack_sdk.models.blocks import (
+    DataTableBlock,
+    RawTextObject,
+    RichTextBlock,
+    RichTextElementParts,
+    RichTextSectionElement,
+)
 
 
 def example01() -> DataTableBlock:
@@ -12,67 +18,58 @@ def example01() -> DataTableBlock:
         caption="A Fabulous Table",
         rows=[
             [
-                {"type": "raw_text", "text": "Name"},
-                {"type": "raw_text", "text": "Department"},
-                {"type": "raw_text", "text": "Badge"},
+                RawTextObject(text="Name"),
+                RawTextObject(text="Department"),
+                RawTextObject(text="Badge"),
             ],
             [
-                {"type": "raw_text", "text": "Data Refinement Department"},
-                {"type": "raw_text", "text": "MDR"},
-                {
-                    "type": "rich_text",
-                    "elements": [
-                        {
-                            "type": "rich_text_section",
-                            "elements": [
-                                {
-                                    "type": "text",
-                                    "text": "Blue",
-                                    "style": {"bold": True},
-                                }
+                RawTextObject(text="Data Refinement Department"),
+                RawTextObject(text="MDR"),
+                RichTextBlock(
+                    elements=[
+                        RichTextSectionElement(
+                            elements=[
+                                RichTextElementParts.Text(
+                                    text="Blue",
+                                    style=RichTextElementParts.TextStyle(bold=True),
+                                ),
                             ],
-                        }
+                        ),
                     ],
-                },
+                ),
             ],
             [
-                {"type": "raw_text", "text": "Art Sourcing Department"},
-                {"type": "raw_text", "text": "O&D"},
-                {
-                    "type": "rich_text",
-                    "elements": [
-                        {
-                            "type": "rich_text_section",
-                            "elements": [
-                                {"type": "text", "text": "Green"},
-                                {
-                                    "type": "text",
-                                    "text": "review",
-                                    "style": {"italic": True},
-                                },
+                RawTextObject(text="Art Sourcing Department"),
+                RawTextObject(text="O&D"),
+                RichTextBlock(
+                    elements=[
+                        RichTextSectionElement(
+                            elements=[
+                                RichTextElementParts.Text(text="Green"),
+                                RichTextElementParts.Text(
+                                    text="review",
+                                    style=RichTextElementParts.TextStyle(italic=True),
+                                ),
                             ],
-                        }
+                        ),
                     ],
-                },
+                ),
             ],
             [
-                {"type": "raw_text", "text": "Wellness Department"},
-                {"type": "raw_text", "text": "Wellness Center"},
-                {
-                    "type": "rich_text",
-                    "elements": [
-                        {
-                            "type": "rich_text_section",
-                            "elements": [
-                                {
-                                    "type": "text",
-                                    "text": "Limited",
-                                    "style": {"bold": True},
-                                }
+                RawTextObject(text="Wellness Department"),
+                RawTextObject(text="Wellness Center"),
+                RichTextBlock(
+                    elements=[
+                        RichTextSectionElement(
+                            elements=[
+                                RichTextElementParts.Text(
+                                    text="Limited",
+                                    style=RichTextElementParts.TextStyle(bold=True),
+                                ),
                             ],
-                        }
+                        ),
                     ],
-                },
+                ),
             ],
         ],
     )

@@ -43,7 +43,10 @@ def test_example01():
                         {
                             "type": "rich_text_section",
                             "elements": [
-                                {"type": "text", "text": "Green"},
+                                {
+                                    "type": "text",
+                                    "text": "Green",
+                                },
                                 {
                                     "type": "text",
                                     "text": "review",
