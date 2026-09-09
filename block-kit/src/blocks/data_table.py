@@ -12,7 +12,7 @@ def example01() -> DataTableBlock:
     Displays rich tables that support pagination, sorting, filtering, and interactivity.
     https://docs.slack.dev/reference/block-kit/blocks/data-table-block/
 
-    A data table of departments with raw text and rich text cells.
+    A sample data table block.
     """
     block = DataTableBlock(
         caption="A Fabulous Table",
