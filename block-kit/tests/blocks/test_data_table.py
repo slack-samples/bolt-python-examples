@@ -27,7 +27,9 @@ def test_example01():
                                 {
                                     "type": "text",
                                     "text": "Blue",
-                                    "style": {"bold": True},
+                                    "style": {
+                                        "bold": True,
+                                    },
                                 }
                             ],
                         }
@@ -50,7 +52,9 @@ def test_example01():
                                 {
                                     "type": "text",
                                     "text": "review",
-                                    "style": {"italic": True},
+                                    "style": {
+                                        "italic": True,
+                                    },
                                 },
                             ],
                         }
@@ -69,7 +73,9 @@ def test_example01():
                                 {
                                     "type": "text",
                                     "text": "Limited",
-                                    "style": {"bold": True},
+                                    "style": {
+                                        "bold": True,
+                                    },
                                 }
                             ],
                         }
