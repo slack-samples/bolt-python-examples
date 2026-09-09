@@ -8,8 +8,7 @@ def example01() -> CarouselBlock:
     Displays related card blocks in a horizontally-scrolling container.
     https://docs.slack.dev/reference/block-kit/blocks/carousel-block/
 
-    A carousel with three cards, each with an icon, title, subtitle, hero
-    image, body, and an action button.
+    A sample carousel block.
     """
     block = CarouselBlock(
         elements=[
