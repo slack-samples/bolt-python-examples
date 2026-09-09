@@ -11,13 +11,28 @@ def test_example01():
         "caption": "A Fabulous Table",
         "rows": [
             [
-                {"type": "raw_text", "text": "Name"},
-                {"type": "raw_text", "text": "Department"},
-                {"type": "raw_text", "text": "Badge"},
+                {
+                    "type": "raw_text",
+                    "text": "Name",
+                },
+                {
+                    "type": "raw_text",
+                    "text": "Department",
+                },
+                {
+                    "type": "raw_text",
+                    "text": "Badge",
+                },
             ],
             [
-                {"type": "raw_text", "text": "Data Refinement Department"},
-                {"type": "raw_text", "text": "MDR"},
+                {
+                    "type": "raw_text",
+                    "text": "Data Refinement Department",
+                },
+                {
+                    "type": "raw_text",
+                    "text": "MDR",
+                },
                 {
                     "type": "rich_text",
                     "elements": [
@@ -37,8 +52,14 @@ def test_example01():
                 },
             ],
             [
-                {"type": "raw_text", "text": "Art Sourcing Department"},
-                {"type": "raw_text", "text": "O&D"},
+                {
+                    "type": "raw_text",
+                    "text": "Art Sourcing Department",
+                },
+                {
+                    "type": "raw_text",
+                    "text": "O&D",
+                },
                 {
                     "type": "rich_text",
                     "elements": [
@@ -62,8 +83,14 @@ def test_example01():
                 },
             ],
             [
-                {"type": "raw_text", "text": "Wellness Department"},
-                {"type": "raw_text", "text": "Wellness Center"},
+                {
+                    "type": "raw_text",
+                    "text": "Wellness Department",
+                },
+                {
+                    "type": "raw_text",
+                    "text": "Wellness Center",
+                },
                 {
                     "type": "rich_text",
                     "elements": [
