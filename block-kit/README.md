@@ -10,6 +10,7 @@ Read the [docs](https://docs.slack.dev/block-kit/) to learn concepts behind thes
 
 - **[Actions](https://docs.slack.dev/reference/block-kit/blocks/actions-block)**: Holds multiple interactive elements. [Implementation](./src/blocks/actions.py).
 - **[Alert](https://docs.slack.dev/reference/block-kit/blocks/alert-block)**: Displays alerts, warnings, and informational messages. [Implementation](./src/blocks/alert.py).
+- **[Container](https://docs.slack.dev/reference/block-kit/blocks/container-block)**: A general-purpose wrapper for grouping child blocks together, with a configurable size. [Implementation](./src/blocks/container.py).
 - **[Card](https://docs.slack.dev/reference/block-kit/blocks/card-block)**: Displays content in a card. [Implementation](./src/blocks/card.py).
 - **[Carousel](https://docs.slack.dev/reference/block-kit/blocks/carousel-block)**: Displays related card blocks in a horizontally-scrolling container. [Implementation](./src/blocks/carousel.py).
 - **[Context](https://docs.slack.dev/reference/block-kit/blocks/context-block)**: Provides contextual info, which can include both images and text. [Implementation](./src/blocks/context.py).
