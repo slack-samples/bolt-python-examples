@@ -10,8 +10,10 @@ client = WebClient(token=token)
 
 # Call the agents.sessions.setStatus method
 response = client.agents_sessions_setStatus(
-    channel_id="C123ABC456",
+    channel_id="C123ABC",
+    thread_ts="1717171717.123456",
     status="processing",
+    title="Scuba diving research",
 )
 
 # Inspect the response
