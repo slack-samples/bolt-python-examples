@@ -8,11 +8,9 @@ token = os.environ.get("SLACK_TOKEN")
 # Initialize
 client = WebClient(token=token)
 
-# Call the codeChannels.create method
-response = client.codeChannels_create(
-    name="Fix flaky login test",
-    origin_channel_id="C123ABC456",
-    origin_message_ts="1717171717.123456",
+# Call the agents.conversations.listViews method
+response = client.agents_conversations_listViews(
+    channel_id="C123ABC456",
 )
 
 # Inspect the response

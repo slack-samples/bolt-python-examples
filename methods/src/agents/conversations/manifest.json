@@ -1,7 +1,7 @@
 {
   "display_information": {
     "name": "Slack API Methods",
-    "description": "Example implementations to call \"codeChannels\" methods"
+    "description": "Example implementations to call \"agents.conversations\" methods"
   },
   "features": {
     "bot_user": {

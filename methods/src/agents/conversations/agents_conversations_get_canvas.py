@@ -8,9 +8,9 @@ token = os.environ.get("SLACK_TOKEN")
 # Initialize
 client = WebClient(token=token)
 
-# Call the codeChannels.getCanvas method
-response = client.codeChannels_getCanvas(
-    channel_id="C123ABC456",
+# Call the agents.conversations.getCanvas method
+response = client.agents_conversations_getCanvas(
+    channel="C123ABC456",
     canvas_id="F123ABC456",
 )
 

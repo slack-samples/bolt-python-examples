@@ -8,10 +8,10 @@ token = os.environ.get("SLACK_TOKEN")
 # Initialize
 client = WebClient(token=token)
 
-# Call the codeChannels.rename method
-response = client.codeChannels_rename(
+# Call the agents.conversations.removeView method
+response = client.agents_conversations_removeView(
     channel_id="C123ABC456",
-    name="Fix flaky login test v2",
+    view_id="V123ABC456",
 )
 
 # Inspect the response

@@ -8,8 +8,8 @@ token = os.environ.get("SLACK_TOKEN")
 # Initialize
 client = WebClient(token=token)
 
-# Call the codeChannels.setCommands method
-response = client.codeChannels_setCommands(
+# Call the agents.conversations.setCommands method
+response = client.agents_conversations_setCommands(
     channel_id="C123ABC456",
     commands=[
         {

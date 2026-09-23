@@ -8,8 +8,8 @@ token = os.environ.get("SLACK_TOKEN")
 # Initialize
 client = WebClient(token=token)
 
-# Call the codeChannels.archive method
-response = client.codeChannels_archive(
+# Call the agents.conversations.archive method
+response = client.agents_conversations_archive(
     channel_id="C123ABC456",
     summary_message_ts="1717171717.123456",
 )

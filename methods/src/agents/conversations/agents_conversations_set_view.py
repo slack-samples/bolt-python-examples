@@ -8,8 +8,8 @@ token = os.environ.get("SLACK_TOKEN")
 # Initialize
 client = WebClient(token=token)
 
-# Call the codeChannels.setView method
-response = client.codeChannels_setView(
+# Call the agents.conversations.setView method
+response = client.agents_conversations_setView(
     channel_id="C123ABC456",
     type="diff",
     content="diff --git a/cron.py b/cron.py\n--- a/cron.py\n+++ b/cron.py\n@@ ...",
