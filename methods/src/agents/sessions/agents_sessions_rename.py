@@ -10,8 +10,9 @@ client = WebClient(token=token)
 
 # Call the agents.sessions.rename method
 response = client.agents_sessions_rename(
-    channel_id="C123ABC456",
-    title="Fix flaky login test",
+    channel_id="C123ABC",
+    thread_ts="1717171717.123456",
+    title="Bora Bora trip prep",
 )
 
 # Inspect the response
