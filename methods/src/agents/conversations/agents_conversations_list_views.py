@@ -10,7 +10,7 @@ client = WebClient(token=token)
 
 # Call the agents.conversations.listViews method
 response = client.agents_conversations_listViews(
-    channel_id="C123ABC456",
+    channel_id="C9876543210",
 )
 
 # Inspect the response

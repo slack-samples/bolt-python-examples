@@ -10,8 +10,9 @@ client = WebClient(token=token)
 
 # Call the agents.conversations.getCanvas method
 response = client.agents_conversations_getCanvas(
-    channel="C123ABC456",
-    canvas_id="F123ABC456",
+    channel="C9876543210",
+    canvas_id="F1234567890",
+    include_resolved=False,
 )
 
 # Inspect the response

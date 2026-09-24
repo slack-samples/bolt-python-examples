@@ -10,9 +10,9 @@ client = WebClient(token=token)
 
 # Call the agents.conversations.setCanvasContent method
 response = client.agents_conversations_setCanvasContent(
-    channel="C123ABC456",
-    canvas_id="F123ABC456",
-    content="# Plan\n\n1. Reproduce the flaky test\n2. Fix the race\n3. Verify",
+    channel="C9876543210",
+    canvas_id="F1234567890",
+    content="# Migration plan\n\n1. Inventory cron jobs\n2. Port billing jobs last\n",
 )
 
 # Inspect the response

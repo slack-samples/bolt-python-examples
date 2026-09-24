@@ -10,15 +10,16 @@ client = WebClient(token=token)
 
 # Call the agents.conversations.setCommands method
 response = client.agents_conversations_setCommands(
-    channel_id="C123ABC456",
+    channel_id="C9876543210",
     commands=[
         {
-            "name": "test",
-            "description": "Run the test suite",
+            "name": "create-pr",
+            "description": "Open a pull request for the current branch",
+            "argument_hint": "[title]",
         },
         {
-            "name": "diff",
-            "description": "Show the current diff",
+            "name": "run-tests",
+            "description": "Run the test suite and report back",
         },
     ],
 )

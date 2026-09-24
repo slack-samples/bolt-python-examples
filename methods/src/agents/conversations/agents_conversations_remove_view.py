@@ -10,8 +10,8 @@ client = WebClient(token=token)
 
 # Call the agents.conversations.removeView method
 response = client.agents_conversations_removeView(
-    channel_id="C123ABC456",
-    view_id="V123ABC456",
+    channel_id="C9876543210",
+    view_key="reports/coverage.html",
 )
 
 # Inspect the response

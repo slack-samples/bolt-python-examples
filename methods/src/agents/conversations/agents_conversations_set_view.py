@@ -10,11 +10,13 @@ client = WebClient(token=token)
 
 # Call the agents.conversations.setView method
 response = client.agents_conversations_setView(
-    channel_id="C123ABC456",
-    type="diff",
-    content="diff --git a/cron.py b/cron.py\n--- a/cron.py\n+++ b/cron.py\n@@ ...",
-    base_branch="main",
-    head_branch="agent/migrate-cron",
+    channel_id="C9876543210",
+    view_key="reports/coverage.html",
+    name="Coverage",
+    content="<!doctype html><html><head>…</head><body>…</body></html>",
+    csp={
+        "resource_domains": ["https://cdn.jsdelivr.net"],
+    },
 )
 
 # Inspect the response
