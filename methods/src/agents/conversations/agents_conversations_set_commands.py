@@ -21,6 +21,10 @@ response = client.agents_conversations_setCommands(
             "name": "run-tests",
             "description": "Run the test suite and report back",
         },
+        {
+            "name": "summarize",
+            "description": "Post a summary of the work so far",
+        },
     ],
 )
 
