@@ -25,9 +25,9 @@ def test_example01():
                                 {
                                     "type": "text",
                                     "text": "Searched database...",
-                                }
+                                },
                             ],
-                        }
+                        },
                     ],
                 },
                 "output": {
@@ -40,9 +40,9 @@ def test_example01():
                                 {
                                     "type": "text",
                                     "text": "Profile data loaded",
-                                }
+                                },
                             ],
-                        }
+                        },
                     ],
                 },
             },
@@ -67,9 +67,9 @@ def test_example01():
                                 {
                                     "type": "text",
                                     "text": "15 data points compiled",
-                                }
+                                },
                             ],
-                        }
+                        },
                     ],
                 },
             },
