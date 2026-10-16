@@ -6,7 +6,7 @@ on:
   pull_request:
 jobs:
   test:
-    name: "pytest@python3.15"
+    name: "pytest"
     runs-on: ubuntu-latest
     permissions:
       contents: read
