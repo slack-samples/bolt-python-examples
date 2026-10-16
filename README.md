@@ -7,3 +7,4 @@ This collections of examples highlights features of a Slack app in the language 
 - **[AI in Slack](./ai)**: Agent experiences and MCP features in an interactive conversation interface.
 - **[Block Kit](./block-kit)**: The framework of visual components arranged to create app layouts.
 - **[Methods](./methods)**: An interface for querying information from and enacting change in a Slack workspace.
+- **[Standardized Auth](./standardized-auth)**: Connect user accounts with the Slack-owned Connect and Manage connection controls.
