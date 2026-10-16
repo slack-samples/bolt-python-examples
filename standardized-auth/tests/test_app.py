@@ -11,7 +11,7 @@ from urllib.parse import parse_qs, urlencode, urlparse
 import pytest
 from slack_bolt import App, BoltContext, BoltRequest
 from slack_sdk import WebClient
-from slack_sdk.oauth.state_store import FileOAuthStateStore
+from slack_sdk.oauth.state_store.stateless import StatelessOAuthStateStore
 
 os.environ["SLACK_CLIENT_ID"] = "111.222"
 os.environ["SLACK_CLIENT_SECRET"] = "test_client_secret"
@@ -38,10 +38,10 @@ def auth_test(token: str) -> dict:
 
 
 @pytest.fixture
-def app(store, tmp_path) -> App:
+def app(store) -> App:
     store.save(installation("U0ADA", user_token="xoxp-test-ada"))
-    state_store = FileOAuthStateStore(
-        expiration_seconds=600, base_dir=str(tmp_path / "states")
+    state_store = StatelessOAuthStateStore(
+        expiration_seconds=300, signing_secret=SIGNING_SECRET
     )
     return build_app(store, state_store, "https://acme.example")
 
