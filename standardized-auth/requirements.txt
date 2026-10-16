@@ -1,0 +1,6 @@
+mypy==2.4.0
+pytest==9.1.1
+ruff==0.16.10
+slack_bolt==1.30.0
+slack_cli_hooks==0.3.0
+slack_sdk @ git+https://github.com/slackapi/python-slack-sdk.git@699e1d1fe91effa4cb03bd0e3e8e5d88f43258b4

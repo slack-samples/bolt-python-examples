@@ -46,3 +46,11 @@ updates:
       default-days: 7
       exclude:
         - "slack*"
+  - package-ecosystem: "pip"
+    directory: "standardized-auth"
+    schedule:
+      interval: "daily"
+    cooldown:
+      default-days: 7
+      exclude:
+        - "slack*"
