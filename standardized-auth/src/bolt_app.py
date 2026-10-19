@@ -40,7 +40,7 @@ app = App(
 
 
 def import_listeners(directory: Path):
-    for path in sorted(directory.glob("**/[!_]*.py")):
+    for path in sorted(directory.glob("**/*.py")):
         module = path.relative_to(directory.parent).with_suffix("")
         import_module("." + ".".join(module.parts), __package__)
 
