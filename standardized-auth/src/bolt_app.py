@@ -40,7 +40,7 @@ app = App(
 
 
 def load_listeners() -> None:
-    for module_info in walk_packages(listeners.__path__, listeners.__name__ + "."):
+    for module_info in walk_packages(listeners.__path__, f"{listeners.__name__}."):
         import_module(module_info.name)
 
 
