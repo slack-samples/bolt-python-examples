@@ -1,4 +1,6 @@
 import os
+from importlib import import_module
+from pathlib import Path
 
 from slack_bolt import App, BoltResponse
 from slack_bolt.oauth.callback_options import CallbackOptions, FailureArgs, SuccessArgs
@@ -7,6 +9,8 @@ from slack_sdk import WebClient
 from slack_sdk.oauth.state_store.stateless import StatelessOAuthStateStore
 
 from src import acme
+
+ROOT = Path(__file__).parents[1]
 
 
 def success_callback(args: SuccessArgs) -> BoltResponse:
@@ -35,3 +39,11 @@ app = App(
         ),
     ),
 )
+
+
+def import_listeners(directory: Path):
+    for path in sorted(directory.rglob("[!_]*.py")):
+        import_module(".".join(path.relative_to(ROOT).with_suffix("").parts))
+
+
+import_listeners(ROOT / "src" / "listeners")
