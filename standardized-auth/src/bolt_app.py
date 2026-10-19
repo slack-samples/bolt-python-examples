@@ -1,6 +1,6 @@
 import os
 from importlib import import_module
-from pathlib import Path
+from pkgutil import walk_packages
 
 from slack_bolt import App, BoltResponse
 from slack_bolt.oauth.callback_options import CallbackOptions, FailureArgs, SuccessArgs
@@ -8,7 +8,7 @@ from slack_bolt.oauth.oauth_settings import OAuthSettings
 from slack_sdk import WebClient
 from slack_sdk.oauth.state_store.stateless import StatelessOAuthStateStore
 
-from src import acme
+from src import acme, listeners
 
 
 def success_callback(args: SuccessArgs) -> BoltResponse:
@@ -39,10 +39,9 @@ app = App(
 )
 
 
-def import_listeners(directory: Path):
-    for path in sorted(directory.glob("**/*.py")):
-        module = path.relative_to(directory.parent).with_suffix("")
-        import_module("." + ".".join(module.parts), __package__)
+def load_listeners() -> None:
+    for module_info in walk_packages(listeners.__path__, listeners.__name__ + "."):
+        import_module(module_info.name)
 
 
-import_listeners(Path(__file__).parent / "listeners")
+load_listeners()
