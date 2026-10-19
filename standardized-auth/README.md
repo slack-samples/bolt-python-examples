@@ -6,7 +6,7 @@ Read the docs: https://docs.slack.dev/authentication/standardized-auth
 
 ## How it works
 
-Acme keeps every connection in Bolt's installation store: a user is connected when the store holds their user token. Shared helpers live in [`src/acme.py`](./src/acme.py), and each listener has its own file under [`src/listeners`](./src/listeners).
+Acme keeps every connection in Bolt's installation store: a user is connected when the store holds their user token. Shared helpers live in [`src/acme.py`](./src/acme.py), and each listener has its own file under [`src/listeners`](./src/listeners) that registers itself with `@app.action` or `@app.event`. [`app.py`](./app.py) imports every file in that directory at startup, so a new listener only needs a new file.
 
 - **Connect** opens `/slack/install`. When the OAuth flow saves the user's token, [`oauth/success.py`](./src/listeners/oauth/success.py) reports the connection with `apps.user.connection.requestAuth` and refreshes App Home.
 - **Disconnect** ([`actions/disconnect.py`](./src/listeners/actions/disconnect.py)) forgets the user's token, reports the user as disconnected, then revokes the token.

@@ -2,8 +2,10 @@ from slack_bolt import Ack, BoltContext
 from slack_sdk import WebClient
 
 from src.acme import disconnect, find_user_token, provider
+from src.app import app
 
 
+@app.action("user_connection")
 def user_connection_callback(
     ack: Ack, body: dict, client: WebClient, context: BoltContext
 ):

@@ -11,8 +11,8 @@ import pytest
 from slack_bolt import App, BoltContext, BoltRequest
 from slack_sdk import WebClient
 
+import app as entrypoint
 from src.acme import find_user_token
-from src.app import build_app
 from tests.helpers import installation
 
 SIGNING_SECRET = "test_signing_secret"
@@ -33,7 +33,7 @@ def auth_test(token: str) -> dict:
 @pytest.fixture
 def app(store) -> App:
     store.save(installation("U0ADA", user_token="xoxp-test-ada"))
-    return build_app()
+    return entrypoint.app
 
 
 def test_connect_clicks_are_acknowledged(app):
