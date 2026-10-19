@@ -10,8 +10,6 @@ from slack_sdk.oauth.state_store.stateless import StatelessOAuthStateStore
 
 from src import acme
 
-ROOT = Path(__file__).parents[1]
-
 
 def success_callback(args: SuccessArgs) -> BoltResponse:
     installation = args.installation
@@ -43,7 +41,8 @@ app = App(
 
 def import_listeners(directory: Path):
     for path in sorted(directory.rglob("[!_]*.py")):
-        import_module(".".join(path.relative_to(ROOT).with_suffix("").parts))
+        module = path.relative_to(directory.parent).with_suffix("")
+        import_module("." + ".".join(module.parts), __package__)
 
 
-import_listeners(ROOT / "src" / "listeners")
+import_listeners(Path(__file__).parent / "listeners")
