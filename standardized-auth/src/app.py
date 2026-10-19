@@ -1,41 +1,27 @@
-from slack_bolt import App, BoltResponse
-from slack_bolt.oauth.callback_options import CallbackOptions, FailureArgs
+import os
+
+from slack_bolt import App
 from slack_bolt.oauth.oauth_settings import OAuthSettings
-from slack_sdk.oauth.installation_store import InstallationStore
-from slack_sdk.oauth.state_store import OAuthStateStore
+from slack_sdk.oauth.state_store.stateless import StatelessOAuthStateStore
 
-from src.accounts import AcmeAccounts
-from src.acme import CONNECT_ACTION_ID, DISCONNECT_ACTION_ID
-from src.listeners import AcmeListeners
-
-
-def show_failure(args: FailureArgs) -> BoltResponse:
-    return args.default.failure(args)
+from src import acme
+from src.listeners import register_listeners
+from src.listeners.oauth import callback_options
 
 
-def build_app(
-    installation_store: InstallationStore,
-    state_store: OAuthStateStore,
-    base_url: str,
-) -> App:
-    listeners = AcmeListeners(
-        AcmeAccounts(installation_store), auth_url=f"{base_url}/slack/install"
-    )
+def build_app() -> App:
     app = App(
         oauth_settings=OAuthSettings(
             scopes=["users:read"],
             user_scopes=["users.profile:read"],
             install_page_rendering_enabled=False,
-            installation_store=installation_store,
-            state_store=state_store,
-            callback_options=CallbackOptions(
-                success=listeners.report_connected, failure=show_failure
+            installation_store=acme.installation_store,
+            state_store=StatelessOAuthStateStore(
+                expiration_seconds=300,
+                signing_secret=os.environ["SLACK_SIGNING_SECRET"],
             ),
+            callback_options=callback_options,
         ),
     )
-    app.event("app_home_opened")(listeners.publish_home)
-    app.event("user_connection_status_requested")(listeners.answer_status_request)
-    app.event("tokens_revoked")(listeners.forget_revoked_users)
-    app.action(CONNECT_ACTION_ID)(listeners.acknowledge_connect)
-    app.action(DISCONNECT_ACTION_ID)(listeners.acknowledge_disconnect)
+    register_listeners(app)
     return app

@@ -1,7 +1,6 @@
 import hashlib
 import hmac
 import json
-import os
 import time
 from collections.abc import Callable, Iterator
 from contextlib import contextmanager
@@ -11,14 +10,8 @@ from urllib.parse import parse_qs, urlencode, urlparse
 import pytest
 from slack_bolt import App, BoltContext, BoltRequest
 from slack_sdk import WebClient
-from slack_sdk.oauth.state_store.stateless import StatelessOAuthStateStore
 
-os.environ["SLACK_CLIENT_ID"] = "111.222"
-os.environ["SLACK_CLIENT_SECRET"] = "test_client_secret"
-os.environ["SLACK_SIGNING_SECRET"] = "test_signing_secret"
-
-from src.accounts import AcmeAccounts
-from src.acme import CONNECT_ACTION_ID, DISCONNECT_ACTION_ID
+from src.acme import find_user_token
 from src.app import build_app
 from tests.helpers import installation
 
@@ -40,15 +33,12 @@ def auth_test(token: str) -> dict:
 @pytest.fixture
 def app(store) -> App:
     store.save(installation("U0ADA", user_token="xoxp-test-ada"))
-    state_store = StatelessOAuthStateStore(
-        expiration_seconds=300, signing_secret=SIGNING_SECRET
-    )
-    return build_app(store, state_store, "https://acme.example")
+    return build_app()
 
 
 def test_connect_clicks_are_acknowledged(app):
     with patch.object(WebClient, "auth_test", side_effect=auth_test):
-        response = app.dispatch(block_action(CONNECT_ACTION_ID))
+        response = app.dispatch(block_action("auth_provider_connect_acme"))
 
     assert response.status == 200
 
@@ -62,11 +52,11 @@ def test_clicks_for_other_providers_are_not_handled(app):
 
 def test_disconnect_clicks_forget_the_account(app, store):
     with slack_api() as api:
-        response = app.dispatch(block_action(DISCONNECT_ACTION_ID))
+        response = app.dispatch(block_action("auth_provider_disconnect_acme"))
         wait_until(lambda: api.auth_revoke.called)
 
     assert response.status == 200
-    assert AcmeAccounts(store).find(workspace(), "U0ADA") is None
+    assert find_user_token(workspace(), "U0ADA") is None
 
 
 def test_app_home_opened_publishes_the_home_view(app):
@@ -97,7 +87,7 @@ def test_revoked_user_tokens_are_forgotten(app, store):
         wait_until(lambda: api.views_publish.called)
 
     assert response.status == 200
-    assert AcmeAccounts(store).find(workspace(), "U0ADA") is None
+    assert find_user_token(workspace(), "U0ADA") is None
 
 
 def test_install_redirects_straight_to_slack_with_the_user_scope(app):
