@@ -2,7 +2,7 @@ import os
 from importlib import import_module
 from pathlib import Path
 
-from src.app import app
+from src.bolt_app import app
 
 ROOT = Path(__file__).parent
 

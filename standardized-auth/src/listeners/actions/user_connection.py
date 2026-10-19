@@ -2,7 +2,7 @@ from slack_bolt import Ack, BoltContext
 from slack_sdk import WebClient
 
 from src.acme import disconnect, find_user_token, provider
-from src.app import app
+from src.bolt_app import app
 
 
 @app.action("user_connection")

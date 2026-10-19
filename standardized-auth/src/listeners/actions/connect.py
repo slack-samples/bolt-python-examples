@@ -1,6 +1,6 @@
 from slack_bolt import Ack
 
-from src.app import app
+from src.bolt_app import app
 
 
 @app.action("auth_provider_connect_acme")

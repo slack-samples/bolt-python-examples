@@ -2,7 +2,7 @@ from slack_bolt import BoltContext
 from slack_sdk import WebClient
 
 from src.acme import find_user_token
-from src.app import app
+from src.bolt_app import app
 
 
 @app.event("user_connection_status_requested")

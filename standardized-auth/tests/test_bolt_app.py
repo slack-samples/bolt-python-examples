@@ -2,7 +2,7 @@ from unittest.mock import MagicMock, patch
 
 from slack_bolt.oauth.callback_options import SuccessArgs
 
-from src.listeners.oauth.success import success_callback
+from src.bolt_app import success_callback
 from tests.helpers import expected_home, expected_provider, installation, published_view
 
 
@@ -14,9 +14,7 @@ def test_reports_the_connection_then_shows_the_success_page(client):
         default=MagicMock(),
     )
 
-    with patch(
-        "src.listeners.oauth.success.WebClient", return_value=client
-    ) as client_class:
+    with patch("src.bolt_app.WebClient", return_value=client) as client_class:
         response = success_callback(args)
 
     client_class.assert_called_once_with(token="xoxb-test-bot")
