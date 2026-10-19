@@ -37,12 +37,10 @@ def forget(context: BoltContext, user_id: str) -> str | None:
     account = find_account(context, user_id)
     if account is None:
         return None
-    installation_store.delete_installation(
-        enterprise_id=account.enterprise_id,
-        team_id=account.team_id,
-        user_id=user_id,
-    )
-    return account.user_token
+    user_token = account.user_token
+    account.user_token = None
+    installation_store.save(account)
+    return user_token
 
 
 def plain_text(text: str) -> dict[str, str]:

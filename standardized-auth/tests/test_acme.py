@@ -54,6 +54,17 @@ def test_forgets_org_wide_accounts(store):
     assert find_user_token(org_context(), "U0ADA") is None
 
 
+def test_forget_clears_the_token_from_the_latest_installation(store):
+    store.save(installation("U0ADA", user_token="xoxp-test-ada"))
+
+    forget(context(), "U0ADA")
+
+    latest = store.find_installation(enterprise_id=None, team_id="T0001")
+    assert latest is not None
+    assert latest.user_token is None
+    assert latest.bot_token == "xoxb-test-bot"
+
+
 def test_forgetting_a_user_without_an_account_returns_nothing(store):
     assert forget(context(), "U0ADA") is None
 
