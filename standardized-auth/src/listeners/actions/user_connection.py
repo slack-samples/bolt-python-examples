@@ -1,21 +1,17 @@
-from slack_bolt import Ack, BoltContext
+from slack_bolt import Ack
 from slack_sdk import WebClient
 
-from src.acme import disconnect, find_user_token, provider
+from src.acme import disconnect, provider
 from src.bolt_app import app
 
 
 @app.action("user_connection")
-def user_connection_callback(
-    ack: Ack, body: dict, client: WebClient, context: BoltContext
-):
+def user_connection_callback(ack: Ack, body: dict, client: WebClient):
     ack()
     user_id = body["user"]["id"]
     if body["subtype"] == "connect":
-        user_token = find_user_token(context, user_id)
         client.apps_user_connection_requestAuth(
-            trigger_id=body["trigger_id"],
-            primary_provider=provider(client, user_token),
+            trigger_id=body["trigger_id"], primary_provider=provider(user_id)
         )
     elif body["subtype"] == "disconnect":
-        disconnect(client, context, user_id)
+        disconnect(client, user_id)
