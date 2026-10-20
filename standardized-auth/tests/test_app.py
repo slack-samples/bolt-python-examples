@@ -2,15 +2,15 @@ from unittest.mock import MagicMock
 
 from slack_sdk import WebClient
 
-from src.acme import provider
-from src.connections import connections
-from src.listeners import (
+from app import (
     app_home_opened_callback,
     connect_callback,
     disconnect_callback,
     user_connection_callback,
     user_connection_status_requested_callback,
 )
+from src.acme import provider
+from src.connections import connections
 from tests.helpers import TempStore, called_methods, expected_home, published_view
 
 
