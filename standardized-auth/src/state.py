@@ -1,20 +1,20 @@
-import hmac
 import secrets
-from hashlib import sha256
 
-key = secrets.token_bytes(32)
+from slack_sdk.oauth.state_store import StatelessOAuthStateStore
+
+key = secrets.token_hex(32)
 
 
-def sign(user_id: str) -> str:
-    return hmac.new(key, user_id.encode(), sha256).hexdigest()
+def store_for(user_id: str) -> StatelessOAuthStateStore:
+    return StatelessOAuthStateStore(
+        expiration_seconds=300, signing_secret=key + user_id
+    )
 
 
 def issue(user_id: str) -> str:
-    return f"{user_id}.{sign(user_id)}"
+    return f"{store_for(user_id).issue()}.{user_id}"
 
 
 def redeem(state: str) -> str | None:
-    user_id, _, signature = state.partition(".")
-    if hmac.compare_digest(signature.encode(), sign(user_id).encode()):
-        return user_id
-    return None
+    token, _, user_id = state.rpartition(".")
+    return user_id if store_for(user_id).consume(token) else None

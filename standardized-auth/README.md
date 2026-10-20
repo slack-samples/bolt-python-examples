@@ -8,7 +8,7 @@ Read the docs: https://docs.slack.dev/authentication/standardized-auth
 
 Acme runs over Socket Mode and keeps every connection in a local SQLite database ([`src/connections.py`](./src/connections.py)): a user is connected when it holds their Acme username. Shared helpers live in [`src/acme.py`](./src/acme.py), and each listener has its own file under [`src/listeners`](./src/listeners) that registers itself with `@app.action` or `@app.event`. [`src/bolt_app.py`](./src/bolt_app.py) imports every file in that directory when it builds the app, so a new listener only needs a new file.
 
-- **Connect** opens Acme's sign-in page ([`src/sign_in.py`](./src/sign_in.py)) with a signed `state` ([`src/state.py`](./src/state.py)) naming the Slack user. Signing in saves the connection, reports it with `apps.user.connection.requestAuth`, and refreshes App Home.
+- **Connect** opens Acme's sign-in page ([`src/sign_in.py`](./src/sign_in.py)) with a `state` ([`src/state.py`](./src/state.py)) from the SDK's `StatelessOAuthStateStore`, signed for the Slack user and valid for 5 minutes. Signing in saves the connection, reports it with `apps.user.connection.requestAuth`, and refreshes App Home.
 - **Disconnect** ([`actions/disconnect.py`](./src/listeners/actions/disconnect.py)) forgets the connection and reports the user as disconnected.
 - **`user_connection_status_requested`** ([`events/user_connection_status_requested.py`](./src/listeners/events/user_connection_status_requested.py)) answers with `apps.user.connection.update` whenever Slack asks about a user it doesn't know yet.
 - **App Home** ([`events/app_home_opened.py`](./src/listeners/events/app_home_opened.py)) shows an `auth_provider` block with the user's current connection.

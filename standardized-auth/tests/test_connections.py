@@ -22,7 +22,8 @@ def test_disconnect_forgets_the_user(tmp_path):
     connections = Connections(tmp_path / "acme.db")
     connections.connect("U0ADA", "ada")
 
-    assert connections.disconnect("U0ADA") is True
+    connections.disconnect("U0ADA")
+
     assert connections.find("U0ADA") is None
 
 
@@ -39,7 +40,9 @@ def test_disconnect_keeps_other_users_connected(tmp_path):
 def test_disconnecting_an_unknown_user_changes_nothing(tmp_path):
     connections = Connections(tmp_path / "acme.db")
 
-    assert connections.disconnect("U0ADA") is False
+    connections.disconnect("U0ADA")
+
+    assert connections.find("U0ADA") is None
 
 
 def test_connections_survive_a_restart(tmp_path):

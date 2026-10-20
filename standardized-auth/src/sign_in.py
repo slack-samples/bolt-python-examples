@@ -43,10 +43,7 @@ class SignInHandler(BaseHTTPRequestHandler):
         url = urlsplit(self.path)
         if url.path != CONNECT_PATH:
             return self.send_error(HTTPStatus.NOT_FOUND)
-        state = field(parse_qs(url.query), "state")
-        if redeem(state) is None:
-            return self.send_error(HTTPStatus.BAD_REQUEST)
-        self.send_page(sign_in_page(state))
+        self.send_page(sign_in_page(field(parse_qs(url.query), "state")))
 
     def do_POST(self):
         if self.path != CONNECT_PATH:

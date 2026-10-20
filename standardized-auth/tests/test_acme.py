@@ -1,8 +1,13 @@
+import time
+
 from src.acme import home_view, provider
 from src.state import issue
 
 
-def test_disconnected_provider_offers_the_acme_sign_in(store):
+def test_disconnected_provider_offers_the_acme_sign_in(store, monkeypatch):
+    now = time.time()
+    monkeypatch.setattr(time, "time", lambda: now)
+
     assert provider("U0ADA") == {
         "value": "acme",
         "name": {"type": "plain_text", "text": "Acme account"},

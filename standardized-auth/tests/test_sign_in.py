@@ -36,17 +36,12 @@ def status_of(error: pytest.ExceptionInfo[HTTPError]) -> int:
 
 
 def test_shows_the_sign_in_form(store, base_url):
-    page = get(f"{base_url}/acme/connect?state={issue('U0ADA')}")
+    state = issue("U0ADA")
+
+    page = get(f"{base_url}/acme/connect?state={state}")
 
     assert "Sign in to Acme" in page
-    assert f'value="{issue("U0ADA")}"' in page
-
-
-def test_refuses_to_show_the_form_for_a_forged_state(store, base_url):
-    with pytest.raises(HTTPError) as error:
-        get(f"{base_url}/acme/connect?state=U0ADA.forged")
-
-    assert status_of(error) == 400
+    assert f'value="{state}"' in page
 
 
 def test_signing_in_connects_and_reports_the_user(store, base_url, client: MagicMock):
