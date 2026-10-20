@@ -1,38 +1,38 @@
-import time
-
 from src.acme import home_view, provider
-from src.state import issue
+from src.connections import connections
+from tests.helpers import TempStore
 
 
-def test_disconnected_provider_offers_the_acme_sign_in(store, monkeypatch):
-    now = time.time()
-    monkeypatch.setattr(time, "time", lambda: now)
+class TestAcme:
+    def setup_method(self):
+        self.store = TempStore()
 
-    assert provider("U0ADA") == {
-        "value": "acme",
-        "name": {"type": "plain_text", "text": "Acme account"},
-        "description": {
-            "type": "plain_text",
-            "text": "Order rocket skates, anvils, and giant magnets without leaving Slack.",
-        },
-        "auth_url": f"https://acme.example/acme/connect?state={issue('U0ADA')}",
-        "is_connected": False,
-    }
+    def teardown_method(self):
+        self.store.close()
 
+    def test_disconnected_provider_offers_to_connect(self):
+        assert provider("U0ADA") == {
+            "value": "acme",
+            "name": {"type": "plain_text", "text": "Acme account"},
+            "description": {
+                "type": "plain_text",
+                "text": "Order rocket skates, anvils, and giant magnets without leaving Slack.",
+            },
+            "is_connected": False,
+        }
 
-def test_connected_provider_names_the_acme_account(store):
-    store.connect("U0ADA", "ada")
+    def test_connected_provider_names_the_slack_user(self):
+        connections.connect("U0ADA")
 
-    acme = provider("U0ADA")
+        acme = provider("U0ADA")
 
-    assert acme["is_connected"] is True
-    assert acme["connected_identity"] == {"type": "plain_text", "text": "ada"}
+        assert acme["is_connected"] is True
+        assert acme["connected_identity"] == {"type": "plain_text", "text": "U0ADA"}
 
+    def test_home_view_renders_the_provider_as_an_auth_provider_block(self):
+        acme = provider("U0ADA")
 
-def test_home_view_renders_the_provider_as_an_auth_provider_block(store):
-    acme = provider("U0ADA")
+        view = home_view(acme).to_dict()
 
-    view = home_view(acme).to_dict()
-
-    assert view["type"] == "home"
-    assert view["blocks"][-1] == {"type": "auth_provider", **acme}
+        assert view["type"] == "home"
+        assert view["blocks"][-1] == {"type": "auth_provider", **acme}

@@ -15,7 +15,7 @@
     },
     "user_connections": {
       "is_enabled": true,
-      "auth_hosts": ["1234-56-78-90-0.ngrok-free.app"]
+      "auth_hosts": ["example.com"]
     }
   },
   "oauth_config": {

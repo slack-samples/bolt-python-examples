@@ -1,51 +1,44 @@
+from pathlib import Path
+from tempfile import TemporaryDirectory
+
 from src.connections import Connections
 
 
-def test_remembers_a_connected_username(tmp_path):
-    connections = Connections(tmp_path / "acme.db")
+class TestConnections:
+    def setup_method(self):
+        self.dir = TemporaryDirectory()
+        self.path = Path(self.dir.name) / "acme.db"
+        self.connections = Connections(self.path)
 
-    connections.connect("U0ADA", "ada")
+    def teardown_method(self):
+        self.dir.cleanup()
 
-    assert connections.find("U0ADA") == "ada"
+    def test_remembers_a_connected_user(self):
+        self.connections.connect("U0ADA")
 
+        assert self.connections.is_connected("U0ADA")
 
-def test_reconnecting_replaces_the_username(tmp_path):
-    connections = Connections(tmp_path / "acme.db")
-    connections.connect("U0ADA", "ada")
+    def test_disconnect_forgets_the_user(self):
+        self.connections.connect("U0ADA")
 
-    connections.connect("U0ADA", "countess")
+        self.connections.disconnect("U0ADA")
 
-    assert connections.find("U0ADA") == "countess"
+        assert not self.connections.is_connected("U0ADA")
 
+    def test_disconnect_keeps_other_users_connected(self):
+        self.connections.connect("U0ADA")
+        self.connections.connect("U0BOB")
 
-def test_disconnect_forgets_the_user(tmp_path):
-    connections = Connections(tmp_path / "acme.db")
-    connections.connect("U0ADA", "ada")
+        self.connections.disconnect("U0ADA")
 
-    connections.disconnect("U0ADA")
+        assert self.connections.is_connected("U0BOB")
 
-    assert connections.find("U0ADA") is None
+    def test_disconnecting_an_unknown_user_changes_nothing(self):
+        self.connections.disconnect("U0ADA")
 
+        assert not self.connections.is_connected("U0ADA")
 
-def test_disconnect_keeps_other_users_connected(tmp_path):
-    connections = Connections(tmp_path / "acme.db")
-    connections.connect("U0ADA", "ada")
-    connections.connect("U0BOB", "bob")
+    def test_connections_survive_a_restart(self):
+        self.connections.connect("U0ADA")
 
-    connections.disconnect("U0ADA")
-
-    assert connections.find("U0BOB") == "bob"
-
-
-def test_disconnecting_an_unknown_user_changes_nothing(tmp_path):
-    connections = Connections(tmp_path / "acme.db")
-
-    connections.disconnect("U0ADA")
-
-    assert connections.find("U0ADA") is None
-
-
-def test_connections_survive_a_restart(tmp_path):
-    Connections(tmp_path / "acme.db").connect("U0ADA", "ada")
-
-    assert Connections(tmp_path / "acme.db").find("U0ADA") == "ada"
+        assert Connections(self.path).is_connected("U0ADA")

@@ -1,14 +1,9 @@
 import os
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
-import pytest
-from slack_sdk import WebClient
 from slack_sdk.web import SlackResponse
 
-from src.connections import Connections, connections
-
 os.environ["SLACK_BOT_TOKEN"] = "xoxb-test-bot"
-os.environ["BASE_URL"] = "https://acme.example"
 
 patch(
     "slack_sdk.web.client.WebClient.auth_test",
@@ -22,14 +17,3 @@ patch(
         status_code=200,
     ),
 ).start()
-
-
-@pytest.fixture
-def store(tmp_path, monkeypatch) -> Connections:
-    monkeypatch.setattr(connections, "path", tmp_path / "acme.db")
-    return connections
-
-
-@pytest.fixture
-def client() -> MagicMock:
-    return MagicMock(spec=WebClient)

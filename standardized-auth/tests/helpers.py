@@ -1,6 +1,20 @@
+from pathlib import Path
+from tempfile import TemporaryDirectory
 from unittest.mock import MagicMock
 
 from src.acme import home_view, provider
+from src.connections import connections
+
+
+class TempStore:
+    def __init__(self):
+        self.saved_path = connections.path
+        self.dir = TemporaryDirectory()
+        connections.path = Path(self.dir.name) / "acme.db"
+
+    def close(self):
+        connections.path = self.saved_path
+        self.dir.cleanup()
 
 
 def published_view(client: MagicMock) -> dict:
