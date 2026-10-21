@@ -1,13 +1,11 @@
 {
   "display_information": {
     "name": "Acme",
-    "description": "Rocket skates, anvils, and giant magnets for every plan",
-    "background_color": "#4A154B"
+    "description": "Rocket skates, anvils, and giant magnets for every plan"
   },
   "features": {
     "app_home": {
-      "home_tab_enabled": true,
-      "messages_tab_enabled": false
+      "home_tab_enabled": true
     },
     "bot_user": {
       "display_name": "Acme",
