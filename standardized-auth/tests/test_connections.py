@@ -38,6 +38,13 @@ class TestConnections:
 
         assert not self.connections.is_connected("U0ADA")
 
+    def test_creates_the_folder_for_its_file(self):
+        path = Path(self.dir.name) / "data" / "acme.db"
+
+        Connections(path)
+
+        assert path.parent.is_dir()
+
     def test_connections_survive_a_restart(self):
         self.connections.connect("U0ADA")
 
