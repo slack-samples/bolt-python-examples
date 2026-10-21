@@ -5,7 +5,7 @@ from slack_bolt.adapter.socket_mode import SocketModeHandler
 from slack_sdk import WebClient
 
 from src import connections
-from src.acme import home_view, provider
+from src.acme import PROVIDER_VALUE, home_view, provider
 
 app = App(token=os.environ["SLACK_BOT_TOKEN"])
 
@@ -18,6 +18,8 @@ def app_home_opened_callback(client: WebClient, event: dict):
 @app.action("auth_provider_connect")
 def connect_callback(ack: Ack, body: dict, client: WebClient):
     ack()
+    if body["actions"][0]["value"] != PROVIDER_VALUE:
+        return
     user_id = body["user"]["id"]
     connections.connect(user_id)
     acme = provider(user_id)
@@ -28,6 +30,8 @@ def connect_callback(ack: Ack, body: dict, client: WebClient):
 @app.action("auth_provider_disconnect")
 def disconnect_callback(ack: Ack, body: dict, client: WebClient):
     ack()
+    if body["actions"][0]["value"] != PROVIDER_VALUE:
+        return
     user_id = body["user"]["id"]
     connections.disconnect(user_id)
     acme = provider(user_id)

@@ -13,6 +13,10 @@ from src import connections
 from tests.helpers import TempConnections
 
 
+def button_click(value: str) -> dict:
+    return {"user": {"id": "U0ADA"}, "actions": [{"value": value}]}
+
+
 class TestApp:
     def setup_method(self):
         self.connections = TempConnections()
@@ -40,9 +44,7 @@ class TestApp:
         assert self.home_block()["is_connected"] is True
 
     def test_connect_saves_and_shows_the_connection(self):
-        connect_callback(
-            ack=self.ack, body={"user": {"id": "U0ADA"}}, client=self.client
-        )
+        connect_callback(ack=self.ack, body=button_click("acme"), client=self.client)
 
         self.ack.assert_called_once_with()
         assert connections.is_connected("U0ADA")
@@ -52,14 +54,32 @@ class TestApp:
     def test_disconnect_forgets_and_shows_the_connection(self):
         connections.connect("U0ADA")
 
-        disconnect_callback(
-            ack=self.ack, body={"user": {"id": "U0ADA"}}, client=self.client
-        )
+        disconnect_callback(ack=self.ack, body=button_click("acme"), client=self.client)
 
         self.ack.assert_called_once_with()
         assert not connections.is_connected("U0ADA")
         assert self.sent_provider()["is_connected"] is False
         assert self.home_block()["is_connected"] is False
+
+    def test_connect_ignores_another_provider(self):
+        connect_callback(
+            ack=self.ack, body=button_click("wile-e-coyote"), client=self.client
+        )
+
+        self.ack.assert_called_once_with()
+        assert not connections.is_connected("U0ADA")
+        assert self.client.mock_calls == []
+
+    def test_disconnect_ignores_another_provider(self):
+        connections.connect("U0ADA")
+
+        disconnect_callback(
+            ack=self.ack, body=button_click("wile-e-coyote"), client=self.client
+        )
+
+        self.ack.assert_called_once_with()
+        assert connections.is_connected("U0ADA")
+        assert self.client.mock_calls == []
 
     def test_user_connection_connect_opens_the_modal(self):
         event = {"subtype": "connect", "user": "U0ADA", "trigger_id": "123.456.abc"}

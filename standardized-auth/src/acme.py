@@ -5,10 +5,12 @@ from slack_sdk.models.views import View
 
 from src import connections
 
+PROVIDER_VALUE = "acme"
+
 
 def provider(user_id: str) -> dict[str, Any]:
     acme: dict[str, Any] = {
-        "value": "acme",
+        "value": PROVIDER_VALUE,
         "name": {"type": "plain_text", "text": "Acme account"},
         "description": {
             "type": "plain_text",
