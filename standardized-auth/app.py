@@ -10,28 +10,24 @@ from src.connections import connections
 app = App(token=os.environ["SLACK_BOT_TOKEN"])
 
 
-@app.action("auth_provider_connect_acme")
+@app.action("auth_provider_connect")
 def connect_callback(ack: Ack, body: dict, client: WebClient):
     ack()
     connect(client, body["user"]["id"])
 
 
-@app.action("auth_provider_disconnect_acme")
+@app.action("auth_provider_disconnect")
 def disconnect_callback(ack: Ack, body: dict, client: WebClient):
     ack()
     disconnect(client, body["user"]["id"])
 
 
-@app.action("user_connection")
-def user_connection_callback(ack: Ack, body: dict, client: WebClient):
-    ack()
-    user_id = body["user"]["id"]
-    if body["subtype"] == "connect":
+@app.event("user_connection")
+def user_connection_callback(client: WebClient, event: dict):
+    if event["subtype"] == "connect":
         client.apps_user_connection_requestAuth(
-            trigger_id=body["trigger_id"], primary_provider=provider(user_id)
+            trigger_id=event["trigger_id"], primary_provider=provider(event["user"])
         )
-    elif body["subtype"] == "disconnect":
-        disconnect(client, user_id)
 
 
 @app.event("app_home_opened")

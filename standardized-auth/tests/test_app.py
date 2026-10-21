@@ -18,7 +18,7 @@ def user_connection(subtype: str) -> dict:
     return {
         "type": "user_connection",
         "subtype": subtype,
-        "user": {"id": "U0ADA", "team_id": "T0001"},
+        "user": "U0ADA",
         "trigger_id": "123.456.abc",
     }
 
@@ -90,13 +90,8 @@ class TestUserConnection:
         self.store.close()
 
     def test_connect_opens_the_auth_modal(self):
-        ack = MagicMock()
+        user_connection_callback(client=self.client, event=user_connection("connect"))
 
-        user_connection_callback(
-            ack=ack, body=user_connection("connect"), client=self.client
-        )
-
-        ack.assert_called_once_with()
         self.client.apps_user_connection_requestAuth.assert_called_once_with(
             trigger_id="123.456.abc", primary_provider=provider("U0ADA")
         )
@@ -105,34 +100,21 @@ class TestUserConnection:
     def test_connect_shows_an_existing_connection(self):
         connections.connect("U0ADA")
 
-        user_connection_callback(
-            ack=MagicMock(), body=user_connection("connect"), client=self.client
-        )
+        user_connection_callback(client=self.client, event=user_connection("connect"))
 
         self.client.apps_user_connection_requestAuth.assert_called_once_with(
             trigger_id="123.456.abc", primary_provider=provider("U0ADA")
         )
         assert provider("U0ADA")["is_connected"] is True
 
-    def test_disconnect_forgets_the_account(self):
+    def test_a_disconnect_event_is_ignored(self):
         connections.connect("U0ADA")
-        ack = MagicMock()
 
         user_connection_callback(
-            ack=ack, body=user_connection("disconnect"), client=self.client
+            client=self.client, event=user_connection("disconnect")
         )
 
-        ack.assert_called_once_with()
-        assert not connections.is_connected("U0ADA")
-
-    def test_an_unknown_subtype_is_only_acknowledged(self):
-        ack = MagicMock()
-
-        user_connection_callback(
-            ack=ack, body=user_connection("reconnect"), client=self.client
-        )
-
-        ack.assert_called_once_with()
+        assert connections.is_connected("U0ADA")
         assert called_methods(self.client) == []
 
 

@@ -25,7 +25,11 @@
   },
   "settings": {
     "event_subscriptions": {
-      "bot_events": ["app_home_opened", "user_connection_status_requested"]
+      "bot_events": [
+        "app_home_opened",
+        "user_connection",
+        "user_connection_status_requested"
+      ]
     },
     "interactivity": {
       "is_enabled": true
