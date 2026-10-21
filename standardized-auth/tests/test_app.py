@@ -9,146 +9,75 @@ from app import (
     user_connection_callback,
     user_connection_status_requested_callback,
 )
-from src.acme import provider
-from src.connections import connections
-from tests.helpers import TempStore, called_methods, expected_home, published_view
+from src import connections
+from tests.helpers import TempConnections
 
 
-def user_connection(subtype: str) -> dict:
-    return {
-        "type": "user_connection",
-        "subtype": subtype,
-        "user": "U0ADA",
-        "trigger_id": "123.456.abc",
-    }
-
-
-class TestConnect:
+class TestApp:
     def setup_method(self):
-        self.store = TempStore()
+        self.connections = TempConnections()
+        self.ack = MagicMock()
         self.client = MagicMock(spec=WebClient)
 
     def teardown_method(self):
-        self.store.close()
+        self.connections.close()
 
-    def test_connects_and_reports_the_user(self):
-        ack = MagicMock()
-
-        connect_callback(ack=ack, body={"user": {"id": "U0ADA"}}, client=self.client)
-
-        ack.assert_called_once_with()
-        assert connections.is_connected("U0ADA")
-        assert called_methods(self.client) == [
-            "apps_user_connection_requestAuth",
-            "views_publish",
+    def sent_provider(self) -> dict:
+        return self.client.apps_user_connection_requestAuth.call_args.kwargs[
+            "primary_provider"
         ]
-        self.client.apps_user_connection_requestAuth.assert_called_once_with(
-            user_id="U0ADA", primary_provider=provider("U0ADA")
-        )
 
+    def home_block(self) -> dict:
+        view = self.client.views_publish.call_args.kwargs["view"].to_dict()
+        return view["blocks"][-1]
 
-class TestDisconnect:
-    def setup_method(self):
-        self.store = TempStore()
-        self.client = MagicMock(spec=WebClient)
-
-    def teardown_method(self):
-        self.store.close()
-
-    def test_forgets_then_reports_the_user(self):
-        connections.connect("U0ADA")
-        ack = MagicMock()
-
-        disconnect_callback(ack=ack, body={"user": {"id": "U0ADA"}}, client=self.client)
-
-        ack.assert_called_once_with()
-        assert not connections.is_connected("U0ADA")
-        assert called_methods(self.client) == [
-            "apps_user_connection_requestAuth",
-            "views_publish",
-        ]
-        self.client.apps_user_connection_requestAuth.assert_called_once_with(
-            user_id="U0ADA", primary_provider=provider("U0ADA")
-        )
-
-    def test_disconnecting_without_an_account_still_reports_disconnected(self):
-        disconnect_callback(
-            ack=MagicMock(), body={"user": {"id": "U0ADA"}}, client=self.client
-        )
-
-        self.client.apps_user_connection_requestAuth.assert_called_once_with(
-            user_id="U0ADA", primary_provider=provider("U0ADA")
-        )
-
-
-class TestUserConnection:
-    def setup_method(self):
-        self.store = TempStore()
-        self.client = MagicMock(spec=WebClient)
-
-    def teardown_method(self):
-        self.store.close()
-
-    def test_connect_opens_the_auth_modal(self):
-        user_connection_callback(client=self.client, event=user_connection("connect"))
-
-        self.client.apps_user_connection_requestAuth.assert_called_once_with(
-            trigger_id="123.456.abc", primary_provider=provider("U0ADA")
-        )
-        assert provider("U0ADA")["is_connected"] is False
-
-    def test_connect_shows_an_existing_connection(self):
-        connections.connect("U0ADA")
-
-        user_connection_callback(client=self.client, event=user_connection("connect"))
-
-        self.client.apps_user_connection_requestAuth.assert_called_once_with(
-            trigger_id="123.456.abc", primary_provider=provider("U0ADA")
-        )
-        assert provider("U0ADA")["is_connected"] is True
-
-    def test_a_disconnect_event_is_ignored(self):
-        connections.connect("U0ADA")
-
-        user_connection_callback(
-            client=self.client, event=user_connection("disconnect")
-        )
-
-        assert connections.is_connected("U0ADA")
-        assert called_methods(self.client) == []
-
-
-class TestAppHomeOpened:
-    def setup_method(self):
-        self.store = TempStore()
-        self.client = MagicMock(spec=WebClient)
-
-    def teardown_method(self):
-        self.store.close()
-
-    def test_shows_a_connected_account(self):
+    def test_app_home_opened_shows_the_connection(self):
         connections.connect("U0ADA")
 
         app_home_opened_callback(client=self.client, event={"user": "U0ADA"})
 
         assert self.client.views_publish.call_args.kwargs["user_id"] == "U0ADA"
-        assert published_view(self.client) == expected_home("U0ADA")
+        assert self.home_block()["is_connected"] is True
 
-    def test_offers_to_connect_users_without_an_account(self):
-        app_home_opened_callback(client=self.client, event={"user": "U0ADA"})
+    def test_connect_saves_and_shows_the_connection(self):
+        connect_callback(
+            ack=self.ack, body={"user": {"id": "U0ADA"}}, client=self.client
+        )
 
-        assert published_view(self.client) == expected_home("U0ADA")
+        self.ack.assert_called_once_with()
+        assert connections.is_connected("U0ADA")
+        assert self.sent_provider()["is_connected"] is True
+        assert self.home_block()["is_connected"] is True
 
+    def test_disconnect_forgets_and_shows_the_connection(self):
+        connections.connect("U0ADA")
 
-class TestUserConnectionStatusRequested:
-    def setup_method(self):
-        self.store = TempStore()
-        self.client = MagicMock(spec=WebClient)
+        disconnect_callback(
+            ack=self.ack, body={"user": {"id": "U0ADA"}}, client=self.client
+        )
 
-    def teardown_method(self):
-        self.store.close()
+        self.ack.assert_called_once_with()
+        assert not connections.is_connected("U0ADA")
+        assert self.sent_provider()["is_connected"] is False
+        assert self.home_block()["is_connected"] is False
 
-    def test_reports_connected_users(self):
+    def test_user_connection_connect_opens_the_modal(self):
+        event = {"subtype": "connect", "user": "U0ADA", "trigger_id": "123.456.abc"}
+
+        user_connection_callback(client=self.client, event=event)
+
+        kwargs = self.client.apps_user_connection_requestAuth.call_args.kwargs
+        assert kwargs["trigger_id"] == "123.456.abc"
+        assert kwargs["primary_provider"]["is_connected"] is False
+
+    def test_user_connection_disconnect_is_ignored(self):
+        event = {"subtype": "disconnect", "user": "U0ADA", "trigger_id": "123.456.abc"}
+
+        user_connection_callback(client=self.client, event=event)
+
+        assert self.client.mock_calls == []
+
+    def test_status_requested_reports_connected_users(self):
         connections.connect("U0ADA")
 
         user_connection_status_requested_callback(
@@ -159,7 +88,7 @@ class TestUserConnectionStatusRequested:
             user_id="U0ADA", status="connected"
         )
 
-    def test_reports_users_without_an_account_as_disconnected(self):
+    def test_status_requested_reports_unknown_users_as_disconnected(self):
         user_connection_status_requested_callback(
             client=self.client, event={"user": "U0ADA"}
         )

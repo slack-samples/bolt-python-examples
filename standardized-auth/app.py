@@ -4,22 +4,35 @@ from slack_bolt import Ack, App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 from slack_sdk import WebClient
 
-from src.acme import connect, disconnect, home_view, provider
-from src.connections import connections
+from src import connections
+from src.acme import home_view, provider
 
 app = App(token=os.environ["SLACK_BOT_TOKEN"])
+
+
+@app.event("app_home_opened")
+def app_home_opened_callback(client: WebClient, event: dict):
+    client.views_publish(user_id=event["user"], view=home_view(provider(event["user"])))
 
 
 @app.action("auth_provider_connect")
 def connect_callback(ack: Ack, body: dict, client: WebClient):
     ack()
-    connect(client, body["user"]["id"])
+    user_id = body["user"]["id"]
+    connections.connect(user_id)
+    acme = provider(user_id)
+    client.apps_user_connection_requestAuth(user_id=user_id, primary_provider=acme)
+    client.views_publish(user_id=user_id, view=home_view(acme))
 
 
 @app.action("auth_provider_disconnect")
 def disconnect_callback(ack: Ack, body: dict, client: WebClient):
     ack()
-    disconnect(client, body["user"]["id"])
+    user_id = body["user"]["id"]
+    connections.disconnect(user_id)
+    acme = provider(user_id)
+    client.apps_user_connection_requestAuth(user_id=user_id, primary_provider=acme)
+    client.views_publish(user_id=user_id, view=home_view(acme))
 
 
 @app.event("user_connection")
@@ -30,15 +43,9 @@ def user_connection_callback(client: WebClient, event: dict):
         )
 
 
-@app.event("app_home_opened")
-def app_home_opened_callback(client: WebClient, event: dict):
-    client.views_publish(user_id=event["user"], view=home_view(provider(event["user"])))
-
-
 @app.event("user_connection_status_requested")
 def user_connection_status_requested_callback(client: WebClient, event: dict):
-    connected = connections.is_connected(event["user"])
-    status = "connected" if connected else "disconnected"
+    status = "connected" if connections.is_connected(event["user"]) else "disconnected"
     client.apps_user_connection_update(user_id=event["user"], status=status)
 
 

@@ -6,7 +6,7 @@ Read the docs: https://docs.slack.dev/authentication/standardized-auth
 
 ## How it works
 
-Acme runs over Socket Mode and keeps every connection in a local `shelve` file ([`src/connections.py`](./src/connections.py)): a user is connected when their Slack user ID is in it. Shared helpers live in [`src/acme.py`](./src/acme.py), and the app and every listener live in [`app.py`](./app.py).
+Acme runs over Socket Mode and keeps every connection in a local `shelve` file ([`src/connections.py`](./src/connections.py)): a user is connected when their Slack user ID is in it. The provider object and the App Home view live in [`src/acme.py`](./src/acme.py), and every listener and Slack API call lives in [`app.py`](./app.py).
 
 - **Connect** connects the Slack user who clicked it, with their user ID as the connected identity. It reports the connection with `apps.user.connection.requestAuth` and refreshes App Home.
 - **Connect** or **Manage** on the app's profile sends the `user_connection` event, and Acme answers within 3 seconds by opening the connection modal with `apps.user.connection.requestAuth` and the event's `trigger_id`.

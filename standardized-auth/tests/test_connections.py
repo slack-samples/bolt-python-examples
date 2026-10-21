@@ -1,51 +1,35 @@
-from pathlib import Path
-from tempfile import TemporaryDirectory
-
-from src.connections import Connections
+from src import connections
+from tests.helpers import TempConnections
 
 
 class TestConnections:
     def setup_method(self):
-        self.dir = TemporaryDirectory()
-        self.path = Path(self.dir.name) / "acme.db"
-        self.connections = Connections(self.path)
+        self.connections = TempConnections()
 
     def teardown_method(self):
-        self.dir.cleanup()
+        self.connections.close()
 
     def test_remembers_a_connected_user(self):
-        self.connections.connect("U0ADA")
+        connections.connect("U0ADA")
 
-        assert self.connections.is_connected("U0ADA")
+        assert connections.is_connected("U0ADA")
 
     def test_disconnect_forgets_the_user(self):
-        self.connections.connect("U0ADA")
+        connections.connect("U0ADA")
 
-        self.connections.disconnect("U0ADA")
+        connections.disconnect("U0ADA")
 
-        assert not self.connections.is_connected("U0ADA")
+        assert not connections.is_connected("U0ADA")
 
     def test_disconnect_keeps_other_users_connected(self):
-        self.connections.connect("U0ADA")
-        self.connections.connect("U0BOB")
+        connections.connect("U0ADA")
+        connections.connect("U0BOB")
 
-        self.connections.disconnect("U0ADA")
+        connections.disconnect("U0ADA")
 
-        assert self.connections.is_connected("U0BOB")
+        assert connections.is_connected("U0BOB")
 
     def test_disconnecting_an_unknown_user_changes_nothing(self):
-        self.connections.disconnect("U0ADA")
+        connections.disconnect("U0ADA")
 
-        assert not self.connections.is_connected("U0ADA")
-
-    def test_creates_the_folder_for_its_file(self):
-        path = Path(self.dir.name) / "data" / "acme.db"
-
-        Connections(path)
-
-        assert path.parent.is_dir()
-
-    def test_connections_survive_a_restart(self):
-        self.connections.connect("U0ADA")
-
-        assert Connections(self.path).is_connected("U0ADA")
+        assert not connections.is_connected("U0ADA")

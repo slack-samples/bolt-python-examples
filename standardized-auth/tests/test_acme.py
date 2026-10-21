@@ -1,14 +1,14 @@
+from src import connections
 from src.acme import home_view, provider
-from src.connections import connections
-from tests.helpers import TempStore
+from tests.helpers import TempConnections
 
 
 class TestAcme:
     def setup_method(self):
-        self.store = TempStore()
+        self.connections = TempConnections()
 
     def teardown_method(self):
-        self.store.close()
+        self.connections.close()
 
     def test_disconnected_provider_offers_to_connect(self):
         assert provider("U0ADA") == {
