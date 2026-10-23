@@ -1,0 +1,6 @@
+mypy==2.4.0
+pytest==9.1.1
+ruff==0.16.10
+slack_bolt==1.30.0
+slack_cli_hooks==0.3.0
+slack_sdk==3.46.0
