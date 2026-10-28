@@ -12,7 +12,6 @@ client = WebClient(token=token)
 response = client.canvases_create(
     title="Your Brilliant Title",
     document_content={"type": "markdown", "markdown": "> standalone canvas!"},
-    channel_id="C0123456789",
 )
 
 # Inspect the response
