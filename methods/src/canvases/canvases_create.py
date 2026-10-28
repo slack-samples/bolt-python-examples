@@ -11,7 +11,10 @@ client = WebClient(token=token)
 # Call the canvases.create method
 response = client.canvases_create(
     title="Your Brilliant Title",
-    document_content={"type": "markdown", "markdown": "> standalone canvas!"},
+    document_content={
+        "type": "markdown",
+        "markdown": "> standalone canvas!",
+    },
 )
 
 # Inspect the response
