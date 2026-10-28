@@ -4,3 +4,4 @@ installations/
 states/
 .env*
 !.env.example
+*.egg-info
