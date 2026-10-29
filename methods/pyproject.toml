@@ -3,7 +3,7 @@ name = "bolt-python-examples-methods"
 version = "0.0.0"
 requires-python = ">=3.10"
 dependencies = [
-    "slack-cli-hooks==0.3.0",
+    "slack_cli_hooks==0.3.0",
     "slack_sdk==3.45.0",
 ]
 
