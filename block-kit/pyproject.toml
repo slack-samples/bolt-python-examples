@@ -3,7 +3,7 @@ name = "bolt-python-examples-block-kit"
 version = "0.0.0"
 requires-python = ">=3.10"
 dependencies = [
-    "slack_sdk==3.45.0",
+    "slack_sdk==3.46.0",
 ]
 
 [project.optional-dependencies]
