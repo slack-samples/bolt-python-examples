@@ -34,6 +34,11 @@ $ slack run chat_post_message.py  # Make the request
 
 - **[blocks.validate](https://docs.slack.dev/reference/methods/blocks.validate)**: Validates blocks, messages, and views Block Kit JSON payloads. [Implementation](./src/blocks/blocks_validate.py).
 
+### canvases
+
+- **[canvases.create](https://docs.slack.dev/reference/methods/canvases.create)**: Create canvas for a user. [Implementation](./src/canvases/canvases_create.py).
+- **[canvases.getContent](https://docs.slack.dev/reference/methods/canvases.getContent)**: Get the content of a canvas as markdown (default) or HTML. [Implementation](./src/canvases/canvases_get_content.py).
+
 ### chat
 
 - **[chat.postMessage](https://docs.slack.dev/reference/methods/chat.postmessage)**: Sends a message to a channel. [Implementation](./src/chat/chat_post_message.py).
