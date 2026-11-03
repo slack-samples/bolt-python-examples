@@ -90,12 +90,15 @@ class TestApp:
         assert kwargs["trigger_id"] == "123.456.abc"
         assert kwargs["primary_provider"]["is_connected"] is False
 
-    def test_user_connection_disconnect_is_ignored(self):
-        event = {"subtype": "disconnect", "user": "U0ADA", "trigger_id": "123.456.abc"}
+    def test_user_connection_disconnect_forgets_and_shows_the_connection(self):
+        connections.connect("U0ADA")
+        event = {"subtype": "disconnect", "user": "U0ADA"}
 
         user_connection_callback(client=self.client, event=event)
 
-        assert self.client.mock_calls == []
+        assert not connections.is_connected("U0ADA")
+        assert self.sent_provider()["is_connected"] is False
+        assert self.home_block()["is_connected"] is False
 
     def test_status_requested_reports_connected_users(self):
         connections.connect("U0ADA")

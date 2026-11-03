@@ -10,6 +10,12 @@ from src.acme import PROVIDER_VALUE, home_view, provider
 app = App(token=os.environ["SLACK_BOT_TOKEN"])
 
 
+def show_connection(client: WebClient, user_id: str):
+    acme = provider(user_id)
+    client.apps_user_connection_requestAuth(user_id=user_id, primary_provider=acme)
+    client.views_publish(user_id=user_id, view=home_view(acme))
+
+
 @app.event("app_home_opened")
 def app_home_opened_callback(client: WebClient, event: dict):
     client.views_publish(user_id=event["user"], view=home_view(provider(event["user"])))
@@ -22,9 +28,7 @@ def connect_callback(ack: Ack, body: dict, client: WebClient):
         return
     user_id = body["user"]["id"]
     connections.connect(user_id)
-    acme = provider(user_id)
-    client.apps_user_connection_requestAuth(user_id=user_id, primary_provider=acme)
-    client.views_publish(user_id=user_id, view=home_view(acme))
+    show_connection(client, user_id)
 
 
 @app.action("auth_provider_disconnect")
@@ -34,9 +38,7 @@ def disconnect_callback(ack: Ack, body: dict, client: WebClient):
         return
     user_id = body["user"]["id"]
     connections.disconnect(user_id)
-    acme = provider(user_id)
-    client.apps_user_connection_requestAuth(user_id=user_id, primary_provider=acme)
-    client.views_publish(user_id=user_id, view=home_view(acme))
+    show_connection(client, user_id)
 
 
 @app.event("user_connection")
@@ -45,6 +47,9 @@ def user_connection_callback(client: WebClient, event: dict):
         client.apps_user_connection_requestAuth(
             trigger_id=event["trigger_id"], primary_provider=provider(event["user"])
         )
+    elif event["subtype"] == "disconnect":
+        connections.disconnect(event["user"])
+        show_connection(client, event["user"])
 
 
 @app.event("user_connection_status_requested")

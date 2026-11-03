@@ -10,7 +10,7 @@ Acme runs over Socket Mode and keeps every connection in a local `shelve` file (
 
 - **Connect** connects the Slack user who clicked it, with their user ID as the connected identity. It reports the connection with `apps.user.connection.requestAuth` and refreshes App Home.
 - **Connect** or **Manage** on the app's profile sends the `user_connection` event, and Acme answers within 3 seconds by opening the connection modal with `apps.user.connection.requestAuth` and the event's `trigger_id`.
-- **Disconnect** forgets the connection and reports the user as disconnected.
+- **Disconnect** in App Home, or on the app's profile (which sends a `user_connection` event with the `disconnect` subtype), forgets the connection, reports the user as disconnected, and refreshes App Home.
 - **`user_connection_status_requested`** answers with `apps.user.connection.update` whenever Slack asks about a user it doesn't know yet.
 - **App Home** shows an `auth_provider` block with the user's current connection.
 
