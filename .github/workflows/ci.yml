@@ -22,7 +22,7 @@ jobs:
           - "ai/slackbot-mcp-client/slack-identity"
           - "block-kit"
           - "methods"
-          - "standardized-auth"
+          - "authentication/standardized-auth"
     defaults:
       run:
         working-directory: ${{ matrix.showcase }}
@@ -54,7 +54,7 @@ jobs:
           - "ai/slackbot-mcp-client/slack-identity"
           - "block-kit"
           - "methods"
-          - "standardized-auth"
+          - "authentication/standardized-auth"
     defaults:
       run:
         working-directory: ${{ matrix.showcase }}
@@ -84,7 +84,7 @@ jobs:
           - "ai/slackbot-mcp-client/rich-responses/mcp-apps"
           - "ai/slackbot-mcp-client/slack-identity"
           - "block-kit"
-          - "standardized-auth"
+          - "authentication/standardized-auth"
     defaults:
       run:
         working-directory: ${{ matrix.showcase }}
