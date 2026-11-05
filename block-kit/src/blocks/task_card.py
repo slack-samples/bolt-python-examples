@@ -16,7 +16,7 @@ def example01() -> TaskCardBlock:
     block = TaskCardBlock(
         task_id="task_1",
         title="Fetching weather data",
-        status="pending",
+        status="in_progress",
         output=RichTextBlock(
             elements=[
                 RichTextSectionElement(
