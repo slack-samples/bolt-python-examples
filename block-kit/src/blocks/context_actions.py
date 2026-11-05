@@ -11,7 +11,7 @@ from slack_sdk.models.blocks.block_elements import (
 
 def example01() -> ContextActionsBlock:
     """
-    Holds interactive elements like feedback buttons and icon buttons.
+    Displays actions as contextual info, which can include both feedback buttons and icon buttons.
     https://docs.slack.dev/reference/block-kit/blocks/context-actions-block/
 
     Context actions block with feedback buttons.
