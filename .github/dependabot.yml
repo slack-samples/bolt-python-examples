@@ -4,19 +4,45 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    cooldown:
+      default-days: 7
   - package-ecosystem: "pip"
     directory: "ai/slackbot-mcp-client/no-auth"
     schedule:
       interval: "daily"
+    cooldown:
+      default-days: 7
+      exclude:
+        - "slack*"
   - package-ecosystem: "pip"
     directory: "ai/slackbot-mcp-client/rich-responses/mcp-apps"
     schedule:
       interval: "daily"
+    cooldown:
+      default-days: 7
+      exclude:
+        - "slack*"
   - package-ecosystem: "pip"
     directory: "ai/slackbot-mcp-client/slack-identity"
     schedule:
       interval: "daily"
+    cooldown:
+      default-days: 7
+      exclude:
+        - "slack*"
   - package-ecosystem: "pip"
     directory: "block-kit"
     schedule:
       interval: "daily"
+    cooldown:
+      default-days: 7
+      exclude:
+        - "slack*"
+  - package-ecosystem: "pip"
+    directory: "methods"
+    schedule:
+      interval: "daily"
+    cooldown:
+      default-days: 7
+      exclude:
+        - "slack*"
