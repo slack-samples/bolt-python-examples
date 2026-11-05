@@ -6,7 +6,7 @@ Run an MCP server for the Slackbot MCP client that authenticates against existin
 
 ```sh
 $ ngrok http 3000 --host-header=rewrite
-$ slack install --app local  # Create a new app
+$ slack install --environment local  # Create a new app
 $ slack app settings
 $ slack env init  # Update defaults
 $ slack manifest  # Validate fields
