@@ -10,7 +10,10 @@ def example01() -> AlertBlock:
     An informational alert.
     """
     block = AlertBlock(
-        text=MarkdownTextObject(text="The work is mysterious and important."),
+        text=MarkdownTextObject(
+            text="The work is mysterious and important.",
+            verbatim=False,
+        ),
         level="info",
     )
     return block

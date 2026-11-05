@@ -11,6 +11,7 @@ def test_example01():
         "text": {
             "type": "mrkdwn",
             "text": "The work is mysterious and important.",
+            "verbatim": False,
         },
         "level": "info",
     }
