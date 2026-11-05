@@ -45,9 +45,9 @@ def test_example01():
                                     "style": {
                                         "bold": True,
                                     },
-                                }
+                                },
                             ],
-                        }
+                        },
                     ],
                 },
             ],
@@ -78,7 +78,7 @@ def test_example01():
                                     },
                                 },
                             ],
-                        }
+                        },
                     ],
                 },
             ],
@@ -103,9 +103,9 @@ def test_example01():
                                     "style": {
                                         "bold": True,
                                     },
-                                }
+                                },
                             ],
-                        }
+                        },
                     ],
                 },
             ],
