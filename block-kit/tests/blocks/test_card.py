@@ -16,10 +16,12 @@ def test_example01():
         "title": {
             "type": "mrkdwn",
             "text": "Lumon Industries",
+            "verbatim": False,
         },
         "subtitle": {
             "type": "mrkdwn",
             "text": "Committed to work-life balance",
+            "verbatim": False,
         },
         "hero_image": {
             "type": "image",
@@ -29,6 +31,7 @@ def test_example01():
         "body": {
             "type": "mrkdwn",
             "text": "Please enjoy each card equally.",
+            "verbatim": False,
         },
         "actions": [
             {
