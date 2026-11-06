@@ -50,7 +50,7 @@ def test_example01():
                 "type": "task_card",
                 "task_id": "call_002",
                 "title": "Checked user permissions",
-                "status": "pending",
+                "status": "in_progress",
             },
             {
                 "type": "task_card",
