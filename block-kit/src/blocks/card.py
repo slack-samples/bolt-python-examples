@@ -12,12 +12,21 @@ def example01() -> CardBlock:
     """
     block = CardBlock(
         icon=ImageElement(image_url="https://picsum.photos/36/36", alt_text="Icon"),
-        title=MarkdownTextObject(text="Lumon Industries"),
-        subtitle=MarkdownTextObject(text="Committed to work-life balance"),
+        title=MarkdownTextObject(
+            text="Lumon Industries",
+            verbatim=False,
+        ),
+        subtitle=MarkdownTextObject(
+            text="Committed to work-life balance",
+            verbatim=False,
+        ),
         hero_image=ImageElement(
             image_url="https://picsum.photos/400/300", alt_text="Sample hero image"
         ),
-        body=MarkdownTextObject(text="Please enjoy each card equally."),
+        body=MarkdownTextObject(
+            text="Please enjoy each card equally.",
+            verbatim=False,
+        ),
         actions=[
             ButtonElement(
                 text=PlainTextObject(text="Action Button", emoji=False),
