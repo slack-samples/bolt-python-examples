@@ -16,6 +16,13 @@ $ slack run chat_post_message.py  # Make the request
 
 ## What's on call
 
+### admin
+
+- **[admin.slackbot.skills.list](https://docs.slack.dev/reference/methods/admin.slackbot.skills.list)**: Lists metadata for skills owned by the organization, including invite-only skills. [Implementation](./src/admin/slackbot/skills/admin_slackbot_skills_list.py).
+- **[admin.slackbot.skills.publish](https://docs.slack.dev/reference/methods/admin.slackbot.skills.publish)**: Publishes Slackbot skills to an organization's catalog. [Implementation](./src/admin/slackbot/skills/admin_slackbot_skills_publish.py).
+- **[admin.slackbot.skills.setAutoEnabled](https://docs.slack.dev/reference/methods/admin.slackbot.skills.setAutoEnabled)**: Sets who a Slackbot skill is automatically turned on for. [Implementation](./src/admin/slackbot/skills/admin_slackbot_skills_set_auto_enabled.py).
+- **[admin.slackbot.skills.unpublish](https://docs.slack.dev/reference/methods/admin.slackbot.skills.unpublish)**: Removes Slackbot skills from the org catalog, preserving access, libraries, and deployments. [Implementation](./src/admin/slackbot/skills/admin_slackbot_skills_unpublish.py).
+
 ### agents
 
 - **[agents.conversations.archive](https://docs.slack.dev/reference/methods/agents.conversations.archive)**: Archive a code channel. [Implementation](./src/agents/conversations/agents_conversations_archive.py).
@@ -42,3 +49,13 @@ $ slack run chat_post_message.py  # Make the request
 ### chat
 
 - **[chat.postMessage](https://docs.slack.dev/reference/methods/chat.postmessage)**: Sends a message to a channel. [Implementation](./src/chat/chat_post_message.py).
+
+### slackbot
+
+- **[slackbot.skills.create](https://docs.slack.dev/reference/methods/slackbot.skills.create)**: Creates a skill from markdown instructions, or turns an existing canvas the caller owns into a skill. [Implementation](./src/slackbot/skills/slackbot_skills_create.py).
+- **[slackbot.skills.delete](https://docs.slack.dev/reference/methods/slackbot.skills.delete)**: Deletes a Slackbot skill and its canvas, and removes it from every library, skill set, and the org catalog. [Implementation](./src/slackbot/skills/slackbot_skills_delete.py).
+- **[slackbot.skills.info](https://docs.slack.dev/reference/methods/slackbot.skills.info)**: Returns one Slackbot skill, including its instructions. [Implementation](./src/slackbot/skills/slackbot_skills_info.py).
+- **[slackbot.skills.library.add](https://docs.slack.dev/reference/methods/slackbot.skills.library.add)**: Turns a skill on in the caller's personal library. [Implementation](./src/slackbot/skills/library/slackbot_skills_library_add.py).
+- **[slackbot.skills.library.remove](https://docs.slack.dev/reference/methods/slackbot.skills.library.remove)**: Turns a skill off in the caller's personal library. [Implementation](./src/slackbot/skills/library/slackbot_skills_library_remove.py).
+- **[slackbot.skills.list](https://docs.slack.dev/reference/methods/slackbot.skills.list)**: Lists Slackbot skills from the caller's point of view. Instructions are not included. [Implementation](./src/slackbot/skills/slackbot_skills_list.py).
+- **[slackbot.skills.update](https://docs.slack.dev/reference/methods/slackbot.skills.update)**: Changes a Slackbot skill's instructions or metadata. Only the inputs you send are changed; a call that changes nothing succeeds without writing. [Implementation](./src/slackbot/skills/slackbot_skills_update.py).
