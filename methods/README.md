@@ -53,6 +53,7 @@ $ slack run chat_post_message.py  # Make the request
 ### slackbot
 
 - **[slackbot.skills.create](https://docs.slack.dev/reference/methods/slackbot.skills.create)**: Creates a skill from markdown instructions, or turns an existing canvas the caller owns into a skill. [Implementation](./src/slackbot/skills/slackbot_skills_create.py).
+- **[slackbot.skills.delete](https://docs.slack.dev/reference/methods/slackbot.skills.delete)**: Deletes a Slackbot skill and its canvas, and removes it from every library, skill set, and the org catalog. [Implementation](./src/slackbot/skills/slackbot_skills_delete.py).
 - **[slackbot.skills.info](https://docs.slack.dev/reference/methods/slackbot.skills.info)**: Returns one Slackbot skill, including its instructions. [Implementation](./src/slackbot/skills/slackbot_skills_info.py).
 - **[slackbot.skills.library.add](https://docs.slack.dev/reference/methods/slackbot.skills.library.add)**: Turns a skill on in the caller's personal library. [Implementation](./src/slackbot/skills/library/slackbot_skills_library_add.py).
 - **[slackbot.skills.library.remove](https://docs.slack.dev/reference/methods/slackbot.skills.library.remove)**: Turns a skill off in the caller's personal library. [Implementation](./src/slackbot/skills/library/slackbot_skills_library_remove.py).
