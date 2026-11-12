@@ -10,8 +10,8 @@ client = WebClient(token=token)
 
 # Call the slackbot.skills.list method
 response = client.slackbot_skills_list(
-    category="productivity",
     filter="library",
+    category="productivity",
     limit=100,
 )
 
