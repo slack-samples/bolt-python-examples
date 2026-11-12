@@ -16,6 +16,10 @@ $ slack run chat_post_message.py  # Make the request
 
 ## What's on call
 
+### admin
+
+- **[admin.slackbot.skills.list](https://docs.slack.dev/reference/methods/admin.slackbot.skills.list)**: Lists metadata for skills owned by the organization, including invite-only skills. [Implementation](./src/admin/slackbot/skills/admin_slackbot_skills_list.py).
+
 ### agents
 
 - **[agents.conversations.archive](https://docs.slack.dev/reference/methods/agents.conversations.archive)**: Archive a code channel. [Implementation](./src/agents/conversations/agents_conversations_archive.py).
