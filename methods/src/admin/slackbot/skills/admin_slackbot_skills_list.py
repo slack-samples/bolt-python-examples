@@ -10,11 +10,11 @@ client = WebClient(token=token)
 
 # Call the admin.slackbot.skills.list method
 response = client.admin_slackbot_skills_list(
-    auto_enabled_status="enabled",
     category="productivity",
-    creator_ids=["U0123ABCD"],
     limit=100,
+    creator_ids=["U0123ABCD"],
     publish_status="published",
+    auto_enabled_status="enabled",
     sort="usage_count",
     sort_dir="desc",
 )

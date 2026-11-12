@@ -10,8 +10,8 @@ client = WebClient(token=token)
 
 # Call the admin.slackbot.skills.setAutoEnabled method
 response = client.admin_slackbot_skills_setAutoEnabled(
-    permission_type="named_entities",
     skill_id="F0123ABCD",
+    permission_type="named_entities",
     usergroup_ids=["S0123ABCD"],
 )
 
