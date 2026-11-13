@@ -18,6 +18,7 @@ $ slack run chat_post_message.py  # Make the request
 
 ### admin
 
+- **[admin.conversations.bulkSetProperties](https://docs.slack.dev/reference/methods/admin.conversations.bulkSetProperties)**: Set properties on channels in bulk. [Implementation](./src/admin/conversations/admin_conversations_bulk_set_properties.py).
 - **[admin.slackbot.skills.list](https://docs.slack.dev/reference/methods/admin.slackbot.skills.list)**: Lists metadata for skills owned by the organization, including invite-only skills. [Implementation](./src/admin/slackbot/skills/admin_slackbot_skills_list.py).
 - **[admin.slackbot.skills.publish](https://docs.slack.dev/reference/methods/admin.slackbot.skills.publish)**: Publishes Slackbot skills to an organization's catalog. [Implementation](./src/admin/slackbot/skills/admin_slackbot_skills_publish.py).
 - **[admin.slackbot.skills.setAutoEnabled](https://docs.slack.dev/reference/methods/admin.slackbot.skills.setAutoEnabled)**: Sets who a Slackbot skill is automatically turned on for. [Implementation](./src/admin/slackbot/skills/admin_slackbot_skills_set_auto_enabled.py).
