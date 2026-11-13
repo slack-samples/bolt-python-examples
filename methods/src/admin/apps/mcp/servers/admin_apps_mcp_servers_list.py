@@ -9,9 +9,7 @@ token = os.environ.get("SLACK_TOKEN")
 client = WebClient(token=token)
 
 # Call the admin.apps.mcp.servers.list method
-response = client.admin_apps_mcp_servers_list(
-    limit=100,
-)
+response = client.admin_apps_mcp_servers_list()
 
 # Inspect the response
 print(response)
