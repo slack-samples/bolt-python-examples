@@ -3,14 +3,14 @@ name = "bolt-python-examples-block-kit"
 version = "0.0.0"
 requires-python = ">=3.10"
 dependencies = [
-    "slack_sdk==3.46.0",
+    "slack_sdk==3.47.0",
 ]
 
 [project.optional-dependencies]
 dev = [
     "mypy==2.4.1",
     "pytest==9.2.0",
-    "ruff==0.17.3",
+    "ruff==0.17.4",
 ]
 
 [tool.setuptools.packages.find]
