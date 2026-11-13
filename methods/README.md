@@ -16,6 +16,10 @@ $ slack run chat_post_message.py  # Make the request
 
 ## What's on call
 
+### admin
+
+- **[admin.conversations.bulkSetProperties](https://docs.slack.dev/reference/methods/admin.conversations.bulkSetProperties)**: Set properties on channels in bulk. [Implementation](./src/admin/conversations/admin_conversations_bulk_set_properties.py).
+
 ### agents
 
 - **[agents.conversations.archive](https://docs.slack.dev/reference/methods/agents.conversations.archive)**: Archive a code channel. [Implementation](./src/agents/conversations/agents_conversations_archive.py).
