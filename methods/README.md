@@ -19,6 +19,7 @@ $ slack run chat_post_message.py  # Make the request
 ### admin
 
 - **[admin.apps.mcp.servers.list](https://docs.slack.dev/reference/methods/admin.apps.mcp.servers.list)**: List third-party app MCP servers approved for an organization. [Implementation](./src/admin/apps/mcp/servers/admin_apps_mcp_servers_list.py).
+- **[admin.apps.mcp.servers.permissions.list](https://docs.slack.dev/reference/methods/admin.apps.mcp.servers.permissions.list)**: List MCP servers for an app with their access control permissions. [Implementation](./src/admin/apps/mcp/servers/admin_apps_mcp_servers_permissions_list.py).
 - **[admin.slackbot.skills.list](https://docs.slack.dev/reference/methods/admin.slackbot.skills.list)**: Lists metadata for skills owned by the organization, including invite-only skills. [Implementation](./src/admin/slackbot/skills/admin_slackbot_skills_list.py).
 - **[admin.slackbot.skills.publish](https://docs.slack.dev/reference/methods/admin.slackbot.skills.publish)**: Publishes Slackbot skills to an organization's catalog. [Implementation](./src/admin/slackbot/skills/admin_slackbot_skills_publish.py).
 - **[admin.slackbot.skills.setAutoEnabled](https://docs.slack.dev/reference/methods/admin.slackbot.skills.setAutoEnabled)**: Sets who a Slackbot skill is automatically turned on for. [Implementation](./src/admin/slackbot/skills/admin_slackbot_skills_set_auto_enabled.py).
