@@ -1,11 +1,11 @@
 {
   "display_information": {
-    "name": "MCP Client - External Auth",
-    "description": "Connects GitHub MCP server to Slackbot MCP client using an external auth provider"
+    "name": "MCP Client - Manual OAuth",
+    "description": "Connects GitHub MCP server to Slackbot MCP client using a manual OAuth provider"
   },
   "features": {
     "bot_user": {
-      "display_name": "MCP Client - External Auth",
+      "display_name": "MCP Client - Manual OAuth",
       "always_online": true
     }
   },
