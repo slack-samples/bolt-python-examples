@@ -5,7 +5,7 @@
   },
   "oauth_config": {
     "scopes": {
-      "user": ["admin.skills:read"]
+      "user": ["admin.skills:read", "admin.skills:write"]
     }
   },
   "settings": {
