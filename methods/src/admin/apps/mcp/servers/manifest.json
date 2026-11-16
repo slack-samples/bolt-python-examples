@@ -5,7 +5,7 @@
   },
   "oauth_config": {
     "scopes": {
-      "user": ["admin.apps:read", "admin.apps:write"]
+      "user": ["admin.apps:read"]
     }
   },
   "settings": {
