@@ -57,6 +57,7 @@ $ slack run chat_post_message.py  # Make the request
 ### oauth
 
 - **[oauth.v2.beginShortTokenRotation](https://docs.slack.dev/reference/methods/oauth.v2.beginShortTokenRotation)**: Begins rotating the secret on an API token with a short secret. [Implementation](./src/oauth/v2/oauth_v2_begin_short_token_rotation.py).
+- **[oauth.v2.completeShortTokenRotation](https://docs.slack.dev/reference/methods/oauth.v2.completeShortTokenRotation)**: Finishes rotating the secret on an API token with a short secret. [Implementation](./src/oauth/v2/oauth_v2_complete_short_token_rotation.py).
 
 ### slackbot
 
