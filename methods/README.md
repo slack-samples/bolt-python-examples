@@ -54,6 +54,10 @@ $ slack run chat_post_message.py  # Make the request
 
 - **[chat.postMessage](https://docs.slack.dev/reference/methods/chat.postmessage)**: Sends a message to a channel. [Implementation](./src/chat/chat_post_message.py).
 
+### oauth
+
+- **[oauth.v2.user.access](https://docs.slack.dev/reference/methods/oauth.v2.user.access)**: Exchanges a temporary OAuth verifier code for a user access token. [Implementation](./src/oauth/v2/user/oauth_v2_user_access.py).
+
 ### slackbot
 
 - **[slackbot.skills.create](https://docs.slack.dev/reference/methods/slackbot.skills.create)**: Creates a skill from markdown instructions, or turns an existing canvas the caller owns into a skill. [Implementation](./src/slackbot/skills/slackbot_skills_create.py).
