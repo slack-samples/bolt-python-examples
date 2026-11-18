@@ -43,7 +43,7 @@ def example01() -> PlanBlock:
             TaskCardBlock(
                 task_id="call_002",
                 title="Checked user permissions",
-                status="pending",
+                status="in_progress",
             ),
             TaskCardBlock(
                 task_id="call_003",

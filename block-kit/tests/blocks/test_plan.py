@@ -25,9 +25,9 @@ def test_example01():
                                 {
                                     "type": "text",
                                     "text": "Searched database...",
-                                }
+                                },
                             ],
-                        }
+                        },
                     ],
                 },
                 "output": {
@@ -40,9 +40,9 @@ def test_example01():
                                 {
                                     "type": "text",
                                     "text": "Profile data loaded",
-                                }
+                                },
                             ],
-                        }
+                        },
                     ],
                 },
             },
@@ -50,7 +50,7 @@ def test_example01():
                 "type": "task_card",
                 "task_id": "call_002",
                 "title": "Checked user permissions",
-                "status": "pending",
+                "status": "in_progress",
             },
             {
                 "type": "task_card",
@@ -67,9 +67,9 @@ def test_example01():
                                 {
                                     "type": "text",
                                     "text": "15 data points compiled",
-                                }
+                                },
                             ],
-                        }
+                        },
                     ],
                 },
             },
