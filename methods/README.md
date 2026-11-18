@@ -56,6 +56,7 @@ $ slack run chat_post_message.py  # Make the request
 
 ### entity
 
+- **[entity.acknowledgeCommentAction](https://docs.slack.dev/reference/methods/entity.acknowledgeCommentAction)**: Acknowledge a comment post, edit, or delete on a Work Object. Apps call this method to confirm they have processed a comment action. [Implementation](./src/entity/entity_acknowledge_comment_action.py).
 - **[entity.presentComments](https://docs.slack.dev/reference/methods/entity.presentComments)**: Provide comments for Work Objects. Apps call this method to send per-user flexpane comment data to the client. [Implementation](./src/entity/entity_present_comments.py).
 
 ### slackbot
