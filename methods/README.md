@@ -41,6 +41,10 @@ $ slack run chat_post_message.py  # Make the request
 - **[agents.sessions.rename](https://docs.slack.dev/reference/methods/agents.sessions.rename)**: Rename an agent session. [Implementation](./src/agents/sessions/agents_sessions_rename.py).
 - **[agents.sessions.setStatus](https://docs.slack.dev/reference/methods/agents.sessions.setStatus)**: Set an agent session's lifecycle status, creating the session if needed. [Implementation](./src/agents/sessions/agents_sessions_set_status.py).
 
+### assistant
+
+- **[assistant.search.info](https://docs.slack.dev/reference/methods/assistant.search.info)**: Returns search capabilities on a given team. [Implementation](./src/assistant/search/assistant_search_info.py).
+
 ### blocks
 
 - **[blocks.validate](https://docs.slack.dev/reference/methods/blocks.validate)**: Validates blocks, messages, and views Block Kit JSON payloads. [Implementation](./src/blocks/blocks_validate.py).
