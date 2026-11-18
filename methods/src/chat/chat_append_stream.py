@@ -12,7 +12,7 @@ client = WebClient(token=token)
 response = client.chat_appendStream(
     channel="C123ABC456",
     ts="1234567890.123456",
-    markdown_text=" — reading the logs now",
+    markdown_text="**This is bold text**",
 )
 
 # Inspect the response
