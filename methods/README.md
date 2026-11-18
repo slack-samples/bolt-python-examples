@@ -54,6 +54,10 @@ $ slack run chat_post_message.py  # Make the request
 
 - **[chat.postMessage](https://docs.slack.dev/reference/methods/chat.postmessage)**: Sends a message to a channel. [Implementation](./src/chat/chat_post_message.py).
 
+### entity
+
+- **[entity.presentComments](https://docs.slack.dev/reference/methods/entity.presentComments)**: Provide comments for Work Objects. Apps call this method to send per-user flexpane comment data to the client. [Implementation](./src/entity/entity_present_comments.py).
+
 ### slackbot
 
 - **[slackbot.skills.create](https://docs.slack.dev/reference/methods/slackbot.skills.create)**: Creates a skill from markdown instructions, or turns an existing canvas the caller owns into a skill. [Implementation](./src/slackbot/skills/slackbot_skills_create.py).
