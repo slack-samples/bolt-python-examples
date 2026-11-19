@@ -43,6 +43,7 @@ $ slack run chat_post_message.py  # Make the request
 
 ### assistant
 
+- **[assistant.search.context](https://docs.slack.dev/reference/methods/assistant.search.context)**: Searches messages, files, channels and users across your Slack organization. [Implementation](./src/assistant/search/assistant_search_context.py).
 - **[assistant.search.info](https://docs.slack.dev/reference/methods/assistant.search.info)**: Returns search capabilities on a given team. [Implementation](./src/assistant/search/assistant_search_info.py).
 
 ### blocks
