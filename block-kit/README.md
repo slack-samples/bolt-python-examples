@@ -29,6 +29,7 @@ Read the [docs](https://docs.slack.dev/block-kit/) to learn concepts behind thes
 
 ### Block elements
 
+- **[Attachment mention](https://docs.slack.dev/reference/block-kit/block-elements/attachment-mention-element)**: Renders as a rich app attachment or entity reference. [Implementation](./src/elements/attachment_mention.py).
 - **[Broadcast](https://docs.slack.dev/reference/block-kit/block-elements/broadcast-element)**: Displays a broadcast mention such as here, channel, or everyone. [Implementation](./src/elements/broadcast.py).
 - **[Button](https://docs.slack.dev/reference/block-kit/block-elements/button-element)**: Allows users a direct path to performing basic actions. [Implementation](./src/elements/button.py).
 - **[Channel](https://docs.slack.dev/reference/block-kit/block-elements/channel-element)**: Renders as a mention of a channel. [Implementation](./src/elements/channel.py).
