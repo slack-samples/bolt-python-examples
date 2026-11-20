@@ -5,7 +5,7 @@
   },
   "oauth_config": {
     "scopes": {
-      "bot": []
+      "user": []
     }
   },
   "settings": {
