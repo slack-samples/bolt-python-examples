@@ -67,6 +67,10 @@ $ slack run chat_post_message.py  # Make the request
 - **[chat.startStream](https://docs.slack.dev/reference/methods/chat.startStream)**: Starts a new streaming conversation. [Implementation](./src/chat/chat_start_stream.py).
 - **[chat.stopStream](https://docs.slack.dev/reference/methods/chat.stopStream)**: Stops a streaming conversation. [Implementation](./src/chat/chat_stop_stream.py).
 
+### entity
+
+- **[entity.presentComments](https://docs.slack.dev/reference/methods/entity.presentComments)**: Provide comments for Work Objects. Apps call this method to send per-user flexpane comment data to the client. [Implementation](./src/entity/entity_present_comments.py).
+
 ### slackbot
 
 - **[slackbot.skills.create](https://docs.slack.dev/reference/methods/slackbot.skills.create)**: Creates a skill from markdown instructions, or turns an existing canvas the caller owns into a skill. [Implementation](./src/slackbot/skills/slackbot_skills_create.py).
