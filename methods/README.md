@@ -43,6 +43,7 @@ $ slack run chat_post_message.py  # Make the request
 
 ### apps
 
+- **[apps.icon.set](https://docs.slack.dev/reference/methods/apps.icon.set)**: Sets the app icon. [Implementation](./src/apps/icon/apps_icon_set.py).
 - **[apps.managed.permissions.set](https://docs.slack.dev/reference/methods/apps.managed.permissions.set)**: Set who can interact with a managed app. Lets the builder who created a managed app on a partner platform configure the app's permissions, using a user token or bot token from the manager app. Permissions can only be set before the app is installed: if the app is already installed, this method makes no change and returns the app's current permissions. [Implementation](./src/apps/managed/permissions/apps_managed_permissions_set.py).
 
 ### blocks
