@@ -67,6 +67,10 @@ $ slack run chat_post_message.py  # Make the request
 - **[chat.startStream](https://docs.slack.dev/reference/methods/chat.startStream)**: Starts a new streaming conversation. [Implementation](./src/chat/chat_start_stream.py).
 - **[chat.stopStream](https://docs.slack.dev/reference/methods/chat.stopStream)**: Stops a streaming conversation. [Implementation](./src/chat/chat_stop_stream.py).
 
+### oauth
+
+- **[oauth.v2.user.access](https://docs.slack.dev/reference/methods/oauth.v2.user.access)**: Exchanges a temporary OAuth verifier code for a user access token. [Implementation](./src/oauth/v2/user/oauth_v2_user_access.py).
+
 ### slackbot
 
 - **[slackbot.skills.create](https://docs.slack.dev/reference/methods/slackbot.skills.create)**: Creates a skill from markdown instructions, or turns an existing canvas the caller owns into a skill. [Implementation](./src/slackbot/skills/slackbot_skills_create.py).
